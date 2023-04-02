@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:template_flutter/src/core/di/di.dart';
-import 'package:template_flutter/src/features/demo_feature/presentation/demo_viewmodel.dart';
+
+import '../../../core/di/di.dart';
+import 'demo_viewmodel.dart';
 
 class DemoPage extends StatelessWidget {
   DemoPage({super.key});

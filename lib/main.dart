@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:template_flutter/src/core/di/di.dart';
-import 'package:template_flutter/src/features/demo_feature/presentation/demo_page.dart';
+import 'package:invoice_app/src/core/di/di.dart';
 
 import 'src/app.dart';
+import 'src/features/demo_feature/presentation/demo_page.dart';
 
 Future<void> main() async {
   configureDependencies(Environment.prod);

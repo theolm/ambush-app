@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:template_flutter/src/features/demo_feature/data/increment_repository.dart';
+
+import '../data/increment_repository.dart';
 
 abstract class IIncrementUseCase {
   int increment(int current);

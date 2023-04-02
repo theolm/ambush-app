@@ -1,6 +1,5 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'core/settings/theme/app_theme.dart';
 import 'core/presenter/routes/app_route.dart';
@@ -12,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF795548);
+    const Color primaryColor = Color(0xFF018786);
 
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {

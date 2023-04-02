@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.template_flutter">
+    package="com.theolm.invoice_app">
    <application
-        android:label="template_flutter"
+        android:label="Invoice Generator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

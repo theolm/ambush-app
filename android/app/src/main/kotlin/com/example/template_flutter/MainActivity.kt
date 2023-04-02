@@ -1,4 +1,4 @@
-package com.example.template_flutter
+package com.theolm.invoice_app
 
 import io.flutter.embedding.android.FlutterActivity
 
