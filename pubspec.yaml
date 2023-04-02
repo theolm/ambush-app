@@ -18,6 +18,8 @@ dependencies:
   dynamic_color: ^1.6.2
   google_fonts: ^4.0.3
   auto_route: ^6.0.5
+  pdf: ^3.10.1
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
 
 class InvoiceListPage extends StatelessWidget {
   const InvoiceListPage({Key? key}) : super(key: key);
@@ -11,7 +15,9 @@ class InvoiceListPage extends StatelessWidget {
             const Text("Invoice Generator"), //TODO: isloate strings in local.
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () {},
+        onPressed: () async{
+          await savePdf();
+        },
         child: const Icon(Icons.add),
       ),
       body: ListView.separated(
@@ -31,5 +37,10 @@ class InvoiceListPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> savePdf() async {
+    var useCase = getIt<IGenerateInvoiceUseCase>();
+    await useCase.createAndSave();
   }
 }
