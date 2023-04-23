@@ -5,6 +5,7 @@ import 'package:invoice_app/src/features/settings/presentation/settings_viewmode
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../core/di/di.dart';
+import 'dialogs/company_name_bs.dart';
 
 @RoutePage()
 class SettingsPage extends StatelessWidget {
@@ -24,8 +25,11 @@ class SettingsPage extends StatelessWidget {
               SettingsItem(
                 title: 'Company name',
                 subtitle: _viewModel.companyName,
-                onClick: () {
-                  _viewModel.updateCompanyName("Ambush");
+                onClick: () async {
+                  var text = await showCompanyNameBS<String>(context, _viewModel.companyName);
+                  if(text != null) {
+                    _viewModel.updateCompanyName(text);
+                  }
                 },
               ),
               const Divider(),
