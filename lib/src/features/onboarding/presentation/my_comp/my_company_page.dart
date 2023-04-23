@@ -11,9 +11,7 @@ class MyCompanyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Company info")),
       floatingActionButton: ElevatedButton(
-        onPressed: () {
-          _formKey.currentState!.validate();
-        },
+        onPressed: _onButtonPress,
         child: const Text('Next'),
       ),
       body: Form(
@@ -24,6 +22,7 @@ class MyCompanyPage extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(labelText: "Company name"),
               textInputAction: TextInputAction.next,
+              onChanged: onChange,
               validator: _mandatoryFieldValidator,
             ),
             Container(height: _spaceBetweenFields),
@@ -32,6 +31,7 @@ class MyCompanyPage extends StatelessWidget {
               maxLines: 10,
               minLines: 1,
               textInputAction: TextInputAction.next,
+              onChanged: onChange,
               validator: _mandatoryFieldValidator,
             ),
             Container(height: _spaceBetweenFields),
@@ -41,6 +41,10 @@ class MyCompanyPage extends StatelessWidget {
               minLines: 1,
               textInputAction: TextInputAction.done,
               validator: _mandatoryFieldValidator,
+              onChanged: onChange,
+              onFieldSubmitted: (value) {
+                _onButtonPress();
+              },
             ),
           ],
         ),
@@ -54,4 +58,15 @@ class MyCompanyPage extends StatelessWidget {
     }
     return null;
   }
+
+  void _onButtonPress() {
+    _formKey.currentState!.validate();
+  }
+
+  void onChange(String value) {
+    if(value.isNotEmpty) {
+      _formKey.currentState!.validate();
+    }
+  }
+
 }
