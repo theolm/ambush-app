@@ -25,14 +25,16 @@ class SettingsPage extends StatelessWidget {
                 title: 'Company name',
                 subtitle: _viewModel.companyName,
                 onClick: () {
-                  _viewModel.updateCompanyName("Theodoro Loureiro Mota");
+                  _viewModel.updateCompanyName("Ambush");
                 },
               ),
               const Divider(),
               SettingsItem(
                 title: 'Company address',
                 subtitle: _viewModel.companyAddress,
-                onClick: () {},
+                onClick: () {
+                  _viewModel.updateCompanyAddress("testando a parada pra salvar endereco");
+                },
               ),
               const Divider(),
               SettingsItem(
