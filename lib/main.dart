@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/di/di.dart';
-import 'package:invoice_app/src/features/invoice_list/presentation/list_page.dart';
 import 'package:invoice_app/src/features/onboarding/presentation/my_comp/my_company_page.dart';
 
 import 'src/app.dart';
@@ -18,6 +17,8 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MyCompanyPage();
+    return MyCompanyPage();
   }
 }
+
+

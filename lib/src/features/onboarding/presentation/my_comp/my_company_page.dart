@@ -1,49 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/features/onboarding/presentation/my_comp/my_company_viewmodel.dart';
 
 class MyCompanyPage extends StatelessWidget {
-  const MyCompanyPage({Key? key}) : super(key: key);
+  MyCompanyPage({Key? key}) : super(key: key);
 
-  static const double _spaceBetweenFields = 16;
-  static final _formKey = GlobalKey<FormState>();
+  final MyCompanyViewModel _viewModel = getIt();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Company info")),
       floatingActionButton: ElevatedButton(
-        onPressed: _onButtonPress,
-        child: const Text('Next'),
+        onPressed: _viewModel.onSavePress,
+        child: const Text('Save'),
       ),
       body: Form(
-        key: _formKey,
+        key: _viewModel.formKey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           children: [
             TextFormField(
+              initialValue: _viewModel.companyName,
               decoration: const InputDecoration(labelText: "Company name"),
               textInputAction: TextInputAction.next,
-              onChanged: onChange,
+              onChanged: (value) {
+                _viewModel.companyName = value;
+                _viewModel.onChange(value);
+              },
               validator: _mandatoryFieldValidator,
             ),
-            Container(height: _spaceBetweenFields),
+            Container(height: spaceBetweenFields),
             TextFormField(
-              decoration: const InputDecoration(labelText: "Company address"),
-              maxLines: 10,
-              minLines: 1,
-              textInputAction: TextInputAction.next,
-              onChanged: onChange,
-              validator: _mandatoryFieldValidator,
-            ),
-            Container(height: _spaceBetweenFields),
-            TextFormField(
+              initialValue: _viewModel.companyAddress,
               decoration: const InputDecoration(labelText: "Company address"),
               maxLines: 10,
               minLines: 1,
               textInputAction: TextInputAction.done,
               validator: _mandatoryFieldValidator,
-              onChanged: onChange,
+              onChanged: (value) {
+                _viewModel.companyName = value;
+                _viewModel.onChange(value);
+              },
               onFieldSubmitted: (value) {
-                _onButtonPress();
+                _viewModel.onSavePress();
               },
             ),
           ],
@@ -58,15 +59,4 @@ class MyCompanyPage extends StatelessWidget {
     }
     return null;
   }
-
-  void _onButtonPress() {
-    _formKey.currentState!.validate();
-  }
-
-  void onChange(String value) {
-    if(value.isNotEmpty) {
-      _formKey.currentState!.validate();
-    }
-  }
-
 }
