@@ -43,7 +43,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
                   width: double.infinity,
                   child: pw.Text(
                     "Invoice #1680484",
-                    style: pw.TextStyle(fontSize: 20),
+                    style: const pw.TextStyle(fontSize: 20),
                     textAlign: pw.TextAlign.right,
                   ),
                 ),

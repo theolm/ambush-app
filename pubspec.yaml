@@ -13,6 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_mobx: ^2.0.6+5
+  mobx: ^2.1.4
   get_it: ^7.2.0
   injectable: ^2.1.1
   dynamic_color: ^1.6.2

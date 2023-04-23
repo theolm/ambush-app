@@ -20,11 +20,11 @@ class DebugPdf {
                 child:
                     _getHeader("Theodoro Loureiro Mota", "43.556.903/0001-66"),
               ),
-              Flexible(
+              const Flexible(
                 flex: 1,
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
-                  child: const Text(
+                  child: Text(
                     "Invoice #1680484",
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.end,
@@ -136,7 +136,7 @@ class DebugPdf {
           from, //,
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
-        Container(
+        SizedBox(
           width: width / 2,
           child: Text(
             address, //,
@@ -202,60 +202,60 @@ class DebugPdf {
         ),
         Container(height: 8),
         Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               "Beneficiary name:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               "Theodoro Loureiro Mota",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
         ),
         Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               "Beneficiary Account Number (IBAN):",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               "BR2778632767000010002775141C1",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
         ),
         Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               "SWIFT Code:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               "OURIBRSPXXX",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
         ),
         Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               "Bank Name:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               "BANCO OURINVEST S.A.",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
         ),
         Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               "Bank Address:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               "Sao Paulo, Brazil",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),

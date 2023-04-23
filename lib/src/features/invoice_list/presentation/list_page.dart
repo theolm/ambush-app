@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
-
 
 class InvoiceListPage extends StatelessWidget {
   const InvoiceListPage({Key? key}) : super(key: key);
@@ -10,11 +11,18 @@ class InvoiceListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text("Invoice Generator"), //TODO: isloate strings in local.
+        title: const Text("Invoice Generator"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.router.push(SettingsRoute());
+            },
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () async{
+        onPressed: () async {
           await savePdf();
         },
         child: const Icon(Icons.add),
