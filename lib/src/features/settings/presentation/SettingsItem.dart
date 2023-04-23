@@ -16,6 +16,10 @@ class SettingsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorTheme = Theme.of(context).colorScheme;
+    final subtitleValue = (subtitle != null && subtitle!.isNotEmpty)
+        ? subtitle!
+        : 'No info yet. Click here to add it.';
+
     return InkWell(
       onTap: onClick,
       child: Container(
@@ -30,7 +34,7 @@ class SettingsItem extends StatelessWidget {
                   Text(title, style: textTheme.titleLarge),
                   const SizedBox(height: 2),
                   Text(
-                    subtitle ?? 'No info yet. Click here to add it.',
+                    subtitleValue,
                     style: textTheme.titleSmall?.apply(
                       color: colorTheme.onBackground.withOpacity(0.5),
                     ),

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/features/settings/presentation/SettingsItem.dart';
+import 'package:invoice_app/src/features/settings/presentation/dialogs/bank_info_bs.dart';
+import 'package:invoice_app/src/features/settings/presentation/dialogs/company_address_bs.dart';
 import 'package:invoice_app/src/features/settings/presentation/settings_viewmodel.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -36,15 +38,20 @@ class SettingsPage extends StatelessWidget {
               SettingsItem(
                 title: 'Company address',
                 subtitle: _viewModel.companyAddress,
-                onClick: () {
-                  _viewModel.updateCompanyAddress("testando a parada pra salvar endereco");
+                onClick: () async {
+                  var text = await showCompanyAddressBS<String>(context, _viewModel.companyAddress);
+                  if(text != null) {
+                    _viewModel.updateCompanyAddress(text);
+                  }
                 },
               ),
               const Divider(),
               SettingsItem(
                 title: 'Bank information',
                 subtitle: _viewModel.bankInformation,
-                onClick: () {},
+                onClick: () async {
+                  await showBankInfoBS<void>(context);
+                },
               ),
               const Divider(),
             ],

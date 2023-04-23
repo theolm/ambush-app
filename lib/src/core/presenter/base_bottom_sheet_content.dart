@@ -7,7 +7,6 @@ class BaseBottomSheetContent extends StatelessWidget {
 
   const BaseBottomSheetContent({Key? key, this.child}) : super(key: key);
 
-  // EdgeInsets.symmetric(vertical: 16, horizontal: 16)
   @override
   Widget build(BuildContext context) {
     var bottomPadding = MediaQuery.of(context).viewInsets.bottom;
@@ -15,7 +14,7 @@ class BaseBottomSheetContent extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(
           bottom: bottomPadding + _bsDefaultPadding,
-          top: _bsDefaultPadding,
+          top: 48,
           left: _bsDefaultPadding,
           right: _bsDefaultPadding,
         ),
