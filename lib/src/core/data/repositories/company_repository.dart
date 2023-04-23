@@ -4,10 +4,10 @@ import '../datasources/local_datasource.dart';
 
 abstract class ICompanyRepository {
   String? getCompanyName();
-  void saveCompanyName(String value);
+  Future<void> saveCompanyName(String value);
 }
 
-@Injectable(as: ICompanyRepository)
+@Singleton(as: ICompanyRepository)
 class CompanyRepository implements ICompanyRepository {
   final ILocalDataSource _source;
 
@@ -17,7 +17,5 @@ class CompanyRepository implements ICompanyRepository {
   String? getCompanyName() => _source.getCompanyName();
 
   @override
-  void saveCompanyName(String value) {
-    _source.saveCompanyName(value);
-  }
+  Future<void> saveCompanyName(String value) => _source.saveCompanyName(value);
 }

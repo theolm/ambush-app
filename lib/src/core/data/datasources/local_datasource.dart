@@ -1,17 +1,35 @@
 import 'package:injectable/injectable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+const _keyCompanyName = 'companyName';
 
 abstract class ILocalDataSource {
+  Future initLocalDataSource();
+
   String? getCompanyName();
-  void saveCompanyName(String value);
+
+  Future saveCompanyName(String value);
 }
 
-@Injectable(as: ILocalDataSource)
+@Singleton(as: ILocalDataSource)
 class LocalDataSource implements ILocalDataSource {
-  @override
-  String? getCompanyName() => null;
+  static const _appBoxName = 'AppBox';
+  late Box _appBox;
 
   @override
-  void saveCompanyName(String value) {
-    // TODO: implement saveCompanyName
+  Future initLocalDataSource() async {
+    await Hive.initFlutter();
+    _appBox = await _getAppBox();
+    print(_appBox);
   }
+
+  @override
+  String? getCompanyName() => _appBox.get(_keyCompanyName);
+
+  @override
+  Future saveCompanyName(String value) async {
+    await _appBox.put(_keyCompanyName, value);
+  }
+
+  Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
 }

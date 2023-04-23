@@ -24,7 +24,9 @@ class SettingsPage extends StatelessWidget {
               SettingsItem(
                 title: 'Company name',
                 subtitle: _viewModel.companyName,
-                onClick: () {},
+                onClick: () {
+                  _viewModel.updateCompanyName("Theodoro Loureiro Mota");
+                },
               ),
               const Divider(),
               SettingsItem(
