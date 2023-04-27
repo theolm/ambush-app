@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
-import 'package:invoice_app/src/features/settings/presentation/SettingsItem.dart';
-import 'package:invoice_app/src/features/settings/presentation/dialogs/bank_info_bs.dart';
-import 'package:invoice_app/src/features/settings/presentation/dialogs/company_address_bs.dart';
 import 'package:invoice_app/src/features/settings/presentation/settings_viewmodel.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../core/di/di.dart';
-import 'dialogs/company_name_bs.dart';
+
+
+const _bigSpacer = 24.0;
+const _mediumSpacer = 16.0;
 
 @RoutePage()
 class SettingsPage extends StatelessWidget {
@@ -18,6 +17,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(title: const Text("Settings")),
       body: Observer(
@@ -25,40 +25,115 @@ class SettingsPage extends StatelessWidget {
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             children: [
-              SettingsItem(
-                title: 'Company name',
-                subtitle: _viewModel.companyName,
-                onClick: () async {
-                  var text = await showCompanyNameBS<String>(context, _viewModel.companyName);
-                  if(text != null) {
-                    _viewModel.updateCompanyName(text);
-                  }
+              Text(
+                "Basic information",
+                style: textTheme.headlineSmall,
+              ),
+              const SizedBox(height: _bigSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Company name"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.compNameController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateCompanyName(value);
                 },
               ),
-              const Divider(),
-              SettingsItem(
-                title: 'Company address',
-                subtitle: _viewModel.companyAddress,
-                onClick: () async {
-                  var text = await showCompanyAddressBS<String>(context, _viewModel.companyAddress);
-                  if(text != null) {
-                    _viewModel.updateCompanyAddress(text);
-                  }
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Company address"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.compAddressController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateCompanyAddress(value);
                 },
               ),
-              const Divider(),
-              SettingsItem(
-                title: 'Bank information',
-                subtitle: _viewModel.bankInformation,
-                onClick: () async {
-                  var bankInfo = await showBankInfoBS<BankInfo?>(context, null);
-                  if(bankInfo != null) {
-                    _viewModel.updateBankInfo(bankInfo);
-                  }
-
+              const SizedBox(height: _bigSpacer),
+              Text(
+                "Account information",
+                style: textTheme.headlineSmall,
+              ),
+              const SizedBox(height: _bigSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Beneficiary name"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.beneficiaryNameController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateBeneficiaryName(value);
                 },
               ),
-              const Divider(),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "IBAN"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.ibanController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateIban(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "SWIFT Code"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.swiftController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateSwiftCode(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Bank Name"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.bankNameController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateBankName(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Bank Address"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.bankAddressController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateBankAddress(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "(optional) Intermediary SWIFT Code"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.intSwiftController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateIntSwiftCode(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "(optional) Intermediary Bank Name"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.intBankNameController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateIntBankNameCode(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "(optional) Intermediary Bank Address"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.intBankAddressController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateIntBankAddress(value);
+                },
+              ),
+              const SizedBox(height: _mediumSpacer),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "(optional) Intermediary IBAN"),
+                textInputAction: TextInputAction.done,
+                controller: _viewModel.intIbanController,
+                onFieldSubmitted: (value) {
+                  _viewModel.updateIntIban(value);
+                },
+              ),
+              const SizedBox(height: _bigSpacer),
             ],
           );
         }

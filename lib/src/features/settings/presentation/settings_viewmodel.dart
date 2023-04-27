@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_address.dart';
@@ -5,7 +6,6 @@ import 'package:invoice_app/src/core/domain/usecases/get_company_name.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_company_address.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_company_name.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
 import 'package:mobx/mobx.dart';
 
 part 'settings_viewmodel.g.dart';
@@ -39,35 +39,68 @@ abstract class _SettingsViewModelBase with Store {
     this._saveCompanyAddress,
     this._saveBankInfo,
   ) {
-    companyName = _getCompanyName.get();
-    companyAddress = _getCompanyAddress.get();
-    bankInformation = _getBankInfo.get().toString();
+    compNameController.text = _getCompanyName.get() ?? "";
+    compAddressController.text = _getCompanyAddress.get() ?? "";
+    // companyAddress = _getCompanyAddress.get();
+    // bankInformation = _getBankInfo.get().toString();
   }
 
-  @observable
-  String? companyName;
+  var compNameController = TextEditingController();
+  var compAddressController = TextEditingController();
+  var beneficiaryNameController = TextEditingController();
+  var ibanController = TextEditingController();
+  var swiftController = TextEditingController();
+  var bankNameController = TextEditingController();
+  var bankAddressController = TextEditingController();
+  var intSwiftController = TextEditingController();
+  var intBankNameController = TextEditingController();
+  var intBankAddressController = TextEditingController();
+  var intIbanController = TextEditingController();
 
-  @observable
-  String? companyAddress;
 
-  @observable
-  String? bankInformation;
-
-  @action
   Future updateCompanyName(String value) async {
     await _saveCompanyName.save(value);
-    companyName = _getCompanyName.get();
+    compNameController.text = _getCompanyName.get() ?? "";
   }
 
-  @action
   Future updateCompanyAddress(String value) async {
     await _saveCompanyAddress.save(value);
-    companyAddress = _getCompanyAddress.get();
+    compAddressController.text = _getCompanyAddress.get() ?? "";
   }
 
-  @action
-  Future updateBankInfo(BankInfo info) async {
-    await _saveBankInfo.save(info);
-    bankInformation = _getBankInfo.get().toString();
+  Future updateBeneficiaryName(String value) async {
+    //TODO
+  }
+
+  Future updateIban(String value) async {
+    //TODO
+  }
+
+  Future updateSwiftCode(String value) async {
+    //TODO
+  }
+
+  Future updateBankName(String value) async {
+    //TODO
+  }
+
+  Future updateBankAddress(String value) async {
+    //TODO
+  }
+
+  Future updateIntSwiftCode(String value) async {
+    //TODO
+  }
+
+  Future updateIntBankNameCode(String value) async {
+    //TODO
+  }
+
+  Future updateIntBankAddress(String value) async {
+    //TODO
+  }
+
+  Future updateIntIban(String value) async {
+    //TODO
   }
 }
