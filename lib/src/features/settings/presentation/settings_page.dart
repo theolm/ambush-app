@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
 import 'package:invoice_app/src/features/settings/presentation/SettingsItem.dart';
 import 'package:invoice_app/src/features/settings/presentation/dialogs/bank_info_bs.dart';
 import 'package:invoice_app/src/features/settings/presentation/dialogs/company_address_bs.dart';
@@ -50,7 +51,11 @@ class SettingsPage extends StatelessWidget {
                 title: 'Bank information',
                 subtitle: _viewModel.bankInformation,
                 onClick: () async {
-                  await showBankInfoBS<void>(context);
+                  var bankInfo = await showBankInfoBS<BankInfo?>(context, null);
+                  if(bankInfo != null) {
+                    _viewModel.updateBankInfo(bankInfo);
+                  }
+
                 },
               ),
               const Divider(),
