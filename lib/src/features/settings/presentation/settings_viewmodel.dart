@@ -6,6 +6,7 @@ import 'package:invoice_app/src/core/domain/usecases/get_company_name.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_company_address.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_company_name.dart';
+import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
 import 'package:mobx/mobx.dart';
 
 part 'settings_viewmodel.g.dart';
@@ -41,8 +42,17 @@ abstract class _SettingsViewModelBase with Store {
   ) {
     compNameController.text = _getCompanyName.get() ?? "";
     compAddressController.text = _getCompanyAddress.get() ?? "";
-    // companyAddress = _getCompanyAddress.get();
-    // bankInformation = _getBankInfo.get().toString();
+
+    var bankInfo = _getBankInfo.get();
+    bankNameController.text = bankInfo.beneficiaryName;
+    ibanController.text = bankInfo.iban;
+    swiftController.text = bankInfo.swift;
+    bankNameController.text = bankInfo.bankName;
+    bankAddressController.text = bankInfo.bankAddress;
+    intSwiftController.text = bankInfo.intermediaryBankSwift ?? "";
+    intBankNameController.text = bankInfo.intermediaryBankName ?? "";
+    intBankAddressController.text = bankInfo.intermediaryBankAddress ?? "";
+    intIbanController.text = bankInfo.intermediaryAccNumber ?? "";
   }
 
   var compNameController = TextEditingController();
@@ -57,7 +67,6 @@ abstract class _SettingsViewModelBase with Store {
   var intBankAddressController = TextEditingController();
   var intIbanController = TextEditingController();
 
-
   Future updateCompanyName(String value) async {
     await _saveCompanyName.save(value);
     compNameController.text = _getCompanyName.get() ?? "";
@@ -68,39 +77,20 @@ abstract class _SettingsViewModelBase with Store {
     compAddressController.text = _getCompanyAddress.get() ?? "";
   }
 
-  Future updateBeneficiaryName(String value) async {
-    //TODO
-  }
-
-  Future updateIban(String value) async {
-    //TODO
-  }
-
-  Future updateSwiftCode(String value) async {
-    //TODO
-  }
-
-  Future updateBankName(String value) async {
-    //TODO
-  }
-
-  Future updateBankAddress(String value) async {
-    //TODO
-  }
-
-  Future updateIntSwiftCode(String value) async {
-    //TODO
-  }
-
-  Future updateIntBankNameCode(String value) async {
-    //TODO
-  }
-
-  Future updateIntBankAddress(String value) async {
-    //TODO
-  }
-
-  Future updateIntIban(String value) async {
-    //TODO
+  Future updateBankInfo() async {
+    var bankInfo = BankInfo(
+      beneficiaryNameController.text,
+      ibanController.text,
+      swiftController.text,
+      bankNameController.text,
+      bankAddressController.text,
+      intSwiftController.text.isEmpty ? intSwiftController.text : null,
+      intBankNameController.text.isEmpty ? intBankNameController.text : null,
+      intBankAddressController.text.isEmpty
+          ? intBankAddressController.text
+          : null,
+      intIbanController.text.isEmpty ? intIbanController.text : null,
+    );
+    _saveBankInfo.save(bankInfo);
   }
 }

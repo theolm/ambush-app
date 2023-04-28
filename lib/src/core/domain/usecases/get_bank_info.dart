@@ -4,7 +4,7 @@ import 'package:invoice_app/src/core/data/repositories/company_repository.dart';
 import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
 
 abstract class IGetBankInfo {
-  BankInfo? get();
+  BankInfo get();
 }
 
 @Injectable(as: IGetBankInfo)
@@ -14,5 +14,5 @@ class GetBankInfo implements IGetBankInfo {
   GetBankInfo(this._repository);
 
   @override
-  BankInfo? get() => _repository.getBankInfo();
+  BankInfo get() => _repository.getBankInfo() ?? BankInfo.initDefault();
 }

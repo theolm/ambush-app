@@ -20,4 +20,16 @@ class BankInfo {
     this.intermediaryBankAddress,
     this.intermediaryAccNumber,
   );
+
+  factory BankInfo.initDefault() => BankInfo(
+        "",
+        "",
+        "",
+        "",
+        "",
+        null,
+        null,
+        null,
+        null,
+      );
 }

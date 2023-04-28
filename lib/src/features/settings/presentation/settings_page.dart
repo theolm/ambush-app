@@ -58,7 +58,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.beneficiaryNameController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateBeneficiaryName(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -67,7 +67,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.ibanController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateIban(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -76,7 +76,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.swiftController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateSwiftCode(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -85,7 +85,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.bankNameController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateBankName(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -94,7 +94,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.bankAddressController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateBankAddress(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -103,7 +103,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.intSwiftController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateIntSwiftCode(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -112,7 +112,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.intBankNameController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateIntBankNameCode(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -121,7 +121,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.intBankAddressController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateIntBankAddress(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _mediumSpacer),
@@ -130,7 +130,7 @@ class SettingsPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 controller: _viewModel.intIbanController,
                 onFieldSubmitted: (value) {
-                  _viewModel.updateIntIban(value);
+                  _viewModel.updateBankInfo();
                 },
               ),
               const SizedBox(height: _bigSpacer),
