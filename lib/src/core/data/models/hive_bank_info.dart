@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
+import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
 
 part 'hive_bank_info.g.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
 import 'package:invoice_app/src/core/presenter/base_bottom_sheet_content.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
+import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
 
 Future<BankInfo?> showBankInfoBS<BankInfo>(
   BuildContext context,

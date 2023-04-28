@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/repositories/bank_repository.dart';
-import 'package:invoice_app/src/core/data/repositories/company_repository.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/models/bank_info.dart';
+import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
 
 abstract class ISaveBankInfo {
   Future<void> save(BankInfo value);
