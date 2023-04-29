@@ -11,6 +11,7 @@ class AppRouter extends $AppRouter {
       path: '/',
     ),
     AutoRoute(page: SettingsRoute.page),
+    AutoRoute(page: BasicInfoRoute.page),
     AutoRoute(page: AddInvoiceRoute.page),
   ];
 }
