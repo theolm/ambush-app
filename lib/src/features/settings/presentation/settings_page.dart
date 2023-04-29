@@ -36,7 +36,9 @@ class SettingsPage extends StatelessWidget {
             SettingsItem(
               title: "Bank information",
               subtitle: "Add your bank account information",
-              onClick: () {},
+              onClick: () {
+                context.router.push(BankInfoRoute());
+              },
             ),
             const Divider(indent: 16, endIndent: 16),
             SettingsItem(
