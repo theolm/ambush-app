@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
 
 class InvoiceListPage extends StatelessWidget {
   const InvoiceListPage({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class InvoiceListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.large(
         onPressed: () async {
-          await savePdf();
+          context.router.push(AddInvoiceRoute());
         },
         child: const Icon(Icons.add),
       ),
@@ -44,10 +42,5 @@ class InvoiceListPage extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<void> savePdf() async {
-    var useCase = getIt<IGenerateInvoiceUseCase>();
-    await useCase.createAndSave();
   }
 }
