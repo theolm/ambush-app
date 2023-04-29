@@ -13,7 +13,6 @@ class BasicInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
-    final colorTheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
