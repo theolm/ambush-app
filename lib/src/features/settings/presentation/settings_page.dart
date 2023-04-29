@@ -52,7 +52,9 @@ class SettingsPage extends StatelessWidget {
             SettingsItem(
               title: "Client information",
               subtitle: "Add information about your client",
-              onClick: () {},
+              onClick: () {
+                context.router.push(ClientInfoRoute());
+              },
             ),
           ],
           // children: [

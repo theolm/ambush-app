@@ -14,6 +14,7 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: BasicInfoRoute.page),
     AutoRoute(page: BankInfoRoute.page),
     AutoRoute(page: ServiceInfoRoute.page),
+    AutoRoute(page: ClientInfoRoute.page),
     AutoRoute(page: AddInvoiceRoute.page),
   ];
 }
