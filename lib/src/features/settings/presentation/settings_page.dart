@@ -44,7 +44,9 @@ class SettingsPage extends StatelessWidget {
             SettingsItem(
               title: "Service information",
               subtitle: "Add information about the services that you provided",
-              onClick: () {},
+              onClick: () {
+                context.router.push(ServiceInfoRoute());
+              },
             ),
             const Divider(indent: 16, endIndent: 16),
             SettingsItem(
