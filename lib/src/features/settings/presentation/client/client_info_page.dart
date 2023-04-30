@@ -14,10 +14,14 @@ class ClientInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = context.router;
     return Scaffold(
       appBar: AppBar(title: const Text("Client information")),
       floatingActionButton: SaveFab(
-        onClick: () async {},
+        onClick: () async {
+          await _viewModel.saveInfo();
+          navigator.pop();
+        },
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
