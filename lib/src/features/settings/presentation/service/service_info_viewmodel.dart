@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,5 +11,8 @@ class ServiceInfoViewModel extends _ServiceInfoViewModelBase
 }
 
 abstract class _ServiceInfoViewModelBase with Store {
-
+  var descriptionController = TextEditingController();
+  var quantityController = TextEditingController();
+  var currencyController = TextEditingController();
+  var priceController = TextEditingController();
 }

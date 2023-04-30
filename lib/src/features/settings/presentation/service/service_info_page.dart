@@ -31,6 +31,7 @@ class ServiceInfoPage extends StatelessWidget {
               hintText: "e.g. Software Development",
             ),
             textInputAction: TextInputAction.next,
+            controller: _viewModel.descriptionController,
           ),
           const SizedBox(height: regularBetweenFields),
           TextFormField(
@@ -40,6 +41,7 @@ class ServiceInfoPage extends StatelessWidget {
             ),
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
+            controller: _viewModel.quantityController,
           ),
           const SizedBox(height: regularBetweenFields),
           TextFormField(
@@ -49,6 +51,7 @@ class ServiceInfoPage extends StatelessWidget {
             ),
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
+            controller: _viewModel.currencyController,
           ),
           const SizedBox(height: regularBetweenFields),
           TextFormField(
@@ -58,6 +61,7 @@ class ServiceInfoPage extends StatelessWidget {
             ),
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
+            controller: _viewModel.priceController,
           ),
           const SizedBox(height: regularBetweenFields),
         ],
