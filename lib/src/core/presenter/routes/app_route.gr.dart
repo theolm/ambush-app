@@ -37,11 +37,9 @@ abstract class $AppRouter extends _i8.RootStackRouter {
       );
     },
     SettingsRoute.name: (routeData) {
-      final args = routeData.argsAs<SettingsRouteArgs>(
-          orElse: () => const SettingsRouteArgs());
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.SettingsPage(key: args.key),
+        child: const _i2.SettingsPage(),
       );
     },
     AddInvoiceRoute.name: (routeData) {
@@ -103,31 +101,16 @@ class MainRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.SettingsPage]
-class SettingsRoute extends _i8.PageRouteInfo<SettingsRouteArgs> {
-  SettingsRoute({
-    _i9.Key? key,
-    List<_i8.PageRouteInfo>? children,
-  }) : super(
+class SettingsRoute extends _i8.PageRouteInfo<void> {
+  const SettingsRoute({List<_i8.PageRouteInfo>? children})
+      : super(
           SettingsRoute.name,
-          args: SettingsRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SettingsRoute';
 
-  static const _i8.PageInfo<SettingsRouteArgs> page =
-      _i8.PageInfo<SettingsRouteArgs>(name);
-}
-
-class SettingsRouteArgs {
-  const SettingsRouteArgs({this.key});
-
-  final _i9.Key? key;
-
-  @override
-  String toString() {
-    return 'SettingsRouteArgs{key: $key}';
-  }
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
