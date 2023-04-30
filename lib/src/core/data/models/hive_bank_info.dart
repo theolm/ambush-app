@@ -4,7 +4,7 @@ import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
 part 'hive_bank_info.g.dart';
 
 @HiveType(typeId: 2)
-class HiveBankInfo {
+class HiveBankInfo extends HiveObject {
   @HiveField(0)
   String? beneficiaryName;
 

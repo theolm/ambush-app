@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'hive_company_info.g.dart';
 
 @HiveType(typeId: 1)
-class HiveCompanyInfo {
+class HiveCompanyInfo extends HiveObject {
   @HiveField(0)
   String? name;
 
