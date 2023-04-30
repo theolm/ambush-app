@@ -41,6 +41,7 @@ class LocalDataSource implements ILocalDataSource {
     Hive.registerAdapter(HiveCompanyInfoAdapter());
     Hive.registerAdapter(HiveBankInfoAdapter());
     Hive.registerAdapter(HiveServiceInfoAdapter());
+    Hive.registerAdapter(HiveClientInfoAdapter());
     _appBox = await _getAppBox();
   }
 

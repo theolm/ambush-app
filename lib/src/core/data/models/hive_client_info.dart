@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:invoice_app/src/features/settings/domain/models/client_info.dart';
 
 part 'hive_client_info.g.dart';
 
@@ -11,4 +12,11 @@ class HiveClientInfo extends HiveObject {
   String address;
 
   HiveClientInfo(this.name, this.address);
+
+  ClientInfo toClientInfo() => ClientInfo(name, address);
+
+  static HiveClientInfo from(ClientInfo clientInfo) => HiveClientInfo(
+        clientInfo.name,
+        clientInfo.address,
+      );
 }
