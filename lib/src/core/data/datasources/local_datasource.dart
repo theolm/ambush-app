@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:invoice_app/src/core/data/models/company_info.dart';
+import 'package:invoice_app/src/core/data/models/hive_company_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_bank_info.dart';
 
 const _appBoxName = 'AppBox';
@@ -10,11 +10,11 @@ const _keyBankInfo = 'bankInfo';
 abstract class ILocalDataSource {
   Future initLocalDataSource();
 
-  CompanyInfo getCompanyInfo();
+  HiveCompanyInfo getCompanyInfo();
 
   HiveBankInfo? getBankInfo();
 
-  Future<void> saveCompanyInfo(CompanyInfo value);
+  Future<void> saveCompanyInfo(HiveCompanyInfo value);
 
   Future<void> saveBankInfo(HiveBankInfo value);
 }
@@ -26,19 +26,19 @@ class LocalDataSource implements ILocalDataSource {
   @override
   Future initLocalDataSource() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(CompanyInfoAdapter());
+    Hive.registerAdapter(HiveCompanyInfoAdapter());
     Hive.registerAdapter(HiveBankInfoAdapter());
     _appBox = await _getAppBox();
   }
 
   @override
-  CompanyInfo getCompanyInfo() => _appBox.get(_keyCompanyInfo) ?? CompanyInfo();
+  HiveCompanyInfo getCompanyInfo() => _appBox.get(_keyCompanyInfo) ?? HiveCompanyInfo();
 
   @override
   HiveBankInfo? getBankInfo() => _appBox.get(_keyBankInfo);
 
   @override
-  Future<void> saveCompanyInfo(CompanyInfo value) =>
+  Future<void> saveCompanyInfo(HiveCompanyInfo value) =>
       _appBox.put(_keyCompanyInfo, value);
 
   @override

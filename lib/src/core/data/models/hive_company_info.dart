@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'company_info.g.dart';
+part 'hive_company_info.g.dart';
 
 @HiveType(typeId: 1)
-class CompanyInfo {
+class HiveCompanyInfo {
   @HiveField(0)
   String? name;
 
