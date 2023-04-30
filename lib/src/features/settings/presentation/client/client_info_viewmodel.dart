@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,5 +11,6 @@ class ClientInfoViewModel extends _ClientInfoViewModelBase
 }
 
 abstract class _ClientInfoViewModelBase with Store {
-
+  var nameController = TextEditingController();
+  var addressController = TextEditingController();
 }
