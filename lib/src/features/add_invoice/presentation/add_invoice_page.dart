@@ -15,7 +15,10 @@ class AddInvoicePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("New invoice")),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () async {
+          var res = await _viewModel.saveInvoice();
+          print(res.toString());
+        },
         label: const Text("Generate Invoice"),
       ),
       body: ListView(
@@ -28,7 +31,25 @@ class AddInvoicePage extends StatelessWidget {
             controller: _viewModel.idController,
           ),
           const SizedBox(height: 16),
-
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: "Issue date",
+              hintText: "dd/mm/yyyy",
+            ),
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.datetime,
+            controller: _viewModel.issueDateController,
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: "Due date",
+              hintText: "dd/mm/yyyy",
+            ),
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.datetime,
+            controller: _viewModel.dueDateController,
+          ),
         ],
       ),
     );
