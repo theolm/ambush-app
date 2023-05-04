@@ -19,6 +19,7 @@ abstract class _BankInfoViewModelBase with Store {
 
   _BankInfoViewModelBase(this._getBankInfo, this._saveBankInfo) {
     var bankInfo = _getBankInfo.get();
+    beneficiaryNameController.text = bankInfo.beneficiaryName;
     bankNameController.text = bankInfo.beneficiaryName;
     ibanController.text = bankInfo.iban;
     swiftController.text = bankInfo.swift;

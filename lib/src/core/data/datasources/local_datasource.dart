@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:invoice_app/src/core/data/models/hive_client_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_company_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_bank_info.dart';
+import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:invoice_app/src/core/data/models/hive_service_info.dart';
 
 const _appBoxName = 'AppBox';
@@ -10,6 +11,7 @@ const _keyCompanyInfo = 'companyInfo';
 const _keyBankInfo = 'bankInfo';
 const _keyServiceInfo = 'serviceInfo';
 const _keyClientInfo = 'clientInfo';
+const _keyInvoiceList = 'invoiceList';
 
 abstract class ILocalDataSource {
   Future initLocalDataSource();
@@ -22,6 +24,8 @@ abstract class ILocalDataSource {
 
   HiveClientInfo? getClientInfo();
 
+  List<HiveInvoice> getInvoiceList();
+
   Future<void> saveClientInfo(HiveClientInfo value);
 
   Future<void> saveCompanyInfo(HiveCompanyInfo value);
@@ -29,6 +33,8 @@ abstract class ILocalDataSource {
   Future<void> saveBankInfo(HiveBankInfo value);
 
   Future<void> saveServiceInfo(HiveServiceInfo value);
+
+  Future<void> saveInvoice(HiveInvoice invoice);
 }
 
 @Singleton(as: ILocalDataSource)
@@ -42,6 +48,7 @@ class LocalDataSource implements ILocalDataSource {
     Hive.registerAdapter(HiveBankInfoAdapter());
     Hive.registerAdapter(HiveServiceInfoAdapter());
     Hive.registerAdapter(HiveClientInfoAdapter());
+    Hive.registerAdapter(HiveInvoiceAdapter());
     _appBox = await _getAppBox();
   }
 
@@ -76,4 +83,14 @@ class LocalDataSource implements ILocalDataSource {
       _appBox.put(_keyClientInfo, value);
 
   Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
+
+  @override
+  List<HiveInvoice> getInvoiceList() => _appBox.get(_keyInvoiceList) ?? [];
+
+  @override
+  Future<void> saveInvoice(HiveInvoice invoice) async {
+    var list = getInvoiceList();
+    list.add(invoice);
+    return _appBox.put(_keyInvoiceList, list);
+  }
 }
