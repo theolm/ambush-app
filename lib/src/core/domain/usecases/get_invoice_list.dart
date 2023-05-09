@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
-import 'package:invoice_app/src/core/data/repositories/bank_repository.dart';
 import 'package:invoice_app/src/core/data/repositories/invoice_repository.dart';
-import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
 
 abstract class IGetInvoiceList {
   List<HiveInvoice> get();
+
+  Stream<List<HiveInvoice>> observe();
 }
 
 @Injectable(as: IGetInvoiceList)
@@ -16,4 +16,7 @@ class GetInvoiceList implements IGetInvoiceList {
 
   @override
   List<HiveInvoice> get() => _repository.getInvoiceList();
+
+  @override
+  Stream<List<HiveInvoice>> observe() => _repository.observe();
 }

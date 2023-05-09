@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_invoice_list.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +12,23 @@ class ListPageViewModel extends _ListPageViewModelBase
 }
 
 abstract class _ListPageViewModelBase with Store {
-  final IGetInvoiceList getInvoiceList;
+  final IGetInvoiceList _getInvoiceList;
 
-  _ListPageViewModelBase(this.getInvoiceList);
+  _ListPageViewModelBase(this._getInvoiceList) {
+    // Get initial value
+    invoiceList = _getInvoiceList.get();
+
+    // Observe for changes
+    _getInvoiceList.observe().listen((event) {
+      updateList(event);
+    });
+  }
+
+  @observable
+  List<HiveInvoice> invoiceList = [];
+
+  @action
+  void updateList(List<HiveInvoice> list) {
+    invoiceList = list;
+  }
 }

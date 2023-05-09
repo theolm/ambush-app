@@ -4,6 +4,7 @@ import 'package:invoice_app/src/core/data/models/hive_client_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_company_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_bank_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/data/models/hive_invoice_list.dart';
 import 'package:invoice_app/src/core/data/models/hive_service_info.dart';
 
 const _appBoxName = 'AppBox';
@@ -24,7 +25,7 @@ abstract class ILocalDataSource {
 
   HiveClientInfo? getClientInfo();
 
-  List<HiveInvoice> getInvoiceList();
+  HiveInvoiceList getInvoiceList();
 
   Future<void> saveClientInfo(HiveClientInfo value);
 
@@ -35,6 +36,8 @@ abstract class ILocalDataSource {
   Future<void> saveServiceInfo(HiveServiceInfo value);
 
   Future<void> saveInvoice(HiveInvoice invoice);
+
+  Stream<List<HiveInvoice>> observeInvoiceList();
 }
 
 @Singleton(as: ILocalDataSource)
@@ -49,6 +52,8 @@ class LocalDataSource implements ILocalDataSource {
     Hive.registerAdapter(HiveServiceInfoAdapter());
     Hive.registerAdapter(HiveClientInfoAdapter());
     Hive.registerAdapter(HiveInvoiceAdapter());
+    Hive.registerAdapter(HiveInvoiceListAdapter());
+
     _appBox = await _getAppBox();
   }
 
@@ -67,6 +72,10 @@ class LocalDataSource implements ILocalDataSource {
   HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
 
   @override
+  HiveInvoiceList getInvoiceList() =>
+      _appBox.get(_keyInvoiceList, defaultValue: HiveInvoiceList([]));
+
+  @override
   Future<void> saveCompanyInfo(HiveCompanyInfo value) =>
       _appBox.put(_keyCompanyInfo, value);
 
@@ -82,15 +91,21 @@ class LocalDataSource implements ILocalDataSource {
   Future<void> saveClientInfo(HiveClientInfo value) =>
       _appBox.put(_keyClientInfo, value);
 
-  Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
-
-  @override
-  List<HiveInvoice> getInvoiceList() => _appBox.get(_keyInvoiceList) ?? [];
-
   @override
   Future<void> saveInvoice(HiveInvoice invoice) async {
-    var list = getInvoiceList();
-    list.add(invoice);
-    return _appBox.put(_keyInvoiceList, list);
+    var hiveList = getInvoiceList();
+    hiveList.invoiceList.add(invoice);
+    return _appBox.put(_keyInvoiceList, hiveList);
   }
+
+  @override
+  Stream<List<HiveInvoice>> observeInvoiceList() {
+    //TODO: how to emit value on each subscribe? stream.startWith ??
+    return _appBox.watch(key: _keyInvoiceList).map((event) {
+      HiveInvoiceList listObj = event.value;
+      return listObj.invoiceList;
+    });
+  }
+
+  Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
 }
