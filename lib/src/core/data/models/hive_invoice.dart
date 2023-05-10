@@ -1,4 +1,7 @@
 import 'package:hive/hive.dart';
+import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
+import 'package:invoice_app/src/features/settings/domain/models/client_info.dart';
+import 'package:invoice_app/src/features/settings/domain/models/service_info.dart';
 
 part 'hive_invoice.g.dart';
 
@@ -75,6 +78,11 @@ class HiveInvoice extends HiveObject {
   @HiveField(21)
   int updatedAt;
 
+  String getTotalPrice() {
+    var total = quantity * unitPrice;
+    return total.toStringAsFixed(2);
+  }
+
   HiveInvoice(
     this.id,
     this.issueDate,
@@ -99,4 +107,42 @@ class HiveInvoice extends HiveObject {
     this.createdAt,
     this.updatedAt,
   );
+
+  factory HiveInvoice.newInvoice(
+    int id,
+    String issueDate,
+    String dueDate,
+    ServiceInfo serviceInfo,
+    String companyName,
+    String companyAddress,
+    ClientInfo clientInfo,
+    BankInfo bankInfo,
+  ) {
+    var now = DateTime.now();
+
+    return HiveInvoice(
+      id,
+      issueDate,
+      dueDate,
+      serviceInfo.description,
+      serviceInfo.quantity,
+      serviceInfo.currency,
+      serviceInfo.price,
+      companyName,
+      companyAddress,
+      clientInfo.name,
+      clientInfo.address,
+      bankInfo.beneficiaryName,
+      bankInfo.iban,
+      bankInfo.swift,
+      bankInfo.bankName,
+      bankInfo.bankAddress,
+      bankInfo.intermediaryBankSwift,
+      bankInfo.intermediaryBankName,
+      bankInfo.intermediaryBankAddress,
+      bankInfo.intermediaryAccNumber,
+      now.millisecondsSinceEpoch,
+      now.millisecondsSinceEpoch,
+    );
+  }
 }

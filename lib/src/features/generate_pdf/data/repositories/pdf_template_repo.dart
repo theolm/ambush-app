@@ -1,21 +1,22 @@
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 abstract class IPdfTemplateRepo {
-  pw.Document getDocument();
+  pw.Document getDocument(HiveInvoice invoice);
 }
 
 @Injectable(as: IPdfTemplateRepo)
 class PdfTemplateRepo implements IPdfTemplateRepo {
   @override
-  pw.Document getDocument() {
+  pw.Document getDocument(HiveInvoice invoice) {
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return _getPage();
+          return _getPage(invoice);
         },
       ),
     ); // Page
@@ -23,7 +24,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
     return pdf;
   }
 
-  pw.Container _getPage() {
+  pw.Container _getPage(HiveInvoice invoice) {
     return pw.Container(
       padding: const pw.EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       child: pw.Column(
@@ -35,14 +36,14 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
             children: [
               pw.Flexible(
                 child:
-                _getHeader("Theodoro Loureiro Mota", "43.556.903/0001-66"),
+                _getHeader(invoice.name),
                 flex: 1,
               ),
               pw.Flexible(
                 child: pw.Container(
                   width: double.infinity,
                   child: pw.Text(
-                    "Invoice #1680484",
+                    "Invoice #${invoice.id}",
                     style: const pw.TextStyle(fontSize: 20),
                     textAlign: pw.TextAlign.right,
                   ),
@@ -52,15 +53,13 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
             ],
           ),
           pw.Container(height: 16),
-          _getDate("2023-03-27", "2023-03-27"),
+          _getDate(invoice.issueDate, invoice.dueDate),
           pw.Container(height: 16),
            pw.Divider(),
           pw.Container(height: 16),
-          _getBill("Bill from:", "Theodoro Loureiro Mota",
-              "RUA DEROCY PERES DA PALMA, nº 21, Lomba Do Pinheiro. Porto Alegre - RS, Brazil. Zip Code: 91550113"),
+          _getBill("Bill from:", invoice.name, invoice.address),
           pw.Container(height: 16),
-          _getBill("Bill to:", "AMBUSH CONSULTING LLC",
-              "7421 Burnet Rd. Suite 276 Austin, TX 78757"),
+          _getBill("Bill to:", invoice.clientName, invoice.clientAddress),
           pw.Container(height: 16),
           pw.Row(
             children: [
@@ -75,26 +74,26 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
           pw.Container(height: 8),
           _service(
               "Other services",
-              "Software Development Consulting Services - Mar/2023 - Prorated",
-              "USD 4,656.52"),
+              invoice.description,
+              "${invoice.currency} ${invoice.getTotalPrice()}"),
           pw.Container(height: 8),
           pw.Divider(),
           pw.Container(height: 16),
-          _getTotal("USD 4,656.52"),
+          _getTotal("${invoice.currency} ${invoice.getTotalPrice()}"),
           pw.Container(height: 32),
-          _bankInfo(),
+          _bankInfo(invoice),
         ],
       ),
     );
   }
 
-  pw.Column _getHeader(String name, String cnpj) {
+  pw.Column _getHeader(String name) {
     return pw.Column(
       mainAxisAlignment: pw.MainAxisAlignment.start,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(name, style: const pw.TextStyle(fontSize: 20)),
-        pw.Text("CNPJ: $cnpj", style: const pw.TextStyle(fontSize: 12)),
+        // pw.Text("CNPJ: $cnpj", style: const pw.TextStyle(fontSize: 12)),
       ],
     );
   }
@@ -215,7 +214,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
     );
   }
 
-  pw.Column _bankInfo() {
+  pw.Column _bankInfo(HiveInvoice invoice) {
     return pw.Column(
       mainAxisAlignment: pw.MainAxisAlignment.start,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -232,7 +231,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              "Theodoro Loureiro Mota",
+              invoice.beneficiaryName,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -245,7 +244,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              "BR2778632767000010002775141C1",
+              invoice.iban,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -258,7 +257,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              "OURIBRSPXXX",
+              invoice.swift,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -271,7 +270,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              "BANCO OURINVEST S.A.",
+              invoice.bankName,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -284,7 +283,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              "Sao Paulo, Brazil",
+              invoice.bankAddress,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),

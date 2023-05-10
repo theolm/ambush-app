@@ -12,12 +12,13 @@ class AddInvoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = context.router;
     return Scaffold(
       appBar: AppBar(title: const Text("New invoice")),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          var res = await _viewModel.saveInvoice();
-          print(res.toString());
+          await _viewModel.saveInvoice();
+          navigator.pop();
         },
         label: const Text("Generate Invoice"),
       ),

@@ -7,7 +7,9 @@ import 'package:invoice_app/src/core/domain/usecases/get_company_address.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_name.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
+import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
 import 'package:mobx/mobx.dart';
+import 'package:share_plus/share_plus.dart';
 
 part 'add_invoice_viewmodel.g.dart';
 
@@ -21,6 +23,7 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     super.getCompanyName,
     super.getServiceInfo,
     super._saveInvoice,
+    super._generateInvoiceUseCase,
   );
 }
 
@@ -31,6 +34,7 @@ abstract class _AddInvoiceViewModelBase with Store {
   final IGetCompanyName _getCompanyName;
   final IGetServiceInfo _getServiceInfo;
   final ISaveInvoice _saveInvoice;
+  final IGenerateInvoiceUseCase _generateInvoiceUseCase;
 
   _AddInvoiceViewModelBase(
     this._getBankInfo,
@@ -39,6 +43,7 @@ abstract class _AddInvoiceViewModelBase with Store {
     this._getCompanyName,
     this._getServiceInfo,
     this._saveInvoice,
+    this._generateInvoiceUseCase,
   );
 
   var idController = TextEditingController();
@@ -52,7 +57,6 @@ abstract class _AddInvoiceViewModelBase with Store {
     var companyName = _getCompanyName.get();
     var serviceInfo = _getServiceInfo.get();
 
-
     if (bankInfo == null ||
         clientInfo == null ||
         companyAddress == null ||
@@ -62,34 +66,20 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
-    var now = DateTime.now();
-
-    var invoice = HiveInvoice(
+    var invoice = HiveInvoice.newInvoice(
       int.parse(idController.text),
       issueDateController.text,
       dueDateController.text,
-      serviceInfo.description,
-      serviceInfo.quantity,
-      serviceInfo.currency,
-      serviceInfo.price,
+      serviceInfo,
       companyName,
       companyAddress,
-      clientInfo.name,
-      clientInfo.address,
-      bankInfo.beneficiaryName,
-      bankInfo.iban,
-      bankInfo.swift,
-      bankInfo.bankName,
-      bankInfo.bankAddress,
-      bankInfo.intermediaryBankSwift,
-      bankInfo.intermediaryBankName,
-      bankInfo.intermediaryBankAddress,
-      bankInfo.intermediaryAccNumber,
-      now.millisecondsSinceEpoch,
-      now.millisecondsSinceEpoch,
+      clientInfo,
+      bankInfo,
     );
 
     await _saveInvoice.save(invoice);
+    var pdf = await _generateInvoiceUseCase.createAndSavePDF(invoice);
+    await Share.shareXFiles([XFile(pdf.path)]);
     return true;
   }
 }
