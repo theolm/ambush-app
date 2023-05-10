@@ -16,19 +16,24 @@ abstract class _ListPageViewModelBase with Store {
 
   _ListPageViewModelBase(this._getInvoiceList) {
     // Get initial value
-    invoiceList = _getInvoiceList.get();
+    updateList(_getInvoiceList.get());
 
     // Observe for changes
-    _getInvoiceList.observe().listen((event) {
-      updateList(event);
-    });
+    _observeChanges();
   }
 
   @observable
-  List<HiveInvoice> invoiceList = [];
+  ObservableList<HiveInvoice> invoiceList = ObservableList();
 
   @action
   void updateList(List<HiveInvoice> list) {
-    invoiceList = list;
+    invoiceList.clear();
+    invoiceList.addAll(list..sort((a, b) => -a.createdAt.compareTo(b.createdAt)));
+  }
+
+  void _observeChanges() {
+    _getInvoiceList.observe().listen((event) {
+      updateList(event);
+    });
   }
 }

@@ -62,6 +62,8 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
+    var now = DateTime.now();
+
     var invoice = HiveInvoice(
       int.parse(idController.text),
       issueDateController.text,
@@ -83,6 +85,8 @@ abstract class _AddInvoiceViewModelBase with Store {
       bankInfo.intermediaryBankName,
       bankInfo.intermediaryBankAddress,
       bankInfo.intermediaryAccNumber,
+      now.millisecondsSinceEpoch,
+      now.millisecondsSinceEpoch,
     );
 
     await _saveInvoice.save(invoice);

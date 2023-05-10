@@ -69,6 +69,12 @@ class HiveInvoice extends HiveObject {
   @HiveField(19)
   String? intermediaryAccNumber;
 
+  @HiveField(20)
+  int createdAt;
+
+  @HiveField(21)
+  int updatedAt;
+
   HiveInvoice(
     this.id,
     this.issueDate,
@@ -90,5 +96,7 @@ class HiveInvoice extends HiveObject {
     this.intermediaryBankName,
     this.intermediaryBankAddress,
     this.intermediaryAccNumber,
+    this.createdAt,
+    this.updatedAt,
   );
 }
