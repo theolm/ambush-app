@@ -4,8 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_client_info.dart';
-import 'package:invoice_app/src/core/domain/usecases/get_company_address.dart';
-import 'package:invoice_app/src/core/domain/usecases/get_company_name.dart';
+import 'package:invoice_app/src/core/domain/usecases/get_company_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
 import 'package:mobx/mobx.dart';
@@ -14,18 +13,16 @@ import 'dart:io' show Platform;
 
 import '../domain/usecases/generate_invoice.dart';
 
-
 part 'add_invoice_viewmodel.g.dart';
 
 @injectable
 class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     with _$AddInvoiceViewModel {
   AddInvoiceViewModel(
-    super.getBankInfo,
-    super.getClientInfo,
-    super.getCompanyAddress,
-    super.getCompanyName,
-    super.getServiceInfo,
+    super._getBankInfo,
+    super._getClientInfo,
+    super._getCompanyInfo,
+    super._getServiceInfo,
     super._saveInvoice,
     super._generateInvoiceUseCase,
   );
@@ -34,8 +31,7 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
 abstract class _AddInvoiceViewModelBase with Store {
   final IGetBankInfo _getBankInfo;
   final IGetClientInfo _getClientInfo;
-  final IGetCompanyAddress _getCompanyAddress;
-  final IGetCompanyName _getCompanyName;
+  final IGetCompanyInfo _getCompanyInfo;
   final IGetServiceInfo _getServiceInfo;
   final ISaveInvoice _saveInvoice;
   final IGenerateInvoiceUseCase _generateInvoiceUseCase;
@@ -43,8 +39,7 @@ abstract class _AddInvoiceViewModelBase with Store {
   _AddInvoiceViewModelBase(
     this._getBankInfo,
     this._getClientInfo,
-    this._getCompanyAddress,
-    this._getCompanyName,
+    this._getCompanyInfo,
     this._getServiceInfo,
     this._saveInvoice,
     this._generateInvoiceUseCase,
@@ -57,14 +52,12 @@ abstract class _AddInvoiceViewModelBase with Store {
   Future<bool> saveInvoice() async {
     var bankInfo = _getBankInfo.get();
     var clientInfo = _getClientInfo.get();
-    var companyAddress = _getCompanyAddress.get();
-    var companyName = _getCompanyName.get();
+    var companyInfo = _getCompanyInfo.get();
     var serviceInfo = _getServiceInfo.get();
 
     if (bankInfo == null ||
         clientInfo == null ||
-        companyAddress == null ||
-        companyName == null ||
+        companyInfo == null ||
         serviceInfo == null) {
       //TODO: missing info treatment
       return false;
@@ -75,8 +68,8 @@ abstract class _AddInvoiceViewModelBase with Store {
       issueDateController.text,
       dueDateController.text,
       serviceInfo,
-      companyName,
-      companyAddress,
+      companyInfo.name,
+      companyInfo.address,
       clientInfo,
       bankInfo,
     );
@@ -88,7 +81,7 @@ abstract class _AddInvoiceViewModelBase with Store {
       print(pdf.path);
     }
 
-    if(Platform.isAndroid || Platform.isIOS) {
+    if (Platform.isAndroid || Platform.isIOS) {
       await Share.shareXFiles([XFile(pdf.path)]);
     } else {
       //TODO: show dialog with save with success

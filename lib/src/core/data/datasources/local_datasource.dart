@@ -17,7 +17,7 @@ const _keyInvoiceList = 'invoiceList';
 abstract class ILocalDataSource {
   Future initLocalDataSource();
 
-  HiveCompanyInfo getCompanyInfo();
+  HiveCompanyInfo? getCompanyInfo();
 
   HiveBankInfo? getBankInfo();
 
@@ -57,10 +57,8 @@ class LocalDataSource implements ILocalDataSource {
     _appBox = await _getAppBox();
   }
 
-  //TODO: make nullable
   @override
-  HiveCompanyInfo getCompanyInfo() =>
-      _appBox.get(_keyCompanyInfo) ?? HiveCompanyInfo();
+  HiveCompanyInfo? getCompanyInfo() => _appBox.get(_keyCompanyInfo);
 
   @override
   HiveBankInfo? getBankInfo() => _appBox.get(_keyBankInfo);

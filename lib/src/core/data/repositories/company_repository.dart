@@ -1,12 +1,13 @@
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/core/data/models/hive_company_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/comp_info.dart';
 
 import '../datasources/local_datasource.dart';
 
 abstract class ICompanyRepository {
-  String? getCompanyName();
-  String? getCompanyAddress();
-  Future<void> saveCompanyName(String value);
-  Future<void> saveCompanyAddress(String value);
+  CompanyInfo? getCompanyInfo();
+
+  Future<void> saveCompanyInfo(CompanyInfo value);
 }
 
 @Singleton(as: ICompanyRepository)
@@ -16,24 +17,9 @@ class CompanyRepository implements ICompanyRepository {
   CompanyRepository(this._source);
 
   @override
-  String? getCompanyName() => _source.getCompanyInfo().name;
+  CompanyInfo? getCompanyInfo() => _source.getCompanyInfo()?.toDataModel();
 
   @override
-  String? getCompanyAddress() => _source.getCompanyInfo().address;
-
-  @override
-  Future<void> saveCompanyName(String value) {
-    var comp = _source.getCompanyInfo();
-    comp.name = value;
-
-    return _source.saveCompanyInfo(comp);
-  }
-
-  @override
-  Future<void> saveCompanyAddress(String value) {
-    var comp = _source.getCompanyInfo();
-    comp.address = value;
-
-    return _source.saveCompanyInfo(comp);
-  }
+  Future<void> saveCompanyInfo(CompanyInfo value) =>
+      _source.saveCompanyInfo(HiveCompanyInfo.fromDataModel(value));
 }
