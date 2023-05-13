@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
@@ -10,6 +11,7 @@ import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
 import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
+import 'dart:io' show Platform;
 
 part 'add_invoice_viewmodel.g.dart';
 
@@ -79,7 +81,17 @@ abstract class _AddInvoiceViewModelBase with Store {
 
     await _saveInvoice.save(invoice);
     var pdf = await _generateInvoiceUseCase.createAndSavePDF(invoice);
-    await Share.shareXFiles([XFile(pdf.path)]);
+
+    if (kDebugMode) {
+      print(pdf.path);
+    }
+
+    if(Platform.isAndroid || Platform.isIOS) {
+      await Share.shareXFiles([XFile(pdf.path)]);
+    } else {
+      //TODO: show dialog with save with success
+    }
+
     return true;
   }
 }

@@ -18,6 +18,7 @@ class GenerateInvoiceUseCase implements IGenerateInvoiceUseCase {
 
   @override
   Future<File> createAndSavePDF(HiveInvoice invoice) async {
+    //TODO: include web support
     final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
     final pdf = pdfTemplateRepo.getDocument(invoice);
     final file = File("${appDocumentsDir.path}/invoice_${invoice.id}.pdf");
