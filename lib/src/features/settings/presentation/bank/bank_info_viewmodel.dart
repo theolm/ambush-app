@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_bank_info.dart';
 import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
@@ -19,16 +20,20 @@ abstract class _BankInfoViewModelBase with Store {
 
   _BankInfoViewModelBase(this._getBankInfo, this._saveBankInfo) {
     var bankInfo = _getBankInfo.get();
-    beneficiaryNameController.text = bankInfo.beneficiaryName;
-    bankNameController.text = bankInfo.beneficiaryName;
-    ibanController.text = bankInfo.iban;
-    swiftController.text = bankInfo.swift;
-    bankNameController.text = bankInfo.bankName;
-    bankAddressController.text = bankInfo.bankAddress;
-    intSwiftController.text = bankInfo.intermediaryBankSwift ?? "";
-    intBankNameController.text = bankInfo.intermediaryBankName ?? "";
-    intBankAddressController.text = bankInfo.intermediaryBankAddress ?? "";
-    intIbanController.text = bankInfo.intermediaryAccNumber ?? "";
+
+    if(bankInfo != null) {
+      beneficiaryNameController.text = bankInfo.beneficiaryName;
+
+      ibanController.text = bankInfo.main.iban;
+      swiftController.text = bankInfo.main.swift;
+      bankNameController.text = bankInfo.main.bankName;
+      bankAddressController.text = bankInfo.main.bankAddress;
+
+      intIbanController.text = bankInfo.intermediary?.iban ?? "";
+      intSwiftController.text = bankInfo.intermediary?.swift ?? "";
+      intBankNameController.text = bankInfo.intermediary?.bankName ?? "";
+      intBankAddressController.text = bankInfo.intermediary?.bankAddress ?? "";
+    }
   }
 
   var beneficiaryNameController = TextEditingController();
@@ -42,18 +47,24 @@ abstract class _BankInfoViewModelBase with Store {
   var intIbanController = TextEditingController();
 
   Future saveBankInfo() async {
-    var bankInfo = BankInfo(
-      beneficiaryNameController.text,
+    var mainBank = Bank(
       ibanController.text,
       swiftController.text,
       bankNameController.text,
       bankAddressController.text,
-      intSwiftController.text.isEmpty ? intSwiftController.text : null,
-      intBankNameController.text.isEmpty ? intBankNameController.text : null,
-      intBankAddressController.text.isEmpty
-          ? intBankAddressController.text
-          : null,
-      intIbanController.text.isEmpty ? intIbanController.text : null,
+    );
+
+    var intermediaryBank = Bank(
+      intIbanController.text,
+      intSwiftController.text,
+      intBankNameController.text,
+      intBankAddressController.text,
+    );
+
+    var bankInfo = BankInfo(
+      beneficiaryNameController.text,
+      mainBank,
+      intermediaryBank,
     );
     await _saveBankInfo.save(bankInfo);
   }

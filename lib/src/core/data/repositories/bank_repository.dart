@@ -6,6 +6,7 @@ import '../datasources/local_datasource.dart';
 
 abstract class IBankRepository {
   BankInfo? getBankInfo();
+
   Future<void> saveBankInfo(BankInfo value);
 }
 
@@ -17,16 +18,9 @@ class BankRepository implements IBankRepository {
 
   @override
   Future<void> saveBankInfo(BankInfo value) =>
-      _source.saveBankInfo(HiveBankInfo.fromBankInfo(value));
+      _source.saveBankInfo(HiveBankInfo.fromDataModel(value));
 
   @override
-  BankInfo? getBankInfo() {
-    var hiveBankInfo = _source.getBankInfo();
+  BankInfo? getBankInfo() => _source.getBankInfo()?.toDataModel();
 
-    if(hiveBankInfo != null) {
-      return hiveBankInfo.toBankInfo();
-    } else {
-      return null;
-    }
-  }
 }

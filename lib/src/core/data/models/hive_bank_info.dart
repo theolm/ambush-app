@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank.dart';
 import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
 
 part 'hive_bank_info.g.dart';
@@ -6,54 +7,79 @@ part 'hive_bank_info.g.dart';
 @HiveType(typeId: 2)
 class HiveBankInfo extends HiveObject {
   @HiveField(0)
-  String? beneficiaryName;
+  String beneficiaryName;
 
   @HiveField(1)
-  String? iban;
+  String iban;
 
   @HiveField(2)
-  String? swift;
+  String swift;
 
   @HiveField(3)
-  String? bankName;
+  String bankName;
 
   @HiveField(4)
-  String? bankAddress;
+  String bankAddress;
 
+  //Optional intermediary bank
   @HiveField(5)
-  String? intermediaryBankSwift;
+  String? intermediaryIban;
 
   @HiveField(6)
-  String? intermediaryBankName;
+  String? intermediarySwift;
 
   @HiveField(7)
-  String? intermediaryBankAddress;
+  String? intermediaryBankName;
 
   @HiveField(8)
-  String? intermediaryAccNumber;
+  String? intermediaryBankAddress;
 
-  BankInfo toBankInfo() => BankInfo(
-        beneficiaryName!,
-        iban!,
-        swift!,
-        bankName!,
-        bankAddress!,
-        intermediaryBankSwift,
-        intermediaryBankName,
-        intermediaryBankAddress,
-        intermediaryAccNumber,
+  HiveBankInfo(
+    this.beneficiaryName,
+    this.iban,
+    this.swift,
+    this.bankName,
+    this.bankAddress,
+    this.intermediaryIban,
+    this.intermediarySwift,
+    this.intermediaryBankName,
+    this.intermediaryBankAddress,
+  );
+
+  factory HiveBankInfo.fromDataModel(BankInfo data) => HiveBankInfo(
+        data.beneficiaryName,
+        data.main.iban,
+        data.main.swift,
+        data.main.bankName,
+        data.main.bankAddress,
+        data.intermediary?.iban,
+        data.intermediary?.swift,
+        data.intermediary?.bankName,
+        data.intermediary?.bankAddress,
       );
 
-  static HiveBankInfo fromBankInfo(BankInfo bankInfo) {
-    HiveBankInfo hiveBankInfo = HiveBankInfo();
-    hiveBankInfo.beneficiaryName = bankInfo.beneficiaryName;
-    hiveBankInfo.iban = bankInfo.iban;
-    hiveBankInfo.swift = bankInfo.swift;
-    hiveBankInfo.bankName = bankInfo.bankName;
-    hiveBankInfo.bankAddress = bankInfo.bankAddress;
-    hiveBankInfo.intermediaryBankSwift = bankInfo.intermediaryBankSwift;
-    hiveBankInfo.intermediaryBankName = bankInfo.intermediaryBankName;
-    hiveBankInfo.intermediaryAccNumber = bankInfo.intermediaryAccNumber;
-    return hiveBankInfo;
+  BankInfo toDataModel() {
+    var mainBank = Bank(
+      iban,
+      swift,
+      bankName,
+      bankAddress,
+    );
+
+    Bank? intermediaryBank;
+
+    if (intermediaryIban != null &&
+        intermediarySwift != null &&
+        intermediaryBankName != null &&
+        intermediaryBankAddress != null) {
+      intermediaryBank = Bank(
+        intermediaryIban!,
+        intermediarySwift!,
+        intermediaryBankName!,
+        intermediaryBankAddress!,
+      );
+    }
+
+    return BankInfo(beneficiaryName, mainBank, intermediaryBank);
   }
 }

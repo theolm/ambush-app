@@ -12,6 +12,7 @@ class BankInfoPage extends StatelessWidget {
 
   final BankInfoViewModel _viewModel = getIt();
 
+  //TODO: include switch to add optional information
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;

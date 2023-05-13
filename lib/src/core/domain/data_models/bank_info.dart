@@ -1,35 +1,13 @@
+import 'package:invoice_app/src/core/domain/data_models/bank.dart';
+
 class BankInfo {
   final String beneficiaryName;
-  final String iban;
-  final String swift;
-  final String bankName;
-  final String bankAddress;
-  final String? intermediaryBankSwift;
-  final String? intermediaryBankName;
-  final String? intermediaryBankAddress;
-  final String? intermediaryAccNumber;
+  final Bank main;
+  final Bank? intermediary;
 
   BankInfo(
     this.beneficiaryName,
-    this.iban,
-    this.swift,
-    this.bankName,
-    this.bankAddress,
-    this.intermediaryBankSwift,
-    this.intermediaryBankName,
-    this.intermediaryBankAddress,
-    this.intermediaryAccNumber,
+    this.main,
+    this.intermediary,
   );
-
-  factory BankInfo.initDefault() => BankInfo(
-        "",
-        "",
-        "",
-        "",
-        "",
-        null,
-        null,
-        null,
-        null,
-      );
 }
