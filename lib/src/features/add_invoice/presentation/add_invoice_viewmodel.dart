@@ -8,10 +8,12 @@ import 'package:invoice_app/src/core/domain/usecases/get_company_address.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_name.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
-import 'package:invoice_app/src/features/generate_pdf/domain/usecases/generate_invoice.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:io' show Platform;
+
+import '../domain/usecases/generate_invoice.dart';
+
 
 part 'add_invoice_viewmodel.g.dart';
 

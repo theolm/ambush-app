@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/features/add_invoice/data/repositories/pdf_template_repo.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../../core/data/models/hive_invoice.dart';
-import '../../data/repositories/pdf_template_repo.dart';
 
 abstract class IGenerateInvoiceUseCase {
   Future<File> createAndSavePDF(HiveInvoice invoice);
