@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_service_info.dart';
-import 'package:invoice_app/src/features/settings/domain/models/service_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 import 'package:mobx/mobx.dart';
 
 part 'service_info_viewmodel.g.dart';

@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_client_info.dart';
-import 'package:invoice_app/src/features/settings/domain/models/client_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/client_info.dart';
 
 import '../datasources/local_datasource.dart';
 

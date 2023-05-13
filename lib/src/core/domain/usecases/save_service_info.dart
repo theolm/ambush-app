@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/repositories/service_repository.dart';
-import 'package:invoice_app/src/features/settings/domain/models/service_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 
 abstract class ISaveServiceInfo {
   Future<void> save(ServiceInfo value);

@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/repositories/client_repository.dart';
-import 'package:invoice_app/src/features/settings/domain/models/client_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/client_info.dart';
 
 abstract class IGetClientInfo {
   ClientInfo? get();

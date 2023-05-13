@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/repositories/bank_repository.dart';
-import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
 
 abstract class IGetBankInfo {
   BankInfo get();

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
-import 'package:invoice_app/src/features/settings/domain/models/client_info.dart';
-import 'package:invoice_app/src/features/settings/domain/models/service_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/client_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 
 part 'hive_invoice.g.dart';
 

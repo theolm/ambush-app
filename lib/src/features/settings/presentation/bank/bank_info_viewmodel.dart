@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_bank_info.dart';
-import 'package:invoice_app/src/features/settings/domain/models/bank_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
 import 'package:mobx/mobx.dart';
 
 part 'bank_info_viewmodel.g.dart';
