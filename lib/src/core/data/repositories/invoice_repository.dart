@@ -1,14 +1,14 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 
 import '../datasources/local_datasource.dart';
 
 abstract class IInvoiceRepository {
-  List<HiveInvoice> getInvoiceList();
+  List<Invoice> getInvoiceList();
 
-  Future<void> saveInvoice(HiveInvoice value);
+  Future<void> saveInvoice(Invoice value);
 
-  Stream<List<HiveInvoice>> observe();
+  Stream<List<Invoice>> observe();
 }
 
 @Singleton(as: IInvoiceRepository)
@@ -18,11 +18,11 @@ class InvoiceRepository implements IInvoiceRepository {
   InvoiceRepository(this._source);
 
   @override
-  List<HiveInvoice> getInvoiceList() => _source.getInvoiceList().invoiceList;
+  List<Invoice> getInvoiceList() => _source.getInvoiceList();
 
   @override
-  Future<void> saveInvoice(HiveInvoice value) => _source.saveInvoice(value);
+  Future<void> saveInvoice(Invoice value) => _source.saveInvoice(value);
 
   @override
-  Stream<List<HiveInvoice>> observe() => _source.observeInvoiceList();
+  Stream<List<Invoice>> observe() => _source.observeInvoiceList();
 }

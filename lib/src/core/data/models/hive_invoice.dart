@@ -1,6 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:invoice_app/src/core/domain/data_models/bank.dart';
 import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
 import 'package:invoice_app/src/core/domain/data_models/client_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/comp_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 
 part 'hive_invoice.g.dart';
@@ -12,10 +15,10 @@ class HiveInvoice extends HiveObject {
   int id;
 
   @HiveField(1)
-  String issueDate;
+  int issueDate;
 
   @HiveField(2)
-  String dueDate;
+  int dueDate;
 
   // Service info
   @HiveField(3)
@@ -78,11 +81,6 @@ class HiveInvoice extends HiveObject {
   @HiveField(21)
   int updatedAt;
 
-  String getTotalPrice() {
-    var total = quantity * unitPrice;
-    return total.toStringAsFixed(2);
-  }
-
   HiveInvoice(
     this.id,
     this.issueDate,
@@ -110,8 +108,8 @@ class HiveInvoice extends HiveObject {
 
   factory HiveInvoice.newInvoice(
     int id,
-    String issueDate,
-    String dueDate,
+    int issueDate,
+    int dueDate,
     ServiceInfo serviceInfo,
     String companyName,
     String companyAddress,
@@ -144,5 +142,62 @@ class HiveInvoice extends HiveObject {
       now.millisecondsSinceEpoch,
       now.millisecondsSinceEpoch,
     );
+  }
+
+  factory HiveInvoice.fromInvoice(Invoice invoice) => HiveInvoice(
+        invoice.id,
+        invoice.issueDate,
+        invoice.dueDate,
+        invoice.service.description,
+        invoice.service.quantity,
+        invoice.service.currency,
+        invoice.service.price,
+        invoice.companyInfo.name,
+        invoice.companyInfo.address,
+        invoice.clientInfo.name,
+        invoice.clientInfo.address,
+        invoice.bankInfo.beneficiaryName,
+        invoice.bankInfo.main.iban,
+        invoice.bankInfo.main.swift,
+        invoice.bankInfo.main.bankName,
+        invoice.bankInfo.main.bankAddress,
+        invoice.bankInfo.intermediary?.swift,
+        invoice.bankInfo.intermediary?.bankName,
+        invoice.bankInfo.intermediary?.bankAddress,
+        invoice.bankInfo.intermediary?.iban,
+        invoice.createdAt,
+        invoice.updatedAt,
+      );
+
+  Invoice toInvoice() => Invoice(
+        id,
+        issueDate,
+        dueDate,
+        ServiceInfo(description, quantity, currency, unitPrice),
+        CompanyInfo(name, address),
+        ClientInfo(clientName, clientAddress),
+        BankInfo(
+          beneficiaryName,
+          Bank(iban, swift, bankName, bankAddress),
+          _getIntermediaryBank(),
+        ),
+        createdAt,
+        updatedAt,
+      );
+
+  Bank? _getIntermediaryBank() {
+    if (intermediaryBankName != null &&
+        intermediaryBankAddress != null &&
+        intermediaryBankSwift != null &&
+        intermediaryAccNumber != null) {
+      return Bank(
+        intermediaryAccNumber!,
+        intermediaryBankSwift!,
+        intermediaryBankName!,
+        intermediaryBankAddress!,
+      );
+    } else {
+      return null;
+    }
   }
 }

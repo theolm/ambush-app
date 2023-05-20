@@ -6,6 +6,7 @@ import 'package:invoice_app/src/core/data/models/hive_bank_info.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice_list.dart';
 import 'package:invoice_app/src/core/data/models/hive_service_info.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 
 const _appBoxName = 'AppBox';
 const _keyCompanyInfo = 'companyInfo';
@@ -25,7 +26,7 @@ abstract class ILocalDataSource {
 
   HiveClientInfo? getClientInfo();
 
-  HiveInvoiceList getInvoiceList();
+  List<Invoice> getInvoiceList();
 
   Future<void> saveClientInfo(HiveClientInfo value);
 
@@ -35,9 +36,9 @@ abstract class ILocalDataSource {
 
   Future<void> saveServiceInfo(HiveServiceInfo value);
 
-  Future<void> saveInvoice(HiveInvoice invoice);
+  Future<void> saveInvoice(Invoice invoice);
 
-  Stream<List<HiveInvoice>> observeInvoiceList();
+  Stream<List<Invoice>> observeInvoiceList();
 }
 
 @Singleton(as: ILocalDataSource)
@@ -70,8 +71,12 @@ class LocalDataSource implements ILocalDataSource {
   HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
 
   @override
-  HiveInvoiceList getInvoiceList() =>
-      _appBox.get(_keyInvoiceList, defaultValue: HiveInvoiceList([]));
+  List<Invoice> getInvoiceList() {
+    HiveInvoiceList hiveInvoiceList =
+        _appBox.get(_keyInvoiceList, defaultValue: HiveInvoiceList([]));
+
+    return hiveInvoiceList.invoiceList.map((e) => e.toInvoice()).toList();
+  }
 
   @override
   Future<void> saveCompanyInfo(HiveCompanyInfo value) =>
@@ -90,18 +95,24 @@ class LocalDataSource implements ILocalDataSource {
       _appBox.put(_keyClientInfo, value);
 
   @override
-  Future<void> saveInvoice(HiveInvoice invoice) async {
+  Future<void> saveInvoice(Invoice invoice) async {
     var hiveList = getInvoiceList();
-    hiveList.invoiceList.add(invoice);
-    return _appBox.put(_keyInvoiceList, hiveList);
+    hiveList.add(invoice);
+
+    return _appBox.put(
+      _keyInvoiceList,
+      HiveInvoiceList(
+        hiveList.map((e) => HiveInvoice.fromInvoice(e)).toList(),
+      ),
+    );
   }
 
   @override
-  Stream<List<HiveInvoice>> observeInvoiceList() {
+  Stream<List<Invoice>> observeInvoiceList() {
     //TODO: how to emit value on each subscribe? stream.startWith ??
     return _appBox.watch(key: _keyInvoiceList).map((event) {
       HiveInvoiceList listObj = event.value;
-      return listObj.invoiceList;
+      return listObj.invoiceList.map((e) => e.toInvoice()).toList();
     });
   }
 

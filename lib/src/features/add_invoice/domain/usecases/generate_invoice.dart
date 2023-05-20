@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/features/add_invoice/data/repositories/pdf_template_repo.dart';
 import 'package:path_provider/path_provider.dart';
 
 
 abstract class IGenerateInvoiceUseCase {
-  Future<File> createAndSavePDF(HiveInvoice invoice);
+  Future<File> createAndSavePDF(Invoice invoice);
 }
 
 @Injectable(as: IGenerateInvoiceUseCase)
@@ -17,7 +17,7 @@ class GenerateInvoiceUseCase implements IGenerateInvoiceUseCase {
   GenerateInvoiceUseCase(this.pdfTemplateRepo);
 
   @override
-  Future<File> createAndSavePDF(HiveInvoice invoice) async {
+  Future<File> createAndSavePDF(Invoice invoice) async {
     //TODO: include web support
     final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
     final pdf = pdfTemplateRepo.getDocument(invoice);

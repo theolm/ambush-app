@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_invoice_list.dart';
 import 'package:mobx/mobx.dart';
 
@@ -23,10 +24,10 @@ abstract class _ListPageViewModelBase with Store {
   }
 
   @observable
-  ObservableList<HiveInvoice> invoiceList = ObservableList();
+  ObservableList<Invoice> invoiceList = ObservableList();
 
   @action
-  void updateList(List<HiveInvoice> list) {
+  void updateList(List<Invoice> list) {
     invoiceList.clear();
     invoiceList.addAll(list..sort((a, b) => -a.createdAt.compareTo(b.createdAt)));
   }

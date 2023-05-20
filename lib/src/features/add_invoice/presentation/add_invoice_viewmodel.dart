@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_client_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_info.dart';
@@ -63,15 +64,18 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
-    var invoice = HiveInvoice.newInvoice(
+    var now = DateTime.now();
+    //TODO: Need to validate all the ui data before creating the model
+    var invoice = Invoice(
       int.parse(idController.text),
-      issueDateController.text,
-      dueDateController.text,
+      0,
+      0,
       serviceInfo,
-      companyInfo.name,
-      companyInfo.address,
+      companyInfo,
       clientInfo,
       bankInfo,
+      now.millisecondsSinceEpoch,
+      now.millisecondsSinceEpoch,
     );
 
     await _saveInvoice.save(invoice);

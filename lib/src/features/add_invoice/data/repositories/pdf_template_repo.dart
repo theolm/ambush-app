@@ -1,16 +1,17 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 abstract class IPdfTemplateRepo {
-  pw.Document getDocument(HiveInvoice invoice);
+  pw.Document getDocument(Invoice invoice);
 }
 
 @Injectable(as: IPdfTemplateRepo)
 class PdfTemplateRepo implements IPdfTemplateRepo {
   @override
-  pw.Document getDocument(HiveInvoice invoice) {
+  pw.Document getDocument(Invoice invoice) {
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
@@ -24,7 +25,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
     return pdf;
   }
 
-  pw.Container _getPage(HiveInvoice invoice) {
+  pw.Container _getPage(Invoice invoice) {
     return pw.Container(
       padding: const pw.EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       child: pw.Column(
@@ -36,7 +37,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
             children: [
               pw.Flexible(
                 child:
-                _getHeader(invoice.name),
+                _getHeader(invoice.clientInfo.name),
                 flex: 1,
               ),
               pw.Flexible(
@@ -53,13 +54,13 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
             ],
           ),
           pw.Container(height: 16),
-          _getDate(invoice.issueDate, invoice.dueDate),
+          _getDate(invoice.issueDate.toString(), invoice.dueDate.toString()),
           pw.Container(height: 16),
            pw.Divider(),
           pw.Container(height: 16),
-          _getBill("Bill from:", invoice.name, invoice.address),
+          _getBill("Bill from:", invoice.companyInfo.name, invoice.companyInfo.address),
           pw.Container(height: 16),
-          _getBill("Bill to:", invoice.clientName, invoice.clientAddress),
+          _getBill("Bill to:", invoice.clientInfo.name, invoice.clientInfo.address),
           pw.Container(height: 16),
           pw.Row(
             children: [
@@ -74,12 +75,12 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
           pw.Container(height: 8),
           _service(
               "Other services",
-              invoice.description,
-              "${invoice.currency} ${invoice.getTotalPrice()}"),
+              invoice.service.description,
+              "${invoice.service.currency} ${invoice.service.getTotalPrice()}"),
           pw.Container(height: 8),
           pw.Divider(),
           pw.Container(height: 16),
-          _getTotal("${invoice.currency} ${invoice.getTotalPrice()}"),
+          _getTotal("${invoice.service.currency} ${invoice.service.getTotalPrice()}"),
           pw.Container(height: 32),
           _bankInfo(invoice),
         ],
@@ -214,7 +215,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
     );
   }
 
-  pw.Column _bankInfo(HiveInvoice invoice) {
+  pw.Column _bankInfo(Invoice invoice) {
     return pw.Column(
       mainAxisAlignment: pw.MainAxisAlignment.start,
       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -231,7 +232,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              invoice.beneficiaryName,
+              invoice.bankInfo.beneficiaryName,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -244,7 +245,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              invoice.iban,
+              invoice.bankInfo.main.iban,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -257,7 +258,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              invoice.swift,
+              invoice.bankInfo.main.swift,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -270,7 +271,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              invoice.bankName,
+              invoice.bankInfo.main.bankName,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),
@@ -283,7 +284,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
               style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
             ),
             pw.Text(
-              invoice.bankAddress,
+              invoice.bankInfo.main.bankAddress,
               style:
                   pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
             ),

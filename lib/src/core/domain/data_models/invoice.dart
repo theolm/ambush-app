@@ -11,6 +11,8 @@ class Invoice {
   final CompanyInfo companyInfo;
   final ClientInfo clientInfo;
   final BankInfo bankInfo;
+  final int createdAt;
+  final int updatedAt;
 
   Invoice(
     this.id,
@@ -20,5 +22,7 @@ class Invoice {
     this.companyInfo,
     this.clientInfo,
     this.bankInfo,
+    this.createdAt,
+    this.updatedAt,
   );
 }
