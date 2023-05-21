@@ -14,6 +14,7 @@ const _keyBankInfo = 'bankInfo';
 const _keyServiceInfo = 'serviceInfo';
 const _keyClientInfo = 'clientInfo';
 const _keyInvoiceList = 'invoiceList';
+const _keyOnboardingStatus = 'onboardingStatus';
 
 abstract class ILocalDataSource {
   Future initLocalDataSource();
@@ -28,6 +29,8 @@ abstract class ILocalDataSource {
 
   List<Invoice> getInvoiceList();
 
+  bool getOnboardingStatus();
+
   Future<void> saveClientInfo(HiveClientInfo value);
 
   Future<void> saveCompanyInfo(HiveCompanyInfo value);
@@ -37,6 +40,8 @@ abstract class ILocalDataSource {
   Future<void> saveServiceInfo(HiveServiceInfo value);
 
   Future<void> saveInvoice(Invoice invoice);
+
+  Future<void> saveOnboardingStatus(bool status);
 
   Stream<List<Invoice>> observeInvoiceList();
 }
@@ -57,6 +62,8 @@ class LocalDataSource implements ILocalDataSource {
 
     _appBox = await _getAppBox();
   }
+
+  Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
 
   @override
   HiveCompanyInfo? getCompanyInfo() => _appBox.get(_keyCompanyInfo);
@@ -116,5 +123,11 @@ class LocalDataSource implements ILocalDataSource {
     });
   }
 
-  Future<Box> _getAppBox() async => await Hive.openBox(_appBoxName);
+  @override
+  bool getOnboardingStatus() =>
+      _appBox.get(_keyOnboardingStatus) ?? false;
+
+  @override
+  Future<void> saveOnboardingStatus(bool status) =>
+      _appBox.put(_keyOnboardingStatus, status);
 }
