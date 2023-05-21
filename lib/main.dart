@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
+import 'package:invoice_app/src/features/onboarding/domain/usecase/check_onboard_status.dart';
 
 import 'src/app.dart';
 import 'src/core/data/datasources/local_datasource.dart';
-import 'src/features/invoice_list/presentation/list_page.dart';
 
 Future<void> main() async {
   configureDependencies(Environment.prod);
@@ -15,10 +16,20 @@ Future<void> main() async {
 
 @RoutePage()
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
+  final ICheckOnboardingStatus _onboardingStatus = getIt();
 
   @override
   Widget build(BuildContext context) {
-    return InvoiceListPage();
+    route(context);
+    return Container();
+  }
+
+  void route(BuildContext context) {
+    if (_onboardingStatus.get()) {
+      context.router.replace(InvoiceListRoute());
+    } else {
+      context.router.replace(const OnBoardingRoute());
+    }
   }
 }
