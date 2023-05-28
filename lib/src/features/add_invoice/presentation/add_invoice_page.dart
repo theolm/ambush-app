@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
 
 import 'add_invoice_viewmodel.dart';
 
@@ -33,23 +34,33 @@ class AddInvoicePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           TextFormField(
+            controller: _viewModel.issueDateController,
             decoration: const InputDecoration(
               labelText: "Issue date",
-              hintText: "dd/mm/yyyy",
             ),
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.datetime,
-            controller: _viewModel.issueDateController,
+            readOnly: true,
+            keyboardType: TextInputType.none,
+            onTap: () async {
+              var date = await selectDate(context, null);
+              if (date != null) {
+                _viewModel.updateIssueDate(date);
+              }
+            },
           ),
           const SizedBox(height: 16),
           TextFormField(
+            controller: _viewModel.dueDateController,
             decoration: const InputDecoration(
               labelText: "Due date",
-              hintText: "dd/mm/yyyy",
             ),
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.datetime,
-            controller: _viewModel.dueDateController,
+            readOnly: true,
+            keyboardType: TextInputType.none,
+            onTap: () async {
+              var date = await selectDate(context, null);
+              if (date != null) {
+                _viewModel.updateDueDate(date);
+              }
+            },
           ),
         ],
       ),

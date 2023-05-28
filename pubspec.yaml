@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  intl: ^0.18.1
   flutter_mobx: ^2.0.6+5
   mobx: ^2.1.4
   get_it: ^7.2.0
@@ -38,4 +39,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-

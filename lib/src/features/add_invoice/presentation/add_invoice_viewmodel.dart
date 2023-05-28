@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
+import 'package:intl/intl.dart';
 import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_client_info.dart';
@@ -19,14 +19,12 @@ part 'add_invoice_viewmodel.g.dart';
 @injectable
 class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     with _$AddInvoiceViewModel {
-  AddInvoiceViewModel(
-    super._getBankInfo,
-    super._getClientInfo,
-    super._getCompanyInfo,
-    super._getServiceInfo,
-    super._saveInvoice,
-    super._generateInvoiceUseCase,
-  );
+  AddInvoiceViewModel(super._getBankInfo,
+      super._getClientInfo,
+      super._getCompanyInfo,
+      super._getServiceInfo,
+      super._saveInvoice,
+      super._generateInvoiceUseCase,);
 }
 
 abstract class _AddInvoiceViewModelBase with Store {
@@ -37,18 +35,31 @@ abstract class _AddInvoiceViewModelBase with Store {
   final ISaveInvoice _saveInvoice;
   final IGenerateInvoiceUseCase _generateInvoiceUseCase;
 
-  _AddInvoiceViewModelBase(
-    this._getBankInfo,
-    this._getClientInfo,
-    this._getCompanyInfo,
-    this._getServiceInfo,
-    this._saveInvoice,
-    this._generateInvoiceUseCase,
-  );
+  _AddInvoiceViewModelBase(this._getBankInfo,
+      this._getClientInfo,
+      this._getCompanyInfo,
+      this._getServiceInfo,
+      this._saveInvoice,
+      this._generateInvoiceUseCase,);
 
   var idController = TextEditingController();
+
+  DateTime? _issueDate;
   var issueDateController = TextEditingController();
+
+  DateTime? _dueDate;
   var dueDateController = TextEditingController();
+
+
+  void updateIssueDate(DateTime date) {
+    _issueDate = date;
+    issueDateController.text = _formatDate(date);
+  }
+
+  void updateDueDate(DateTime date) {
+    _dueDate = date;
+    dueDateController.text = _formatDate(date);
+  }
 
   Future<bool> saveInvoice() async {
     var bankInfo = _getBankInfo.get();
@@ -59,7 +70,8 @@ abstract class _AddInvoiceViewModelBase with Store {
     if (bankInfo == null ||
         clientInfo == null ||
         companyInfo == null ||
-        serviceInfo == null) {
+        serviceInfo == null
+    ) {
       //TODO: missing info treatment
       return false;
     }
@@ -93,4 +105,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
     return true;
   }
+
+  String _formatDate(DateTime date) =>
+      DateFormat('MM/dd/yyyy').format(date);
 }
