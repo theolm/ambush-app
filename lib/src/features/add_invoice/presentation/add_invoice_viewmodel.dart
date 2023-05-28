@@ -8,6 +8,7 @@ import 'package:invoice_app/src/core/domain/usecases/get_client_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
+import 'package:invoice_app/src/core/domain/usecases/validate_invoice_settings.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:io' show Platform;
@@ -19,12 +20,15 @@ part 'add_invoice_viewmodel.g.dart';
 @injectable
 class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     with _$AddInvoiceViewModel {
-  AddInvoiceViewModel(super._getBankInfo,
-      super._getClientInfo,
-      super._getCompanyInfo,
-      super._getServiceInfo,
-      super._saveInvoice,
-      super._generateInvoiceUseCase,);
+  AddInvoiceViewModel(
+    super._getBankInfo,
+    super._getClientInfo,
+    super._getCompanyInfo,
+    super._getServiceInfo,
+    super._saveInvoice,
+    super._generateInvoiceUseCase,
+    super._validateInvoiceSettings,
+  );
 }
 
 abstract class _AddInvoiceViewModelBase with Store {
@@ -32,15 +36,21 @@ abstract class _AddInvoiceViewModelBase with Store {
   final IGetClientInfo _getClientInfo;
   final IGetCompanyInfo _getCompanyInfo;
   final IGetServiceInfo _getServiceInfo;
+  final IValidateInvoiceSettings _validateInvoiceSettings;
   final ISaveInvoice _saveInvoice;
   final IGenerateInvoiceUseCase _generateInvoiceUseCase;
 
-  _AddInvoiceViewModelBase(this._getBankInfo,
-      this._getClientInfo,
-      this._getCompanyInfo,
-      this._getServiceInfo,
-      this._saveInvoice,
-      this._generateInvoiceUseCase,);
+  _AddInvoiceViewModelBase(
+    this._getBankInfo,
+    this._getClientInfo,
+    this._getCompanyInfo,
+    this._getServiceInfo,
+    this._saveInvoice,
+    this._generateInvoiceUseCase,
+    this._validateInvoiceSettings,
+  );
+
+  final formKey = GlobalKey<FormState>();
 
   var idController = TextEditingController();
 
@@ -49,7 +59,6 @@ abstract class _AddInvoiceViewModelBase with Store {
 
   DateTime? _dueDate;
   var dueDateController = TextEditingController();
-
 
   void updateIssueDate(DateTime date) {
     _issueDate = date;
@@ -61,31 +70,33 @@ abstract class _AddInvoiceViewModelBase with Store {
     dueDateController.text = _formatDate(date);
   }
 
+  bool validateForm() => formKey.currentState!.validate();
+
   Future<bool> saveInvoice() async {
+    if (!_validateDates()) {
+      return false;
+    }
+
+    if(_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
+      return false;
+    }
+
+
     var bankInfo = _getBankInfo.get();
     var clientInfo = _getClientInfo.get();
     var companyInfo = _getCompanyInfo.get();
     var serviceInfo = _getServiceInfo.get();
 
-    if (bankInfo == null ||
-        clientInfo == null ||
-        companyInfo == null ||
-        serviceInfo == null
-    ) {
-      //TODO: missing info treatment
-      return false;
-    }
-
     var now = DateTime.now();
     //TODO: Need to validate all the ui data before creating the model
     var invoice = Invoice(
       int.parse(idController.text),
-      0,
-      0,
-      serviceInfo,
-      companyInfo,
-      clientInfo,
-      bankInfo,
+      _issueDate!.millisecondsSinceEpoch,
+      _dueDate!.millisecondsSinceEpoch,
+      serviceInfo!,
+      companyInfo!,
+      clientInfo!,
+      bankInfo!,
       now.millisecondsSinceEpoch,
       now.millisecondsSinceEpoch,
     );
@@ -106,6 +117,20 @@ abstract class _AddInvoiceViewModelBase with Store {
     return true;
   }
 
-  String _formatDate(DateTime date) =>
-      DateFormat('MM/dd/yyyy').format(date);
+  String _formatDate(DateTime date) => DateFormat('MM/dd/yyyy').format(date);
+
+  bool _validateDates() {
+    if (_issueDate == null || _dueDate == null) {
+      return false;
+    }
+
+    if (!isDueDateValid()) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool isDueDateValid() =>
+      _dueDate!.isAfter(_issueDate!) || _dueDate!.isAtSameMomentAs(_issueDate!);
 }

@@ -18,51 +18,81 @@ class AddInvoicePage extends StatelessWidget {
       appBar: AppBar(title: const Text("New invoice")),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await _viewModel.saveInvoice();
-          navigator.pop();
+          if(_viewModel.validateForm()) {
+            await _viewModel.saveInvoice();
+            navigator.pop();
+          }
         },
         label: const Text("Generate Invoice"),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(labelText: "Invoice ID"),
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.number,
-            controller: _viewModel.idController,
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _viewModel.issueDateController,
-            decoration: const InputDecoration(
-              labelText: "Issue date",
+      body: Form(
+        key: _viewModel.formKey,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(labelText: "Invoice ID"),
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.number,
+              controller: _viewModel.idController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please inform the invoice Id';
+                }
+                return null;
+              },
             ),
-            readOnly: true,
-            keyboardType: TextInputType.none,
-            onTap: () async {
-              var date = await selectDate(context, null);
-              if (date != null) {
-                _viewModel.updateIssueDate(date);
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _viewModel.dueDateController,
-            decoration: const InputDecoration(
-              labelText: "Due date",
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _viewModel.issueDateController,
+              decoration: const InputDecoration(
+                labelText: "Issue date",
+              ),
+              readOnly: true,
+              keyboardType: TextInputType.none,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onTap: () async {
+                var date = await selectDate(context, null);
+                if (date != null) {
+                  _viewModel.updateIssueDate(date);
+                }
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please inform a date';
+                }
+                return null;
+              },
             ),
-            readOnly: true,
-            keyboardType: TextInputType.none,
-            onTap: () async {
-              var date = await selectDate(context, null);
-              if (date != null) {
-                _viewModel.updateDueDate(date);
-              }
-            },
-          ),
-        ],
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _viewModel.dueDateController,
+              decoration: const InputDecoration(
+                labelText: "Due date",
+              ),
+              readOnly: true,
+              keyboardType: TextInputType.none,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onTap: () async {
+                var date = await selectDate(context, null);
+                if (date != null) {
+                  _viewModel.updateDueDate(date);
+                }
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please inform a date';
+                }
+
+                if (!_viewModel.isDueDateValid()) {
+                  return "The due date cannot be before the issue date";
+                }
+                return null;
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

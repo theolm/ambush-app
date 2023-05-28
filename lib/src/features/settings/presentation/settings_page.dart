@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
-import 'package:invoice_app/src/features/settings/presentation/SettingsItem.dart';
+import 'package:invoice_app/src/features/settings/presentation/settings_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 @RoutePage()

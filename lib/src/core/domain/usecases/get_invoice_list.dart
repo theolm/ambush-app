@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/core/data/models/hive_invoice.dart';
 import 'package:invoice_app/src/core/data/repositories/invoice_repository.dart';
 import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 
