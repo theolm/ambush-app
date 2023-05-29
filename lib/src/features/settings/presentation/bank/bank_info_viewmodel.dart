@@ -29,7 +29,7 @@ abstract class _BankInfoViewModelBase with Store {
       bankNameController.text = bankInfo.main.bankName;
       bankAddressController.text = bankInfo.main.bankAddress;
 
-      if(bankInfo.intermediary != null) {
+      if (bankInfo.intermediary != null) {
         isIntermediaryBankEnabled = true;
         intIbanController.text = bankInfo.intermediary!.iban;
         intSwiftController.text = bankInfo.intermediary!.swift;
@@ -59,25 +59,31 @@ abstract class _BankInfoViewModelBase with Store {
   }
 
   Future saveBankInfo() async {
-    var mainBank = Bank(
-      ibanController.text,
-      swiftController.text,
-      bankNameController.text,
-      bankAddressController.text,
-    );
+    var mainBank = _buildMainBank();
 
-    var intermediaryBank = Bank(
-      intIbanController.text,
-      intSwiftController.text,
-      intBankNameController.text,
-      intBankAddressController.text,
-    );
+    var intermediaryBank =
+        isIntermediaryBankEnabled ? _buildIntermediaryBank() : null;
 
     var bankInfo = BankInfo(
       beneficiaryNameController.text,
       mainBank,
       intermediaryBank,
     );
+
     await _saveBankInfo.save(bankInfo);
   }
+
+  Bank _buildMainBank() => Bank(
+        ibanController.text,
+        swiftController.text,
+        bankNameController.text,
+        bankAddressController.text,
+      );
+
+  Bank _buildIntermediaryBank() => Bank(
+        intIbanController.text,
+        intSwiftController.text,
+        intBankNameController.text,
+        intBankAddressController.text,
+      );
 }
