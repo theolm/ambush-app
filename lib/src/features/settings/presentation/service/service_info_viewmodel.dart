@@ -27,13 +27,12 @@ abstract class _ServiceInfoViewModelBase with Store {
     }
   }
 
-  var descriptionController = TextEditingController();
-  var quantityController = TextEditingController();
-  var currencyController = TextEditingController();
-  var priceController = TextEditingController();
-
-
-
+  final formKey = GlobalKey<FormState>();
+  final descriptionController = TextEditingController();
+  final quantityController = TextEditingController();
+  final currencyController = TextEditingController();
+  final priceController = TextEditingController();
+  
   Future saveInfo() async {
     var quantity = double.tryParse(quantityController.text);
     var price = double.tryParse(priceController.text);
