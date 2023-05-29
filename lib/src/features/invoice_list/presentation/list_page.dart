@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/domain/usecases/validate_invoice_settings.dart';
 import 'package:invoice_app/src/core/presenter/components/dialog_one_button.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 
@@ -27,8 +28,8 @@ class InvoiceListPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () async {
-          context.router.push(AddInvoiceRoute());
+        onPressed: () {
+          _onAddClick(context);
         },
         child: const Icon(Icons.add),
       ),
@@ -54,12 +55,48 @@ class InvoiceListPage extends StatelessWidget {
     );
   }
 
-  void showErrorDialog(BuildContext context) => showDialog<void>(
+  void _onAddClick(BuildContext context) {
+    final navigator = context.router;
+    var status = _viewModel.validateSettings();
+
+    if (status == InvoiceSettingsStatus.ok) {
+      context.router.push(AddInvoiceRoute());
+    } else {
+      _showErrorDialog(
+        context,
+        () {
+          navigator.pop();
+          // ignore: missing_enum_constant_in_switch
+          switch (status) {
+            case InvoiceSettingsStatus.errorBasicInfo:
+              navigator.push(BasicInfoRoute());
+              break;
+            case InvoiceSettingsStatus.errorBankInfo:
+              navigator.push(BankInfoRoute());
+              break;
+            case InvoiceSettingsStatus.errorServiceInfo:
+              navigator.push(ServiceInfoRoute());
+              break;
+            case InvoiceSettingsStatus.errorClientInfo:
+              navigator.push(ClientInfoRoute());
+              break;
+          }
+        },
+      );
+    }
+  }
+
+  void _showErrorDialog(
+    BuildContext context,
+    VoidCallback onClick,
+  ) =>
+      showDialog<void>(
         context: context,
         builder: (BuildContext context) => DialogOneButton(
-          title: 'Title',
-          supportText: 'Testing dialog',
-          button: DialogButton('Button', () {}),
+          title: 'Ops!',
+          supportText:
+              "Before generating an invoice you need to fill in all the information in the settings menu.",
+          button: DialogButton('Fix issue', onClick),
         ),
       );
 }
