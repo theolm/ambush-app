@@ -41,7 +41,7 @@ class ClientInfoPage extends StatelessWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: _viewModel.nameController,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               decoration: const InputDecoration(labelText: "Client address"),
               textInputAction: TextInputAction.done,

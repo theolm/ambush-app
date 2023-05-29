@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/domain/const.dart';
 import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
+import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 
 import 'add_invoice_viewmodel.dart';
 
@@ -36,14 +38,9 @@ class AddInvoicePage extends StatelessWidget {
               keyboardType: TextInputType.number,
               controller: _viewModel.idController,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please inform the invoice Id';
-                }
-                return null;
-              },
+              validator: requiredFieldValidator,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               controller: _viewModel.issueDateController,
               decoration: const InputDecoration(
@@ -58,14 +55,9 @@ class AddInvoicePage extends StatelessWidget {
                   _viewModel.updateIssueDate(date);
                 }
               },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please inform a date';
-                }
-                return null;
-              },
+              validator: requiredFieldValidator,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               controller: _viewModel.dueDateController,
               decoration: const InputDecoration(
@@ -90,6 +82,53 @@ class AddInvoicePage extends StatelessWidget {
                 }
                 return null;
               },
+            ),
+            const SizedBox(height: marginBetweenFields),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: "Service description",
+                hintText: "e.g. Software Development",
+              ),
+              validator: requiredFieldValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              textInputAction: TextInputAction.next,
+              controller: _viewModel.serviceController,
+            ),
+            const SizedBox(height: marginBetweenFields),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: "Quantity",
+                hintText: "e.g. 1.00",
+              ),
+              validator: doubleValueValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+              controller: _viewModel.quantityController,
+            ),
+            const SizedBox(height: marginBetweenFields),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: "Currency",
+                hintText: "e.g. USD",
+              ),
+              validator: requiredFieldValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              controller: _viewModel.currencyController,
+            ),
+            const SizedBox(height: marginBetweenFields),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: "Unit price",
+                hintText: "e.g. 5000.00",
+              ),
+              validator: doubleValueValidator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+              controller: _viewModel.priceController,
             ),
           ],
         ),

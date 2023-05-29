@@ -44,19 +44,19 @@ class ServiceInfoPage extends StatelessWidget {
               textInputAction: TextInputAction.next,
               controller: _viewModel.descriptionController,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: "Quantity",
                 hintText: "e.g. 1.00",
               ),
-              validator: _valueValidator,
+              validator: doubleValueValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
               controller: _viewModel.quantityController,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: "Currency",
@@ -68,34 +68,22 @@ class ServiceInfoPage extends StatelessWidget {
               textInputAction: TextInputAction.next,
               controller: _viewModel.currencyController,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: "Unit price",
                 hintText: "e.g. 5000.00",
               ),
-              validator: _valueValidator,
+              validator: doubleValueValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
               controller: _viewModel.priceController,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
           ],
         ),
       ),
     );
-  }
-
-  String? _valueValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Required filed";
-    }
-
-    if (double.tryParse(value) == null) {
-      return "Invalid value";
-    }
-
-    return null;
   }
 }

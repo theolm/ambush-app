@@ -43,7 +43,7 @@ class BasicInfoPage extends StatelessWidget {
               validator: requiredFieldValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
-            const SizedBox(height: regularBetweenFields),
+            const SizedBox(height: marginBetweenFields),
             TextFormField(
               decoration: const InputDecoration(labelText: "Company address"),
               textInputAction: TextInputAction.done,

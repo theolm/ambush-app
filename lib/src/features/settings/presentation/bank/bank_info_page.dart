@@ -46,7 +46,7 @@ class BankInfoPage extends StatelessWidget {
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
-                const SizedBox(height: regularBetweenFields),
+                const SizedBox(height: marginBetweenFields),
                 TextFormField(
                   decoration:
                       const InputDecoration(labelText: "Account number (IBAN)"),
@@ -55,7 +55,7 @@ class BankInfoPage extends StatelessWidget {
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
-                const SizedBox(height: regularBetweenFields),
+                const SizedBox(height: marginBetweenFields),
                 TextFormField(
                   decoration: const InputDecoration(labelText: "Swift code"),
                   textInputAction: TextInputAction.next,
@@ -63,7 +63,7 @@ class BankInfoPage extends StatelessWidget {
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
-                const SizedBox(height: regularBetweenFields),
+                const SizedBox(height: marginBetweenFields),
                 TextFormField(
                   decoration: const InputDecoration(labelText: "Bank Name"),
                   textInputAction: TextInputAction.next,
@@ -71,7 +71,7 @@ class BankInfoPage extends StatelessWidget {
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
-                const SizedBox(height: regularBetweenFields),
+                const SizedBox(height: marginBetweenFields),
                 TextFormField(
                   decoration: const InputDecoration(labelText: "Bank address"),
                   textInputAction: TextInputAction.next,
@@ -97,7 +97,7 @@ class BankInfoPage extends StatelessWidget {
                   visible: _viewModel.isIntermediaryBankEnabled,
                   child: Column(
                     children: [
-                      const SizedBox(height: regularBetweenFields),
+                      const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration: const InputDecoration(
                             labelText: "Account number (IBAN)"),
@@ -106,7 +106,7 @@ class BankInfoPage extends StatelessWidget {
                         validator: _validateIntBank,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
-                      const SizedBox(height: regularBetweenFields),
+                      const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
                             const InputDecoration(labelText: "Swift code"),
@@ -115,7 +115,7 @@ class BankInfoPage extends StatelessWidget {
                         validator: _validateIntBank,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
-                      const SizedBox(height: regularBetweenFields),
+                      const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
                             const InputDecoration(labelText: "Bank Name"),
@@ -124,7 +124,7 @@ class BankInfoPage extends StatelessWidget {
                         validator: _validateIntBank,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
-                      const SizedBox(height: regularBetweenFields),
+                      const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
                             const InputDecoration(labelText: "Bank address"),
@@ -138,7 +138,7 @@ class BankInfoPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: regularBetweenFields * 5),
+                const SizedBox(height: marginBetweenFields * 5),
               ],
             ),
           );

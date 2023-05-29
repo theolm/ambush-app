@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
+import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_client_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_company_info.dart';
+import 'package:invoice_app/src/core/domain/usecases/get_next_id.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/save_invoice.dart';
 import 'package:invoice_app/src/core/domain/usecases/validate_invoice_settings.dart';
@@ -28,6 +30,7 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     super._saveInvoice,
     super._generateInvoiceUseCase,
     super._validateInvoiceSettings,
+    super._getNextId,
   );
 }
 
@@ -39,6 +42,7 @@ abstract class _AddInvoiceViewModelBase with Store {
   final IValidateInvoiceSettings _validateInvoiceSettings;
   final ISaveInvoice _saveInvoice;
   final IGenerateInvoiceUseCase _generateInvoiceUseCase;
+  final IGetNextId _getNextId;
 
   _AddInvoiceViewModelBase(
     this._getBankInfo,
@@ -48,17 +52,33 @@ abstract class _AddInvoiceViewModelBase with Store {
     this._saveInvoice,
     this._generateInvoiceUseCase,
     this._validateInvoiceSettings,
-  );
+    this._getNextId,
+  ) {
+    var nextId = _getNextId.get();
+    if (nextId != null) {
+      idController.text = nextId.toString();
+    }
+
+    var service = _getServiceInfo.get();
+    if (service != null) {
+      serviceController.text = service.description;
+      quantityController.text = service.quantity.toStringAsFixed(2);
+      currencyController.text = service.currency;
+      priceController.text = service.price.toStringAsFixed(2);
+    }
+  }
 
   final formKey = GlobalKey<FormState>();
-
-  var idController = TextEditingController();
+  final idController = TextEditingController();
+  final issueDateController = TextEditingController();
+  final dueDateController = TextEditingController();
+  final serviceController = TextEditingController();
+  final quantityController = TextEditingController();
+  final currencyController = TextEditingController();
+  final priceController = TextEditingController();
 
   DateTime? _issueDate;
-  var issueDateController = TextEditingController();
-
   DateTime? _dueDate;
-  var dueDateController = TextEditingController();
 
   void updateIssueDate(DateTime date) {
     _issueDate = date;
@@ -77,23 +97,27 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
-    if(_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
+    if (_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
       return false;
     }
-
 
     var bankInfo = _getBankInfo.get();
     var clientInfo = _getClientInfo.get();
     var companyInfo = _getCompanyInfo.get();
-    var serviceInfo = _getServiceInfo.get();
+    var serviceInfo = ServiceInfo(
+      serviceController.text,
+      double.parse(quantityController.text),
+      currencyController.text,
+      double.parse(priceController.text),
+    );
 
     var now = DateTime.now();
-    //TODO: Need to validate all the ui data before creating the model
+
     var invoice = Invoice(
       int.parse(idController.text),
       _issueDate!.millisecondsSinceEpoch,
       _dueDate!.millisecondsSinceEpoch,
-      serviceInfo!,
+      serviceInfo,
       companyInfo!,
       clientInfo!,
       bankInfo!,
