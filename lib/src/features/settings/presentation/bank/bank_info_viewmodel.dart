@@ -21,7 +21,7 @@ abstract class _BankInfoViewModelBase with Store {
   _BankInfoViewModelBase(this._getBankInfo, this._saveBankInfo) {
     var bankInfo = _getBankInfo.get();
 
-    if(bankInfo != null) {
+    if (bankInfo != null) {
       beneficiaryNameController.text = bankInfo.beneficiaryName;
 
       ibanController.text = bankInfo.main.iban;
@@ -29,22 +29,34 @@ abstract class _BankInfoViewModelBase with Store {
       bankNameController.text = bankInfo.main.bankName;
       bankAddressController.text = bankInfo.main.bankAddress;
 
-      intIbanController.text = bankInfo.intermediary?.iban ?? "";
-      intSwiftController.text = bankInfo.intermediary?.swift ?? "";
-      intBankNameController.text = bankInfo.intermediary?.bankName ?? "";
-      intBankAddressController.text = bankInfo.intermediary?.bankAddress ?? "";
+      if(bankInfo.intermediary != null) {
+        isIntermediaryBankEnabled = true;
+        intIbanController.text = bankInfo.intermediary!.iban;
+        intSwiftController.text = bankInfo.intermediary!.swift;
+        intBankNameController.text = bankInfo.intermediary!.bankName;
+        intBankAddressController.text = bankInfo.intermediary!.bankAddress;
+      }
     }
   }
 
-  var beneficiaryNameController = TextEditingController();
-  var ibanController = TextEditingController();
-  var swiftController = TextEditingController();
-  var bankNameController = TextEditingController();
-  var bankAddressController = TextEditingController();
-  var intSwiftController = TextEditingController();
-  var intBankNameController = TextEditingController();
-  var intBankAddressController = TextEditingController();
-  var intIbanController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final beneficiaryNameController = TextEditingController();
+  final ibanController = TextEditingController();
+  final swiftController = TextEditingController();
+  final bankNameController = TextEditingController();
+  final bankAddressController = TextEditingController();
+  final intSwiftController = TextEditingController();
+  final intBankNameController = TextEditingController();
+  final intBankAddressController = TextEditingController();
+  final intIbanController = TextEditingController();
+
+  @observable
+  bool isIntermediaryBankEnabled = false;
+
+  @action
+  void setIntermediaryBankEnabled(bool value) {
+    isIntermediaryBankEnabled = value;
+  }
 
   Future saveBankInfo() async {
     var mainBank = Bank(
