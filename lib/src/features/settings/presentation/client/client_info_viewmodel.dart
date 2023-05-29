@@ -26,8 +26,9 @@ abstract class _ClientInfoViewModelBase with Store {
     }
   }
 
-  var nameController = TextEditingController();
-  var addressController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
 
   Future<void> saveInfo() async {
     var clientInfo = ClientInfo(
