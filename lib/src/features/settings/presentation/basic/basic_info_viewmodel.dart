@@ -31,8 +31,9 @@ abstract class _BasicInfoViewModelBase with Store {
     }
   }
 
-  var compNameController = TextEditingController();
-  var compAddressController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final compNameController = TextEditingController();
+  final compAddressController = TextEditingController();
 
   Future save() async {
     await _saveCompanyInfo.save(
