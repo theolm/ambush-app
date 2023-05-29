@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:invoice_app/src/core/domain/const.dart';
 
 import '../../domain/data_models/currency.dart';
 
-Future<List<Currency>> _getCurrencyList() async {
+Future<List<Currency>> getCurrencyList() async {
   final String response = await rootBundle.loadString('assets/currency.json');
   final Iterable data = await json.decode(response);
   return List<Currency>.from(data.map((model) => Currency.fromJson(model)));
@@ -13,12 +14,45 @@ Future<List<Currency>> _getCurrencyList() async {
 
 Future<Currency?> selectCurrency(
   BuildContext context,
+  List<Currency> currencyList,
   Currency? selected,
 ) async {
-  return showModalBottomSheet(
+  final textTheme = Theme.of(context).textTheme;
+  final colors = Theme.of(context).colorScheme;
+  final selectedTheme = textTheme.titleLarge?.copyWith(
+    color: colors.surfaceTint,
+    fontWeight: FontWeight.w800,
+  );
+
+  return showModalBottomSheet<Currency?>(
     context: context,
     builder: (BuildContext context) {
-      return Container();
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(
+          vertical: regularMargin,
+          horizontal: regularMargin,
+        ),
+        itemBuilder: (_, pos) {
+          var currency = currencyList[pos];
+          var isSelected = currency.cc == selected?.cc;
+          var style = isSelected ? selectedTheme : textTheme.titleSmall;
+
+          return ListTile(
+            title: Text(
+              currency.name,
+              style: style,
+            ),
+            trailing: Text(
+              currency.cc,
+              style: style,
+            ),
+            onTap: () {
+              Navigator.pop(context, currency);
+            },
+          );
+        },
+        itemCount: currencyList.length,
+      );
     },
   );
 }

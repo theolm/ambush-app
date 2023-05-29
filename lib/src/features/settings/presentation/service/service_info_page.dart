@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 
 import '../save_fab.dart';
@@ -60,13 +61,18 @@ class ServiceInfoPage extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(
                 labelText: "Currency",
-                hintText: "e.g. USD",
               ),
+              readOnly: true,
               validator: requiredFieldValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              controller: _viewModel.currencyController,
+              keyboardType: TextInputType.none,
+              onTap: () async {
+                await selectCurrency(
+                  context,
+                  await getCurrencyList(),
+                  null,
+                );
+              },
             ),
             const SizedBox(height: marginBetweenFields),
             TextFormField(
