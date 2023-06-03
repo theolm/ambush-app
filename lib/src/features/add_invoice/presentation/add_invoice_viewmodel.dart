@@ -62,7 +62,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
     var service = _getServiceInfo.get();
     if (service != null) {
-      initialCurrency = service.currency;
+      selectedCurrency = service.currency;
       serviceController.text = service.description;
       quantityController.text = service.quantity.toStringAsFixed(2);
       currencyController.text = service.currency.cc;
@@ -70,7 +70,7 @@ abstract class _AddInvoiceViewModelBase with Store {
     }
   }
 
-  Currency? initialCurrency;
+  Currency? selectedCurrency;
   final formKey = GlobalKey<FormState>();
   final idController = TextEditingController();
   final issueDateController = TextEditingController();
@@ -94,7 +94,7 @@ abstract class _AddInvoiceViewModelBase with Store {
   }
 
   void setSelectedCurrency(Currency selected) {
-    initialCurrency = selected;
+    selectedCurrency = selected;
     currencyController.text = selected.cc;
   }
 
@@ -109,14 +109,13 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
-    //TODO: fix currency
     var bankInfo = _getBankInfo.get();
     var clientInfo = _getClientInfo.get();
     var companyInfo = _getCompanyInfo.get();
     var serviceInfo = ServiceInfo(
       serviceController.text,
       double.parse(quantityController.text),
-      Currency("a", "a", "a"),
+      selectedCurrency!,
       double.parse(priceController.text),
     );
 

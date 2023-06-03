@@ -21,7 +21,7 @@ abstract class _ServiceInfoViewModelBase with Store {
   _ServiceInfoViewModelBase(this._getServiceInfo, this._saveServiceInfo) {
     var initialInfo = _getServiceInfo.get();
     if (initialInfo != null) {
-      initialCurrency = initialInfo.currency;
+      selectedCurrency = initialInfo.currency;
       currencyController.text = initialInfo.currency.cc;
       descriptionController.text = initialInfo.description;
       quantityController.text = initialInfo.quantity.toString();
@@ -29,7 +29,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     }
   }
 
-  Currency? initialCurrency;
+  Currency? selectedCurrency;
   final formKey = GlobalKey<FormState>();
   final descriptionController = TextEditingController();
   final quantityController = TextEditingController();
@@ -37,7 +37,7 @@ abstract class _ServiceInfoViewModelBase with Store {
   final priceController = TextEditingController();
 
   void setSelectedCurrency(Currency selected) {
-    initialCurrency = selected;
+    selectedCurrency = selected;
     currencyController.text = selected.cc;
   }
 
@@ -45,7 +45,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     var quantity = double.tryParse(quantityController.text);
     var price = double.tryParse(priceController.text);
 
-    if (quantity == null || price == null || initialCurrency == null) {
+    if (quantity == null || price == null || selectedCurrency == null) {
       //Treat error
       return;
     }
@@ -53,7 +53,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     var info = ServiceInfo(
       descriptionController.text,
       quantity,
-      initialCurrency!,
+      selectedCurrency!,
       price,
     );
 
