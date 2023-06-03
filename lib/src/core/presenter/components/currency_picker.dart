@@ -15,7 +15,7 @@ Future<List<Currency>> getCurrencyList() async {
 Future<Currency?> selectCurrency(
   BuildContext context,
   List<Currency> currencyList,
-  Currency? selected,
+  String? selectedCC,
 ) async {
   final textTheme = Theme.of(context).textTheme;
   final colors = Theme.of(context).colorScheme;
@@ -34,7 +34,7 @@ Future<Currency?> selectCurrency(
         ),
         itemBuilder: (_, pos) {
           var currency = currencyList[pos];
-          var isSelected = currency.cc == selected?.cc;
+          var isSelected = currency.cc == selectedCC;
           var style = isSelected ? selectedTheme : textTheme.titleSmall;
 
           return ListTile(

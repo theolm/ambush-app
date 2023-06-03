@@ -1,10 +1,14 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/core/domain/data_models/bank.dart';
 import 'package:invoice_app/src/core/domain/data_models/bank_info.dart';
 import 'package:invoice_app/src/core/domain/data_models/client_info.dart';
 import 'package:invoice_app/src/core/domain/data_models/comp_info.dart';
 import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
+
+import 'hive_bank_info.dart';
+import 'hive_client_info.dart';
+import 'hive_company_info.dart';
+import 'hive_service_info.dart';
 
 part 'hive_invoice.g.dart';
 
@@ -20,90 +24,38 @@ class HiveInvoice extends HiveObject {
   @HiveField(2)
   int dueDate;
 
-  // Service info
   @HiveField(3)
-  String description;
-
-  @HiveField(4)
-  double quantity;
-
-  @HiveField(5)
-  String currency;
-
-  @HiveField(6)
-  double unitPrice;
-
-  //My info
-  @HiveField(7)
-  String name;
-
-  @HiveField(8)
-  String address;
-
-  //Client Info
-  @HiveField(9)
-  String clientName;
-
-  @HiveField(10)
-  String clientAddress;
-
-  //Bank Info
-  @HiveField(11)
-  String beneficiaryName;
-
-  @HiveField(12)
-  String iban;
-
-  @HiveField(13)
-  String swift;
-
-  @HiveField(14)
-  String bankName;
-
-  @HiveField(15)
-  String bankAddress;
-
-  @HiveField(16)
-  String? intermediaryBankSwift;
-
-  @HiveField(17)
-  String? intermediaryBankName;
-
-  @HiveField(18)
-  String? intermediaryBankAddress;
-
-  @HiveField(19)
-  String? intermediaryAccNumber;
-
-  @HiveField(20)
   int createdAt;
 
-  @HiveField(21)
+  @HiveField(4)
   int updatedAt;
+
+  // Service info
+  @HiveField(5)
+  HiveServiceInfo serviceInfo;
+
+  //My info
+  @HiveField(6)
+  HiveCompanyInfo companyInfo;
+
+  //Client Info
+  @HiveField(7)
+  HiveClientInfo clientInfo;
+
+  //Bank Info
+  @HiveField(8)
+  HiveBankInfo bankInfo;
 
   HiveInvoice(
     this.id,
     this.issueDate,
     this.dueDate,
-    this.description,
-    this.quantity,
-    this.currency,
-    this.unitPrice,
-    this.name,
-    this.address,
-    this.clientName,
-    this.clientAddress,
-    this.beneficiaryName,
-    this.iban,
-    this.swift,
-    this.bankName,
-    this.bankAddress,
-    this.intermediaryBankSwift,
-    this.intermediaryBankName,
-    this.intermediaryBankAddress,
-    this.intermediaryAccNumber,
     this.createdAt,
     this.updatedAt,
+    this.serviceInfo,
+    this.companyInfo,
+    this.clientInfo,
+    this.bankInfo,
   );
 
   factory HiveInvoice.newInvoice(
@@ -111,8 +63,7 @@ class HiveInvoice extends HiveObject {
     int issueDate,
     int dueDate,
     ServiceInfo serviceInfo,
-    String companyName,
-    String companyAddress,
+    CompanyInfo companyInfo,
     ClientInfo clientInfo,
     BankInfo bankInfo,
   ) {
@@ -122,25 +73,12 @@ class HiveInvoice extends HiveObject {
       id,
       issueDate,
       dueDate,
-      serviceInfo.description,
-      serviceInfo.quantity,
-      serviceInfo.currency,
-      serviceInfo.price,
-      companyName,
-      companyAddress,
-      clientInfo.name,
-      clientInfo.address,
-      bankInfo.beneficiaryName,
-      bankInfo.main.iban,
-      bankInfo.main.swift,
-      bankInfo.main.bankName,
-      bankInfo.main.bankAddress,
-      bankInfo.intermediary?.swift,
-      bankInfo.intermediary?.bankName,
-      bankInfo.intermediary?.bankAddress,
-      bankInfo.intermediary?.iban,
       now.millisecondsSinceEpoch,
       now.millisecondsSinceEpoch,
+      HiveServiceInfo.fromServiceInfo(serviceInfo),
+      HiveCompanyInfo.fromDataModel(companyInfo),
+      HiveClientInfo.from(clientInfo),
+      HiveBankInfo.fromDataModel(bankInfo),
     );
   }
 
@@ -148,56 +86,23 @@ class HiveInvoice extends HiveObject {
         invoice.id,
         invoice.issueDate,
         invoice.dueDate,
-        invoice.service.description,
-        invoice.service.quantity,
-        invoice.service.currency,
-        invoice.service.price,
-        invoice.companyInfo.name,
-        invoice.companyInfo.address,
-        invoice.clientInfo.name,
-        invoice.clientInfo.address,
-        invoice.bankInfo.beneficiaryName,
-        invoice.bankInfo.main.iban,
-        invoice.bankInfo.main.swift,
-        invoice.bankInfo.main.bankName,
-        invoice.bankInfo.main.bankAddress,
-        invoice.bankInfo.intermediary?.swift,
-        invoice.bankInfo.intermediary?.bankName,
-        invoice.bankInfo.intermediary?.bankAddress,
-        invoice.bankInfo.intermediary?.iban,
         invoice.createdAt,
         invoice.updatedAt,
+        HiveServiceInfo.fromServiceInfo(invoice.service),
+        HiveCompanyInfo.fromDataModel(invoice.companyInfo),
+        HiveClientInfo.from(invoice.clientInfo),
+        HiveBankInfo.fromDataModel(invoice.bankInfo),
       );
 
   Invoice toInvoice() => Invoice(
         id,
         issueDate,
         dueDate,
-        ServiceInfo(description, quantity, currency, unitPrice),
-        CompanyInfo(name, address),
-        ClientInfo(clientName, clientAddress),
-        BankInfo(
-          beneficiaryName,
-          Bank(iban, swift, bankName, bankAddress),
-          _getIntermediaryBank(),
-        ),
+        serviceInfo.toServiceInfo(),
+        companyInfo.toDataModel(),
+        clientInfo.toClientInfo(),
+        bankInfo.toDataModel(),
         createdAt,
         updatedAt,
       );
-
-  Bank? _getIntermediaryBank() {
-    if (intermediaryBankName != null &&
-        intermediaryBankAddress != null &&
-        intermediaryBankSwift != null &&
-        intermediaryAccNumber != null) {
-      return Bank(
-        intermediaryAccNumber!,
-        intermediaryBankSwift!,
-        intermediaryBankName!,
-        intermediaryBankAddress!,
-      );
-    } else {
-      return null;
-    }
-  }
 }

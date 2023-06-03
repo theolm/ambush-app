@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:invoice_app/src/core/domain/data_models/currency.dart';
 import 'package:invoice_app/src/core/domain/data_models/invoice.dart';
 import 'package:invoice_app/src/core/domain/data_models/service_info.dart';
 import 'package:invoice_app/src/core/domain/usecases/get_bank_info.dart';
@@ -61,13 +62,15 @@ abstract class _AddInvoiceViewModelBase with Store {
 
     var service = _getServiceInfo.get();
     if (service != null) {
+      _currency = service.currency;
       serviceController.text = service.description;
       quantityController.text = service.quantity.toStringAsFixed(2);
-      currencyController.text = service.currency;
+      currencyController.text = service.currency.cc;
       priceController.text = service.price.toStringAsFixed(2);
     }
   }
 
+  Currency? _currency;
   final formKey = GlobalKey<FormState>();
   final idController = TextEditingController();
   final issueDateController = TextEditingController();
@@ -101,13 +104,14 @@ abstract class _AddInvoiceViewModelBase with Store {
       return false;
     }
 
+    //TODO: fix currency
     var bankInfo = _getBankInfo.get();
     var clientInfo = _getClientInfo.get();
     var companyInfo = _getCompanyInfo.get();
     var serviceInfo = ServiceInfo(
       serviceController.text,
       double.parse(quantityController.text),
-      currencyController.text,
+      Currency("a", "a", "a"),
       double.parse(priceController.text),
     );
 

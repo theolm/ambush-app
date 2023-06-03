@@ -66,12 +66,16 @@ class ServiceInfoPage extends StatelessWidget {
               validator: requiredFieldValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.none,
+              controller: _viewModel.currencyController,
               onTap: () async {
-                await selectCurrency(
+                var selected = await selectCurrency(
                   context,
                   await getCurrencyList(),
                   null,
                 );
+                if (selected != null) {
+                  _viewModel.setSelectedCurrency(selected);
+                }
               },
             ),
             const SizedBox(height: marginBetweenFields),
