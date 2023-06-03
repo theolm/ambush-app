@@ -62,7 +62,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
     var service = _getServiceInfo.get();
     if (service != null) {
-      _currency = service.currency;
+      initialCurrency = service.currency;
       serviceController.text = service.description;
       quantityController.text = service.quantity.toStringAsFixed(2);
       currencyController.text = service.currency.cc;
@@ -70,7 +70,7 @@ abstract class _AddInvoiceViewModelBase with Store {
     }
   }
 
-  Currency? _currency;
+  Currency? initialCurrency;
   final formKey = GlobalKey<FormState>();
   final idController = TextEditingController();
   final issueDateController = TextEditingController();
@@ -91,6 +91,11 @@ abstract class _AddInvoiceViewModelBase with Store {
   void updateDueDate(DateTime date) {
     _dueDate = date;
     dueDateController.text = _formatDate(date);
+  }
+
+  void setSelectedCurrency(Currency selected) {
+    initialCurrency = selected;
+    currencyController.text = selected.cc;
   }
 
   bool validateForm() => formKey.currentState!.validate();

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 
@@ -20,7 +21,7 @@ class AddInvoicePage extends StatelessWidget {
       appBar: AppBar(title: const Text("New invoice")),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          if(_viewModel.validateForm()) {
+          if (_viewModel.validateForm()) {
             await _viewModel.saveInvoice();
             navigator.pop();
           }
@@ -110,13 +111,23 @@ class AddInvoicePage extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(
                 labelText: "Currency",
-                hintText: "e.g. USD",
               ),
+              readOnly: true,
               validator: requiredFieldValidator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.none,
               controller: _viewModel.currencyController,
+              onTap: () async {
+                var selected = await selectCurrency(
+                  context,
+                  await getCurrencyList(),
+                  _viewModel.initialCurrency?.cc,
+                );
+
+                if (selected != null) {
+                  _viewModel.setSelectedCurrency(selected);
+                }
+              },
             ),
             const SizedBox(height: marginBetweenFields),
             TextFormField(

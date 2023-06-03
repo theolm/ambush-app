@@ -71,7 +71,7 @@ class ServiceInfoPage extends StatelessWidget {
                 var selected = await selectCurrency(
                   context,
                   await getCurrencyList(),
-                  null,
+                  _viewModel.initialCurrency?.cc,
                 );
                 if (selected != null) {
                   _viewModel.setSelectedCurrency(selected);
