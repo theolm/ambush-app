@@ -75,11 +75,11 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
           _service(
               "Other services",
               invoice.service.description,
-              "${invoice.service.currency} ${invoice.service.getTotalPrice()}"),
+              "${invoice.service.currency} ${invoice.service.getFormattedTotalPrice()}"),
           pw.Container(height: 8),
           pw.Divider(),
           pw.Container(height: 16),
-          _getTotal("${invoice.service.currency} ${invoice.service.getTotalPrice()}"),
+          _getTotal("${invoice.service.currency} ${invoice.service.getFormattedTotalPrice()}"),
           pw.Container(height: 32),
           _bankInfo(invoice),
         ],

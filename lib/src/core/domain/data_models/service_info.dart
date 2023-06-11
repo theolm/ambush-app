@@ -8,8 +8,7 @@ class ServiceInfo {
 
   ServiceInfo(this.description, this.quantity, this.currency, this.price);
 
-  String getTotalPrice() {
-    var total = quantity * price;
-    return total.toStringAsFixed(2);
-  }
+  double getTotalPrice() => quantity * price;
+
+  String getFormattedTotalPrice() => getTotalPrice().toStringAsFixed(2);
 }

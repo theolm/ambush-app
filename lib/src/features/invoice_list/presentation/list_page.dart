@@ -5,6 +5,7 @@ import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/domain/usecases/validate_invoice_settings.dart';
 import 'package:invoice_app/src/core/presenter/components/dialog_one_button.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
+import 'package:invoice_app/src/features/invoice_list/presentation/widgets/invoice_list_item.dart';
 
 import 'list_page_viewmodel.dart';
 
@@ -44,11 +45,7 @@ class InvoiceListPage extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             var invoice = _viewModel.invoiceList[index];
-            return Container(
-              height: 50,
-              alignment: Alignment.centerLeft,
-              child: Text("Invoice Id: ${invoice.id}"),
-            );
+            return InvoiceListItem(invoice: invoice);
           },
         );
       }),
