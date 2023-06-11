@@ -38,11 +38,7 @@ class InvoiceListPage extends StatelessWidget {
         return ListView.separated(
           itemCount: _viewModel.invoiceList.length,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-          separatorBuilder: (_, __) => Container(
-            height: 1,
-            width: double.infinity,
-            color: Colors.black,
-          ),
+          separatorBuilder: (_, __) => const SizedBox(height: 8),
           itemBuilder: (context, index) {
             var invoice = _viewModel.invoiceList[index];
             return InvoiceListItem(invoice: invoice);
