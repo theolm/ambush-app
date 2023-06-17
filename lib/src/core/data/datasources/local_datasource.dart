@@ -83,7 +83,7 @@ class LocalDataSource implements ILocalDataSource {
   HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
 
   @override
-  bool getInfoAlertStatus() => _appBox.get(_keyInfoAlertStatus);
+  bool getInfoAlertStatus() => _appBox.get(_keyInfoAlertStatus, defaultValue: false);
 
   @override
   List<Invoice> getInvoiceList() {

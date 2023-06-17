@@ -6,7 +6,6 @@ import 'package:invoice_app/src/core/domain/usecases/validate_invoice_settings.d
 import 'package:invoice_app/src/core/presenter/components/dialog_one_button.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/features/invoice_list/presentation/widgets/invoice_list_item.dart';
-import 'package:mobx/mobx.dart';
 
 import 'list_page_viewmodel.dart';
 
@@ -18,7 +17,10 @@ class InvoiceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
-    // when((_) => _viewModel.infoFillAlertTrigger == true, () => _showInfoAlert(navigator));
+
+    if(_viewModel.canShowInfoAlert) {
+      _showInfoAlert(navigator);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -84,7 +86,7 @@ class InvoiceListPage extends StatelessWidget {
   }
 
   Future _showInfoAlert(StackRouter navigator) async {
-    // _viewModel.onInfoAlertShow();
+    _viewModel.onInfoAlertShow();
     await Future.delayed(const Duration(seconds: 1));
     navigator.push(InfoAlertRoute());
   }
