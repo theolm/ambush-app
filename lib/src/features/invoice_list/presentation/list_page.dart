@@ -18,7 +18,7 @@ class InvoiceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
-    when((_) => _viewModel.infoFillAlert == true, () => _showInfoAlert(navigator));
+    // when((_) => _viewModel.infoFillAlertTrigger == true, () => _showInfoAlert(navigator));
 
     return Scaffold(
       appBar: AppBar(
@@ -84,10 +84,9 @@ class InvoiceListPage extends StatelessWidget {
   }
 
   Future _showInfoAlert(StackRouter navigator) async {
-    if(navigator.topRoute.name != InfoAlertRoute.name) {
-      await Future.delayed(const Duration(seconds: 1));
-      navigator.push(InfoAlertRoute());
-    }
+    // _viewModel.onInfoAlertShow();
+    await Future.delayed(const Duration(seconds: 1));
+    navigator.push(InfoAlertRoute());
   }
 
   void _showErrorDialog(

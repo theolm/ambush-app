@@ -26,9 +26,9 @@ abstract class _ListPageViewModelBase with Store {
     // Get initial value
     updateList(_getInvoiceList.get());
 
-    if(_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
-      showInfoFillAlert();
-    }
+    // if(_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
+    //   showInfoFillAlert();
+    // }
 
     // Observe for changes
     _observeChanges();
@@ -38,14 +38,6 @@ abstract class _ListPageViewModelBase with Store {
   @observable
   ObservableList<Invoice> invoiceList = ObservableList();
 
-  @observable
-  bool infoFillAlert = false;
-
-  @action
-  void showInfoFillAlert() {
-    infoFillAlert = true;
-  }
-
   @action
   void updateList(List<Invoice> list) {
     invoiceList.clear();
@@ -53,6 +45,8 @@ abstract class _ListPageViewModelBase with Store {
         .addAll(list..sort((a, b) => -a.createdAt.compareTo(b.createdAt)));
   }
 
+
+  
   void _observeChanges() {
     _getInvoiceList.observe().listen((event) {
       updateList(event);

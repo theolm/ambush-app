@@ -15,6 +15,7 @@ const _keyServiceInfo = 'serviceInfo';
 const _keyClientInfo = 'clientInfo';
 const _keyInvoiceList = 'invoiceList';
 const _keyOnboardingStatus = 'onboardingStatus';
+const _keyInfoAlertStatus = 'infoAlertStatus';
 
 abstract class ILocalDataSource {
   Future initLocalDataSource();
@@ -31,6 +32,8 @@ abstract class ILocalDataSource {
 
   bool getOnboardingStatus();
 
+  bool getInfoAlertStatus();
+
   Future<void> saveClientInfo(HiveClientInfo value);
 
   Future<void> saveCompanyInfo(HiveCompanyInfo value);
@@ -42,6 +45,8 @@ abstract class ILocalDataSource {
   Future<void> saveInvoice(Invoice invoice);
 
   Future<void> saveOnboardingStatus(bool status);
+
+  Future<void> saveInfoAlertStatus(bool status);
 
   Stream<List<Invoice>> observeInvoiceList();
 }
@@ -76,6 +81,9 @@ class LocalDataSource implements ILocalDataSource {
 
   @override
   HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
+
+  @override
+  bool getInfoAlertStatus() => _appBox.get(_keyInfoAlertStatus);
 
   @override
   List<Invoice> getInvoiceList() {
@@ -124,10 +132,13 @@ class LocalDataSource implements ILocalDataSource {
   }
 
   @override
-  bool getOnboardingStatus() =>
-      _appBox.get(_keyOnboardingStatus) ?? false;
+  bool getOnboardingStatus() => _appBox.get(_keyOnboardingStatus) ?? false;
 
   @override
   Future<void> saveOnboardingStatus(bool status) =>
       _appBox.put(_keyOnboardingStatus, status);
+
+  @override
+  Future<void> saveInfoAlertStatus(bool status) =>
+      _appBox.put(_keyInfoAlertStatus, status);
 }
