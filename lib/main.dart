@@ -17,7 +17,6 @@ Future<void> main() async {
 @RoutePage()
 class MainPage extends StatelessWidget {
   MainPage({super.key});
-
   final IFinishedOnboarding _hasFinishedOnboarding = getIt();
 
   @override
@@ -27,9 +26,10 @@ class MainPage extends StatelessWidget {
   }
 
   void route(BuildContext context) {
-    if (_hasFinishedOnboarding.get()) {
+    if (_hasFinishedOnboarding.get() || true) {
       context.router.replace(InvoiceListRoute());
     } else {
+      //TODO: create onboarding experience
       context.router.replace(OnBoardingRoute());
     }
   }

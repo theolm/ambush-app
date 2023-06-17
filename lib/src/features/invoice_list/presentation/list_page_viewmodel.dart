@@ -26,12 +26,25 @@ abstract class _ListPageViewModelBase with Store {
     // Get initial value
     updateList(_getInvoiceList.get());
 
+    if(_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
+      showInfoFillAlert();
+    }
+
     // Observe for changes
     _observeChanges();
   }
 
+
   @observable
   ObservableList<Invoice> invoiceList = ObservableList();
+
+  @observable
+  bool infoFillAlert = false;
+
+  @action
+  void showInfoFillAlert() {
+    infoFillAlert = true;
+  }
 
   @action
   void updateList(List<Invoice> list) {

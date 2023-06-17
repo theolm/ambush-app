@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'core/settings/theme/app_theme.dart';
 import 'core/presenter/routes/app_route.dart';
+import 'core/settings/theme/colors.dart';
+import 'core/settings/theme/default_theme.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -11,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF018786);
+
 
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
@@ -21,11 +23,9 @@ class App extends StatelessWidget {
           lightColorScheme = lightDynamic.harmonized();
           darkColorScheme = darkDynamic.harmonized();
         } else {
-          lightColorScheme = ColorScheme.fromSeed(
-            seedColor: primaryColor,
-          );
+          lightColorScheme = defaultLightScheme;
           darkColorScheme = ColorScheme.fromSeed(
-            seedColor: primaryColor,
+            seedColor: primaryLight,
             brightness: Brightness.dark,
           );
         }
