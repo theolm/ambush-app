@@ -89,7 +89,7 @@ class InvoiceListPage extends StatelessWidget {
   Future _showInfoAlert(StackRouter navigator) async {
     _viewModel.onInfoAlertShow();
     await Future.delayed(const Duration(seconds: 1));
-    navigator.push(InfoAlertRoute());
+    navigator.navigate(const InfoAlertRoute());
   }
 
   void _showErrorDialog(
