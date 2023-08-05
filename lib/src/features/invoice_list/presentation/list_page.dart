@@ -65,7 +65,6 @@ class InvoiceListPage extends StatelessWidget {
         context,
         () {
           navigator.pop();
-          // ignore: missing_enum_constant_in_switch
           switch (status) {
             case InvoiceSettingsStatus.errorBasicInfo:
               navigator.push(BasicInfoRoute());
@@ -78,6 +77,8 @@ class InvoiceListPage extends StatelessWidget {
               break;
             case InvoiceSettingsStatus.errorClientInfo:
               navigator.push(ClientInfoRoute());
+              break;
+            case InvoiceSettingsStatus.ok:
               break;
           }
         },
