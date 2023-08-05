@@ -17,8 +17,10 @@ class InvoiceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
-    if(_viewModel.canShowInfoAlert) {
+    if (_viewModel.canShowInfoAlert) {
       _showInfoAlert(navigator);
     }
 
@@ -34,18 +36,34 @@ class InvoiceListPage extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.large(
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text('New invoice'),
+        icon: const Icon(Icons.add),
         onPressed: () {
           _onAddClick(context);
         },
-        child: const Icon(Icons.add),
       ),
       body: Observer(builder: (context) {
         return ListView.separated(
-          itemCount: _viewModel.invoiceList.length,
+          itemCount: _viewModel.invoiceList.length + 1,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           separatorBuilder: (_, __) => const SizedBox(height: 8),
           itemBuilder: (context, index) {
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  'Your invoices',
+                  style: textTheme.headlineMedium!.copyWith(
+                    color: colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            }
+
+            index -= 1;
+
             var invoice = _viewModel.invoiceList[index];
             return InvoiceListItem(invoice: invoice);
           },
