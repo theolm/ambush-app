@@ -49,6 +49,8 @@ abstract class ILocalDataSource {
   Future<void> saveInfoAlertStatus(bool status);
 
   Stream<List<Invoice>> observeInvoiceList();
+
+  Stream<HiveCompanyInfo?> observeCompanyInfo();
 }
 
 @Singleton(as: ILocalDataSource)
@@ -83,7 +85,8 @@ class LocalDataSource implements ILocalDataSource {
   HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
 
   @override
-  bool getInfoAlertStatus() => _appBox.get(_keyInfoAlertStatus, defaultValue: false);
+  bool getInfoAlertStatus() =>
+      _appBox.get(_keyInfoAlertStatus, defaultValue: false);
 
   @override
   List<Invoice> getInvoiceList() {
@@ -128,6 +131,13 @@ class LocalDataSource implements ILocalDataSource {
     return _appBox.watch(key: _keyInvoiceList).map((event) {
       HiveInvoiceList listObj = event.value;
       return listObj.invoiceList.map((e) => e.toInvoice()).toList();
+    });
+  }
+
+  @override
+  Stream<HiveCompanyInfo?> observeCompanyInfo() {
+    return _appBox.watch(key: _keyCompanyInfo).map((event) {
+      return event.value;
     });
   }
 

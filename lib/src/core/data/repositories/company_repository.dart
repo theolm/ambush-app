@@ -8,6 +8,8 @@ abstract class ICompanyRepository {
   CompanyInfo? getCompanyInfo();
 
   Future<void> saveCompanyInfo(CompanyInfo value);
+
+  Stream<HiveCompanyInfo?> observeCompanyInfo();
 }
 
 @Singleton(as: ICompanyRepository)
@@ -22,4 +24,7 @@ class CompanyRepository implements ICompanyRepository {
   @override
   Future<void> saveCompanyInfo(CompanyInfo value) =>
       _source.saveCompanyInfo(HiveCompanyInfo.fromDataModel(value));
+
+  @override
+  Stream<HiveCompanyInfo?> observeCompanyInfo() => _source.observeCompanyInfo();
 }

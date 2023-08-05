@@ -26,7 +26,15 @@ class InvoiceListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Invoice Generator"),
+        title: Observer(
+          builder: (context) {
+            return Text(
+                _viewModel.appTitle,
+              style: textTheme.titleLarge,
+            );
+          }
+        ),
+        centerTitle: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
