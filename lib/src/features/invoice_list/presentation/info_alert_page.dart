@@ -25,21 +25,20 @@ class InfoAlertPage extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          Container(
+            alignment: Alignment.center,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Did you want to set your information now?',
+                  'Do you want to set your information now?',
                   style: textTheme.headlineSmall?.copyWith(
                       color: colors.tertiary, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'It may speed up your invoice generation.\nBut can set that again later.',
+                  'It may speed up your invoice generation.',
                   style: textTheme.bodyMedium?.copyWith(color: colors.tertiary),
                   textAlign: TextAlign.center,
                 ),
