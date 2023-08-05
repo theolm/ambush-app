@@ -17,14 +17,15 @@ dependencies:
   mobx: ^2.1.4
   get_it: ^7.2.0
   injectable: ^2.1.1
-  dynamic_color: ^1.6.2
-  google_fonts: ^4.0.3
+  dynamic_color: ^1.6.6
+  google_fonts: ^5.1.0
   auto_route: ^7.8.0
-  pdf: ^3.10.1
-  path_provider: ^2.0.14
+  pdf: ^3.10.4
+  path_provider: ^2.0.15
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  share_plus: ^7.0.0
+  share_plus: ^7.1.0
+  image: ^4.0.17 # fix for the PDF package test_api 0.5.1 (0.6.1 available)
 
 dev_dependencies:
   flutter_test:
