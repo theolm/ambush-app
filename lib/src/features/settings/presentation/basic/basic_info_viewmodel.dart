@@ -35,6 +35,15 @@ abstract class _BasicInfoViewModelBase with Store {
   final compNameController = TextEditingController();
   final compAddressController = TextEditingController();
 
+  @observable
+  bool switchValue = true;
+
+  @action
+  void onSwitchClicked(bool value) {
+    switchValue = value;
+  }
+
+
   Future save() async {
     await _saveCompanyInfo.save(
       CompanyInfo(

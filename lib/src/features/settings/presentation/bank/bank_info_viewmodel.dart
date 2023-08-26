@@ -51,11 +51,19 @@ abstract class _BankInfoViewModelBase with Store {
   final intIbanController = TextEditingController();
 
   @observable
+  bool switchValue = true;
+
+  @observable
   bool isIntermediaryBankEnabled = false;
 
   @action
   void setIntermediaryBankEnabled(bool value) {
     isIntermediaryBankEnabled = value;
+  }
+
+  @action
+  void setSwitchValue(bool value) {
+    switchValue = value;
   }
 
   Future saveBankInfo() async {

@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/features/settings/presentation/base_settings_page.dart';
 
 import '../save_fab.dart';
 import 'bank_info_viewmodel.dart';
@@ -17,29 +18,27 @@ class BankInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
-    return Scaffold(
-      appBar: AppBar(title: const Text("Bank information")),
-      floatingActionButton: SaveFab(
-        onClick: () async {
-          if (_viewModel.formKey.currentState!.validate()) {
-            await _viewModel.saveBankInfo();
-            navigator.pop();
-          }
-        },
-      ),
-      body: Observer(
-        builder: (context) {
-          return Form(
+
+    return Observer(
+      builder: (context) {
+        return BaseSettingsPage(
+          title: "Bank information",
+          buttonText: "Save",
+          switchValue: _viewModel.switchValue,
+          onSwitchClicked: _viewModel.setSwitchValue,
+          onButtonPressed: () async {
+            if (_viewModel.formKey.currentState!.validate()) {
+              await _viewModel.saveBankInfo();
+              navigator.pop();
+            }
+          },
+          form: Form(
             key: _viewModel.formKey,
-            child: ListView(
-              padding: const EdgeInsets.symmetric(
-                vertical: regularMargin,
-                horizontal: regularMargin,
-              ),
+            child: Column(
               children: [
                 TextFormField(
                   decoration:
-                      const InputDecoration(labelText: "Beneficiary name"),
+                  const InputDecoration(labelText: "Beneficiary name"),
                   textInputAction: TextInputAction.next,
                   controller: _viewModel.beneficiaryNameController,
                   validator: requiredFieldValidator,
@@ -48,7 +47,7 @@ class BankInfoPage extends StatelessWidget {
                 const SizedBox(height: marginBetweenFields),
                 TextFormField(
                   decoration:
-                      const InputDecoration(labelText: "Account number (IBAN)"),
+                  const InputDecoration(labelText: "Account number (IBAN)"),
                   textInputAction: TextInputAction.next,
                   controller: _viewModel.ibanController,
                   validator: requiredFieldValidator,
@@ -108,7 +107,7 @@ class BankInfoPage extends StatelessWidget {
                       const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
-                            const InputDecoration(labelText: "Swift code"),
+                        const InputDecoration(labelText: "Swift code"),
                         textInputAction: TextInputAction.next,
                         controller: _viewModel.intSwiftController,
                         validator: _validateIntBank,
@@ -117,7 +116,7 @@ class BankInfoPage extends StatelessWidget {
                       const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
-                            const InputDecoration(labelText: "Bank Name"),
+                        const InputDecoration(labelText: "Bank Name"),
                         textInputAction: TextInputAction.next,
                         controller: _viewModel.intBankNameController,
                         validator: _validateIntBank,
@@ -126,7 +125,7 @@ class BankInfoPage extends StatelessWidget {
                       const SizedBox(height: marginBetweenFields),
                       TextFormField(
                         decoration:
-                            const InputDecoration(labelText: "Bank address"),
+                        const InputDecoration(labelText: "Bank address"),
                         maxLines: null,
                         minLines: null,
                         textInputAction: TextInputAction.next,
@@ -137,12 +136,11 @@ class BankInfoPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: marginBetweenFields * 5),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      }
     );
   }
 

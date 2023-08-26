@@ -36,6 +36,14 @@ abstract class _ServiceInfoViewModelBase with Store {
   final currencyController = TextEditingController();
   final priceController = TextEditingController();
 
+  @observable
+  bool switchValue = true;
+
+  @action
+  void onSwitchClicked(bool value) {
+    switchValue = value;
+  }
+
   void setSelectedCurrency(Currency selected) {
     selectedCurrency = selected;
     currencyController.text = selected.cc;

@@ -49,7 +49,7 @@ abstract class _ListPageViewModelBase with Store {
   ObservableList<Invoice> invoiceList = ObservableList();
 
   @observable
-  String appTitle = 'Invoice generator';
+  String appTitle = '';
 
   @action
   void updateList(List<Invoice> list) {
