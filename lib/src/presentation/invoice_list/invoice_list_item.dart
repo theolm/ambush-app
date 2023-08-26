@@ -11,8 +11,11 @@ class InvoiceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Card(
+      elevation: 0,
+      color: colorTheme.surfaceVariant,
       child: Container(
         padding: const EdgeInsetsDirectional.all(16),
         alignment: Alignment.centerLeft,
