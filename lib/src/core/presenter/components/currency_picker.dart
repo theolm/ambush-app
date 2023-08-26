@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/domain/models/currency.dart';
 
-import '../../domain/data_models/currency.dart';
 
 Future<List<Currency>> getCurrencyList() async {
   final String response = await rootBundle.loadString('assets/currency.json');
