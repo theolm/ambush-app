@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/core/settings/const.dart';
 
 
 class BaseSettingsPage extends StatelessWidget {

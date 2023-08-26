@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
-import 'package:invoice_app/src/core/domain/const.dart';
+import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
