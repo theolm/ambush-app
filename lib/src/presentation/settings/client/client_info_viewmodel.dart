@@ -26,7 +26,7 @@ abstract class _ClientInfoViewModelBase with Store {
     }
   }
 
-  final formKey = GlobalKey<FormState>();
+
   final nameController = TextEditingController();
   final addressController = TextEditingController();
 

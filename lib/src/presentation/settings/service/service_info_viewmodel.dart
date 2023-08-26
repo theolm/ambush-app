@@ -30,7 +30,6 @@ abstract class _ServiceInfoViewModelBase with Store {
   }
 
   Currency? selectedCurrency;
-  final formKey = GlobalKey<FormState>();
   final descriptionController = TextEditingController();
   final quantityController = TextEditingController();
   final currencyController = TextEditingController();

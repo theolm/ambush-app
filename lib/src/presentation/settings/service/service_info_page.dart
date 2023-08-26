@@ -22,6 +22,7 @@ class ServiceInfoPage extends StatelessWidget {
   }) : super(key: key);
 
   final ServiceInfoViewModel _viewModel = getIt();
+  final _formKey = GlobalKey<FormState>();
   final ClientInfo clientInfo;
   final CompanyInfo companyInfo;
   final BankInfo bankInfo;
@@ -41,7 +42,7 @@ class ServiceInfoPage extends StatelessWidget {
           switchValue: _viewModel.switchValue,
           onSwitchClicked: _viewModel.onSwitchClicked,
           form: Form(
-            key: _viewModel.formKey,
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
@@ -109,7 +110,7 @@ class ServiceInfoPage extends StatelessWidget {
   }
 
   Future _onNextClick(StackRouter navigator) async {
-    if (_viewModel.formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       final serviceInfo = _viewModel.getServiceInfo();
       if (serviceInfo == null) return;
 

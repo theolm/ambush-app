@@ -14,6 +14,7 @@ class ClientInfoPage extends StatelessWidget {
   ClientInfoPage({Key? key}) : super(key: key);
 
   final ClientInfoViewModel _viewModel = getIt();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +25,14 @@ class ClientInfoPage extends StatelessWidget {
         return BaseSettingsPage(
           title: "Client information",
           buttonText: 'Next step',
-          key: _viewModel.formKey,
+          key: _formKey,
           onButtonPressed: () async {
-            await _onNextStepClick(context);
+            await _onNextStepClick(navigator);
           },
           switchValue: _viewModel.saveSwitch,
           onSwitchClicked: _viewModel.onSwitchClicked,
           form: Form(
-            key: _viewModel.formKey,
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
@@ -60,10 +61,8 @@ class ClientInfoPage extends StatelessWidget {
     );
   }
 
-  Future _onNextStepClick(BuildContext context) async {
-    final navigator = context.router;
-
-    if (_viewModel.formKey.currentState!.validate()) {
+  Future _onNextStepClick(StackRouter navigator) async {
+    if (_formKey.currentState!.validate()) {
       var client = _viewModel.clientInfo;
       if (_viewModel.saveSwitch) {
         await _viewModel.saveInfo(client);
