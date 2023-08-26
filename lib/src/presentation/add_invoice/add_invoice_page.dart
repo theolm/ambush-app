@@ -8,6 +8,7 @@ import 'package:invoice_app/src/core/presenter/components/field_validators.dart'
 import 'package:invoice_app/src/domain/models/bank_info.dart';
 import 'package:invoice_app/src/domain/models/client_info.dart';
 import 'package:invoice_app/src/domain/models/comp_info.dart';
+import 'package:invoice_app/src/domain/models/service_info.dart';
 
 import 'add_invoice_viewmodel.dart';
 
@@ -18,12 +19,14 @@ class AddInvoicePage extends StatelessWidget {
     required this.clientInfo,
     required this.companyInfo,
     required this.bankInfo,
+    required this.serviceInfo,
   }) : super(key: key);
 
   final AddInvoiceViewModel _viewModel = getIt();
   final ClientInfo clientInfo;
   final CompanyInfo companyInfo;
   final BankInfo bankInfo;
+  final ServiceInfo serviceInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +35,7 @@ class AddInvoicePage extends StatelessWidget {
       appBar: AppBar(title: const Text("New invoice")),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          if (_viewModel.validateForm()) {
-            await _viewModel.saveInvoice();
-            navigator.pop();
-          }
+          await _onSavePressed(navigator);
         },
         label: const Text("Generate Invoice"),
       ),
@@ -95,66 +95,25 @@ class AddInvoicePage extends StatelessWidget {
                 return null;
               },
             ),
-            const SizedBox(height: marginBetweenFields),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: "Service description",
-                hintText: "e.g. Software Development",
-              ),
-              validator: requiredFieldValidator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              textInputAction: TextInputAction.next,
-              controller: _viewModel.serviceController,
-            ),
-            const SizedBox(height: marginBetweenFields),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: "Quantity",
-                hintText: "e.g. 1.00",
-              ),
-              validator: doubleValueValidator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              controller: _viewModel.quantityController,
-            ),
-            const SizedBox(height: marginBetweenFields),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: "Currency",
-              ),
-              readOnly: true,
-              validator: requiredFieldValidator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.none,
-              controller: _viewModel.currencyController,
-              onTap: () async {
-                var selected = await selectCurrency(
-                  context,
-                  await getCurrencyList(),
-                  _viewModel.selectedCurrency?.cc,
-                );
-
-                if (selected != null) {
-                  _viewModel.setSelectedCurrency(selected);
-                }
-              },
-            ),
-            const SizedBox(height: marginBetweenFields),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: "Unit price",
-                hintText: "e.g. 5000.00",
-              ),
-              validator: doubleValueValidator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              controller: _viewModel.priceController,
-            ),
           ],
         ),
       ),
     );
+  }
+
+  Future _onSavePressed(StackRouter navigator) async {
+    if (_viewModel.validateForm()) {
+      final invoice = _viewModel.getInvoice(
+        serviceInfo,
+        companyInfo,
+        clientInfo,
+        bankInfo,
+      );
+
+      if(invoice == null) return;
+
+      await _viewModel.saveInvoice(invoice);
+      navigator.popUntilRoot();
+    }
   }
 }

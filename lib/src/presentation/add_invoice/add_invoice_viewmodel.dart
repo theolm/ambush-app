@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:invoice_app/src/domain/models/bank_info.dart';
+import 'package:invoice_app/src/domain/models/client_info.dart';
+import 'package:invoice_app/src/domain/models/comp_info.dart';
 import 'package:invoice_app/src/domain/models/currency.dart';
 import 'package:invoice_app/src/domain/models/invoice.dart';
 import 'package:invoice_app/src/domain/models/service_info.dart';
@@ -23,61 +26,32 @@ part 'add_invoice_viewmodel.g.dart';
 class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     with _$AddInvoiceViewModel {
   AddInvoiceViewModel(
-    super._getBankInfo,
-    super._getClientInfo,
-    super._getCompanyInfo,
-    super._getServiceInfo,
     super._saveInvoice,
     super._generateInvoiceUseCase,
-    super._validateInvoiceSettings,
     super._getNextId,
   );
 }
 
 abstract class _AddInvoiceViewModelBase with Store {
-  final IGetBankInfo _getBankInfo;
-  final IGetClientInfo _getClientInfo;
-  final IGetCompanyInfo _getCompanyInfo;
-  final IGetServiceInfo _getServiceInfo;
-  final IValidateInvoiceSettings _validateInvoiceSettings;
   final ISaveInvoice _saveInvoice;
   final IGenerateInvoiceUseCase _generateInvoiceUseCase;
   final IGetNextId _getNextId;
 
   _AddInvoiceViewModelBase(
-    this._getBankInfo,
-    this._getClientInfo,
-    this._getCompanyInfo,
-    this._getServiceInfo,
     this._saveInvoice,
     this._generateInvoiceUseCase,
-    this._validateInvoiceSettings,
     this._getNextId,
   ) {
     var nextId = _getNextId.get();
     if (nextId != null) {
       idController.text = nextId.toString();
     }
-
-    var service = _getServiceInfo.get();
-    if (service != null) {
-      selectedCurrency = service.currency;
-      serviceController.text = service.description;
-      quantityController.text = service.quantity.toStringAsFixed(2);
-      currencyController.text = service.currency.cc;
-      priceController.text = service.price.toStringAsFixed(2);
-    }
   }
 
-  Currency? selectedCurrency;
   final formKey = GlobalKey<FormState>();
   final idController = TextEditingController();
   final issueDateController = TextEditingController();
   final dueDateController = TextEditingController();
-  final serviceController = TextEditingController();
-  final quantityController = TextEditingController();
-  final currencyController = TextEditingController();
-  final priceController = TextEditingController();
 
   DateTime? _issueDate;
   DateTime? _dueDate;
@@ -92,46 +66,33 @@ abstract class _AddInvoiceViewModelBase with Store {
     dueDateController.text = _formatDate(date);
   }
 
-  void setSelectedCurrency(Currency selected) {
-    selectedCurrency = selected;
-    currencyController.text = selected.cc;
-  }
-
   bool validateForm() => formKey.currentState!.validate();
 
-  Future<bool> saveInvoice() async {
+  Invoice? getInvoice(
+    ServiceInfo serviceInfo,
+    CompanyInfo companyInfo,
+    ClientInfo clientInfo,
+    BankInfo bankInfo,
+  ) {
     if (!_validateDates()) {
-      return false;
+      return null;
     }
-
-    if (_validateInvoiceSettings.validate() != InvoiceSettingsStatus.ok) {
-      return false;
-    }
-
-    var bankInfo = _getBankInfo.get();
-    var clientInfo = _getClientInfo.get();
-    var companyInfo = _getCompanyInfo.get();
-    var serviceInfo = ServiceInfo(
-      serviceController.text,
-      double.parse(quantityController.text),
-      selectedCurrency!,
-      double.parse(priceController.text),
-    );
 
     var now = DateTime.now();
-
-    var invoice = Invoice(
+    return Invoice(
       int.parse(idController.text),
       _issueDate!.millisecondsSinceEpoch,
       _dueDate!.millisecondsSinceEpoch,
       serviceInfo,
-      companyInfo!,
-      clientInfo!,
-      bankInfo!,
+      companyInfo,
+      clientInfo,
+      bankInfo,
       now.millisecondsSinceEpoch,
       now.millisecondsSinceEpoch,
     );
+  }
 
+  Future<bool> saveInvoice(Invoice invoice) async {
     await _saveInvoice.save(invoice);
     var pdf = await _generateInvoiceUseCase.createAndSavePDF(invoice);
 

@@ -122,6 +122,7 @@ class ServiceInfoPage extends StatelessWidget {
           clientInfo: clientInfo,
           companyInfo: companyInfo,
           bankInfo: bankInfo,
+          serviceInfo: serviceInfo,
         ),
       );
     }
