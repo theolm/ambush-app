@@ -36,11 +36,15 @@ class InvoiceListPage extends StatelessWidget {
         ),
         centerTitle: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              context.router.push(const SettingsRoute());
-            },
+
+          Visibility(
+            visible: false,
+            child: IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                context.router.push(const SettingsRoute());
+              },
+            ),
           )
         ],
       ),
