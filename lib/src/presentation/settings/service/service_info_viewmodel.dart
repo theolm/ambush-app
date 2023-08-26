@@ -49,22 +49,24 @@ abstract class _ServiceInfoViewModelBase with Store {
     currencyController.text = selected.cc;
   }
 
-  Future saveInfo() async {
+  ServiceInfo? getServiceInfo() {
     var quantity = double.tryParse(quantityController.text);
     var price = double.tryParse(priceController.text);
 
     if (quantity == null || price == null || selectedCurrency == null) {
       //Treat error
-      return;
+      return null;
     }
 
-    var info = ServiceInfo(
+    return ServiceInfo(
       descriptionController.text,
       quantity,
       selectedCurrency!,
       price,
     );
+  }
 
-    await _saveServiceInfo.save(info);
+  Future saveInfo(ServiceInfo serviceInfo) async {
+    await _saveServiceInfo.save(serviceInfo);
   }
 }

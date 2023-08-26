@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
               title: "Basic information",
               subtitle: "Add basic information about your company",
               onClick: () {
-                context.router.push(BasicInfoRoute());
+                // context.router.push(BasicInfoRoute());
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),
@@ -30,7 +30,7 @@ class SettingsPage extends StatelessWidget {
               title: "Bank information",
               subtitle: "Add your bank account information",
               onClick: () {
-                context.router.push(BankInfoRoute());
+                // context.router.push(BankInfoRoute());
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),
@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
               title: "Service information",
               subtitle: "Add information about the services that you provided",
               onClick: () {
-                context.router.push(ServiceInfoRoute());
+                // context.router.push(ServiceInfoRoute());
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),

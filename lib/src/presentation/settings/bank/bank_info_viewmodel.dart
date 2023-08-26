@@ -66,20 +66,15 @@ abstract class _BankInfoViewModelBase with Store {
     switchValue = value;
   }
 
-  Future saveBankInfo() async {
-    var mainBank = _buildMainBank();
-
-    var intermediaryBank =
-        isIntermediaryBankEnabled ? _buildIntermediaryBank() : null;
-
-    var bankInfo = BankInfo(
-      beneficiaryNameController.text,
-      mainBank,
-      intermediaryBank,
-    );
-
+  Future saveBankInfo(BankInfo bankInfo) async {
     await _saveBankInfo.save(bankInfo);
   }
+
+  BankInfo get bankInfo => BankInfo(
+        beneficiaryNameController.text,
+        _buildMainBank(),
+        isIntermediaryBankEnabled ? _buildIntermediaryBank() : null,
+      );
 
   Bank _buildMainBank() => Bank(
         ibanController.text,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/domain/models/client_info.dart';
 import 'package:invoice_app/src/domain/models/comp_info.dart';
 import 'package:invoice_app/src/domain/usecases/get_company_info.dart';
 import 'package:invoice_app/src/domain/usecases/save_company_info.dart';
@@ -43,13 +44,13 @@ abstract class _BasicInfoViewModelBase with Store {
     switchValue = value;
   }
 
+  CompanyInfo get companyInfo => CompanyInfo(
+    compNameController.text,
+    compAddressController.text,
+  );
 
-  Future save() async {
-    await _saveCompanyInfo.save(
-      CompanyInfo(
-        compNameController.text,
-        compAddressController.text,
-      ),
-    );
+
+  Future save(CompanyInfo companyInfo) async {
+    await _saveCompanyInfo.save(companyInfo);
   }
 }

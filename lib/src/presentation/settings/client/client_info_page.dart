@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
+import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 
 import '../base_settings_page.dart';
-import 'save_fab.dart';
 import 'client_info_viewmodel.dart';
 
 @RoutePage()
@@ -19,16 +19,14 @@ class ClientInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigator = context.router;
 
-    return Observer(builder: (context) {
-      return BaseSettingsPage(
+    return Observer(
+      builder: (context) {
+        return BaseSettingsPage(
           title: "Client information",
-          buttonText: 'Save',
+          buttonText: 'Next step',
           key: _viewModel.formKey,
           onButtonPressed: () async {
-            if (_viewModel.formKey.currentState!.validate()) {
-              await _viewModel.saveInfo();
-              navigator.pop();
-            }
+            await _onNextStepClick(context);
           },
           switchValue: _viewModel.saveSwitch,
           onSwitchClicked: _viewModel.onSwitchClicked,
@@ -56,7 +54,22 @@ class ClientInfoPage extends StatelessWidget {
                 ),
               ],
             ),
-          ));
-    });
+          ),
+        );
+      },
+    );
+  }
+
+  Future _onNextStepClick(BuildContext context) async {
+    final navigator = context.router;
+
+    if (_viewModel.formKey.currentState!.validate()) {
+      var client = _viewModel.clientInfo;
+      if (_viewModel.saveSwitch) {
+        await _viewModel.saveInfo(client);
+      }
+
+      navigator.push(BasicInfoRoute(clientInfo: client));
+    }
   }
 }

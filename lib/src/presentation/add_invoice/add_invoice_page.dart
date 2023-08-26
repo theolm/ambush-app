@@ -5,14 +5,25 @@ import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/domain/models/bank_info.dart';
+import 'package:invoice_app/src/domain/models/client_info.dart';
+import 'package:invoice_app/src/domain/models/comp_info.dart';
 
 import 'add_invoice_viewmodel.dart';
 
 @RoutePage()
 class AddInvoicePage extends StatelessWidget {
-  AddInvoicePage({Key? key}) : super(key: key);
+  AddInvoicePage({
+    Key? key,
+    required this.clientInfo,
+    required this.companyInfo,
+    required this.bankInfo,
+  }) : super(key: key);
 
   final AddInvoiceViewModel _viewModel = getIt();
+  final ClientInfo clientInfo;
+  final CompanyInfo companyInfo;
+  final BankInfo bankInfo;
 
   @override
   Widget build(BuildContext context) {

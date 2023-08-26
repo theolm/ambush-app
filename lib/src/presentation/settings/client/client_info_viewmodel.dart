@@ -20,7 +20,7 @@ abstract class _ClientInfoViewModelBase with Store {
   _ClientInfoViewModelBase(this._getClientInfo, this._saveClientInfo) {
     var initialData = _getClientInfo.get();
 
-    if(initialData != null) {
+    if (initialData != null) {
       nameController.text = initialData.name;
       addressController.text = initialData.address;
     }
@@ -38,12 +38,12 @@ abstract class _ClientInfoViewModelBase with Store {
     saveSwitch = value;
   }
 
-  Future<void> saveInfo() async {
-    var clientInfo = ClientInfo(
-      nameController.text,
-      addressController.text,
-    );
+  ClientInfo get clientInfo => ClientInfo(
+        nameController.text,
+        addressController.text,
+      );
 
-    await _saveClientInfo.save(clientInfo);
+  Future<void> saveInfo(ClientInfo value) async {
+    await _saveClientInfo.save(value);
   }
 }
