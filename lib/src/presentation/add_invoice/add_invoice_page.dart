@@ -9,6 +9,7 @@ import 'package:invoice_app/src/domain/models/bank_info.dart';
 import 'package:invoice_app/src/domain/models/client_info.dart';
 import 'package:invoice_app/src/domain/models/comp_info.dart';
 import 'package:invoice_app/src/domain/models/service_info.dart';
+import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
 
 import 'add_invoice_viewmodel.dart';
 
@@ -31,18 +32,18 @@ class AddInvoicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = context.router;
-    return Scaffold(
-      appBar: AppBar(title: const Text("New invoice")),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await _onSavePressed(navigator);
-        },
-        label: const Text("Generate Invoice"),
-      ),
-      body: Form(
+
+    return BaseSettingsPage(
+      title: "New invoice",
+      buttonText: "Save invoice",
+      switchValue: null,
+      onSwitchClicked: null,
+      onButtonPressed: () async {
+        await _onSavePressed(navigator);
+      },
+      form: Form(
         key: _viewModel.formKey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
           children: [
             TextFormField(
               decoration: const InputDecoration(labelText: "Invoice ID"),
@@ -110,7 +111,7 @@ class AddInvoicePage extends StatelessWidget {
         bankInfo,
       );
 
-      if(invoice == null) return;
+      if (invoice == null) return;
 
       await _viewModel.saveInvoice(invoice);
       navigator.popUntilRoot();

@@ -20,7 +20,7 @@ class BaseSettingsPage extends StatelessWidget {
   final String buttonText;
   final VoidCallback onButtonPressed;
   final bool? switchValue;
-  final Function(bool) onSwitchClicked;
+  final Function(bool)? onSwitchClicked;
 
   @override
   Widget build(BuildContext context) {
