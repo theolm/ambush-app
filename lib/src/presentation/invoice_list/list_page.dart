@@ -82,6 +82,6 @@ class InvoiceListPage extends StatelessWidget {
       navigator,
       InvoiceFlowData(),
     );
-    flow.onNextPress();
+    flow.start();
   }
 }

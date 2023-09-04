@@ -44,7 +44,7 @@ class OnBoardingPage extends StatelessWidget {
                 onPressed: () async {
                   await _viewModel.finishOnboarding();
                   final flow = OnBoardingNavigationFlow(navigator);
-                  flow.onNextPress();
+                  flow.start();
                 },
                 child: const Text('Set my info'),
               ),

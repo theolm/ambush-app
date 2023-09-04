@@ -33,14 +33,6 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   void onNextPress() {
     final currentRoute = _router.current.name;
     switch (currentRoute) {
-      case InvoiceListRoute.name:
-        _router.push(
-          ClientInfoRoute(
-            flow: this,
-            screenConfig: _pageConfig,
-          ),
-        );
-        break;
       case ClientInfoRoute.name:
         _router.push(
           BasicInfoRoute(
@@ -71,5 +63,15 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
         );
         break;
     }
+  }
+
+  @override
+  void start() {
+    _router.push(
+      ClientInfoRoute(
+        flow: this,
+        screenConfig: _pageConfig,
+      ),
+    );
   }
 }

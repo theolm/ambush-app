@@ -20,4 +20,7 @@ class SettingsNavigationFlow implements InfoNavigationFlow {
   void onNextPress() {
     _router.pop();
   }
+
+  @override
+  void start() {}
 }
