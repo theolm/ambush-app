@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
+import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
+import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 
 import 'invoice_list_item.dart';
 import 'list_page_viewmodel.dart';
@@ -19,17 +21,14 @@ class InvoiceListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Observer(
-          builder: (context) {
-            return Text(
-                _viewModel.appTitle,
-              style: textTheme.titleLarge,
-            );
-          }
-        ),
+        title: Observer(builder: (context) {
+          return Text(
+            _viewModel.appTitle,
+            style: textTheme.titleLarge,
+          );
+        }),
         centerTitle: false,
         actions: [
-
           Visibility(
             visible: false,
             child: IconButton(
@@ -79,6 +78,10 @@ class InvoiceListPage extends StatelessWidget {
 
   void _onAddClick(BuildContext context) {
     final navigator = context.router;
-    navigator.push(ClientInfoRoute());
+    final flow = AddInvoiceNavigationFlow(
+      navigator,
+      InvoiceFlowData(),
+    );
+    flow.onNextPress();
   }
 }

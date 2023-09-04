@@ -2,11 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
-import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
-import 'package:invoice_app/src/domain/models/client_info.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
+import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
+import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
 
 import '../base_settings_page.dart';
 import 'bank_info_viewmodel.dart';
@@ -15,18 +14,14 @@ import 'bank_info_viewmodel.dart';
 class BankInfoPage extends StatelessWidget {
   BankInfoPage({
     Key? key,
-    required this.clientInfo,
-    required this.companyInfo,
+    this.flow
   }) : super(key: key);
 
   final BankInfoViewModel _viewModel = getIt();
-  final ClientInfo clientInfo;
-  final CompanyInfo companyInfo;
+  InfoNavigationFlow? flow;
 
   @override
   Widget build(BuildContext context) {
-    final navigator = context.router;
-
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Bank information",
@@ -34,7 +29,7 @@ class BankInfoPage extends StatelessWidget {
         switchValue: _viewModel.switchValue,
         onSwitchClicked: _viewModel.setSwitchValue,
         onButtonPressed: () async {
-          await _onNextClicked(navigator);
+          await _onNextClicked();
         },
         form: Form(
           key: _viewModel.formKey,
@@ -154,20 +149,22 @@ class BankInfoPage extends StatelessWidget {
     return null;
   }
 
-  Future _onNextClicked(StackRouter navigator) async {
+  Future _onNextClicked() async {
     if (_viewModel.formKey.currentState!.validate()) {
       final bankInfo = _viewModel.bankInfo;
       if (_viewModel.switchValue) {
         await _viewModel.saveBankInfo(bankInfo);
       }
 
-      navigator.push(
-        ServiceInfoRoute(
-          clientInfo: clientInfo,
-          companyInfo: companyInfo,
-          bankInfo: bankInfo,
-        ),
-      );
+      if(flow != null) {
+        if(flow is AddInvoiceNavigationFlow) {
+          (flow as AddInvoiceNavigationFlow).invoiceFlowData.bankInfo = bankInfo;
+        }
+
+        flow!.onNextPress();
+      } else {
+        //TODO
+      }
     }
   }
 }

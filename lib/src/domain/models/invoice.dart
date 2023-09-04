@@ -1,4 +1,3 @@
-
 import 'package:invoice_app/src/domain/models/bank_info.dart';
 import 'package:invoice_app/src/domain/models/client_info.dart';
 import 'package:invoice_app/src/domain/models/comp_info.dart';

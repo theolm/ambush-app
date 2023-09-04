@@ -2,13 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
-import 'package:invoice_app/src/domain/models/bank_info.dart';
-import 'package:invoice_app/src/domain/models/client_info.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
-import 'package:invoice_app/src/domain/models/service_info.dart';
+import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
+import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
 
 import 'add_invoice_viewmodel.dart';
@@ -17,17 +14,11 @@ import 'add_invoice_viewmodel.dart';
 class AddInvoicePage extends StatelessWidget {
   AddInvoicePage({
     Key? key,
-    required this.clientInfo,
-    required this.companyInfo,
-    required this.bankInfo,
-    required this.serviceInfo,
+    required this.flow,
   }) : super(key: key);
 
   final AddInvoiceViewModel _viewModel = getIt();
-  final ClientInfo clientInfo;
-  final CompanyInfo companyInfo;
-  final BankInfo bankInfo;
-  final ServiceInfo serviceInfo;
+  AddInvoiceNavigationFlow flow;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +30,7 @@ class AddInvoicePage extends StatelessWidget {
       switchValue: null,
       onSwitchClicked: null,
       onButtonPressed: () async {
-        await _onSavePressed(navigator);
+        await _onSavePressed();
       },
       form: Form(
         key: _viewModel.formKey,
@@ -102,19 +93,21 @@ class AddInvoicePage extends StatelessWidget {
     );
   }
 
-  Future _onSavePressed(StackRouter navigator) async {
+  Future _onSavePressed() async {
     if (_viewModel.validateForm()) {
+      final invoiceFlowData = flow.invoiceFlowData;
+      invoiceFlowData.validateData();
       final invoice = _viewModel.getInvoice(
-        serviceInfo,
-        companyInfo,
-        clientInfo,
-        bankInfo,
+        invoiceFlowData.service!,
+        invoiceFlowData.companyInfo!,
+        invoiceFlowData.clientInfo!,
+        invoiceFlowData.bankInfo!,
       );
 
       if (invoice == null) return;
 
       await _viewModel.saveInvoice(invoice);
-      navigator.popUntilRoot();
+      flow.onFinishFlow();
     }
   }
 }
