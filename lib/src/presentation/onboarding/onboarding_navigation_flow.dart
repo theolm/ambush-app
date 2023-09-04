@@ -1,22 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
-import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
 import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
 
-class AddInvoiceNavigationFlow implements InfoNavigationFlow {
+class OnBoardingNavigationFlow implements InfoNavigationFlow {
   final StackRouter _router;
-  final InvoiceFlowData invoiceFlowData;
+
+  OnBoardingNavigationFlow(this._router);
 
   final _pageConfig = BasicInfoPageConfig(
-    ctaText: 'Next step',
-    showSaveSwitch: true,
-    alwaysSave: false,
-  );
-
-  AddInvoiceNavigationFlow(
-    this._router,
-    this.invoiceFlowData,
+    ctaText: 'Next',
+    showSaveSwitch: false,
+    alwaysSave: true,
   );
 
   @override
@@ -33,7 +28,7 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   void onNextPress() {
     final currentRoute = _router.current.name;
     switch (currentRoute) {
-      case InvoiceListRoute.name:
+      case OnBoardingRoute.name:
         _router.push(
           ClientInfoRoute(
             flow: this,
@@ -66,9 +61,7 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
         );
         break;
       case ServiceInfoRoute.name:
-        _router.push(
-          AddInvoiceRoute(flow: this),
-        );
+        _router.replaceAll([InvoiceListRoute()]);
         break;
     }
   }

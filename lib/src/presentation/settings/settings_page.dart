@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
 import 'package:invoice_app/src/presentation/settings/settings_navigation_flow.dart';
 
 import 'settings_item.dart';
@@ -13,6 +14,12 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _pageConfig = BasicInfoPageConfig(
+      ctaText: 'Save',
+      showSaveSwitch: false,
+      alwaysSave: true,
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text("Settings")),
       body: Observer(builder: (_) {
@@ -26,6 +33,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   BasicInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
+                    screenConfig: _pageConfig,
                   ),
                 );
               },
@@ -38,6 +46,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   BankInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
+                    screenConfig: _pageConfig,
                   ),
                 );
               },
@@ -50,6 +59,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   ServiceInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
+                    screenConfig: _pageConfig,
                   ),
                 );
               },
@@ -62,6 +72,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   ClientInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
+                    screenConfig: _pageConfig,
                   ),
                 );
               },

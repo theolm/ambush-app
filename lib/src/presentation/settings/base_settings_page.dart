@@ -31,8 +31,7 @@ class BaseSettingsPage extends StatelessWidget {
         children: [
           if (infoText != null) Text(infoText!),
           form,
-          if (saveSwitch != null)
-            _saveInfoRow(context, saveSwitch!.value),
+          if (saveSwitch != null) _saveInfoRow(context, saveSwitch!.value),
           const SizedBox(height: 36),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,4 +76,16 @@ class SaveSwitch {
   final Function(bool) onChanged;
 
   SaveSwitch({required this.value, required this.onChanged});
+}
+
+class BasicInfoPageConfig {
+  final String ctaText;
+  final bool showSaveSwitch;
+  final bool alwaysSave;
+
+  BasicInfoPageConfig({
+    required this.ctaText,
+    required this.showSaveSwitch,
+    required this.alwaysSave,
+  });
 }

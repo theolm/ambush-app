@@ -26,10 +26,9 @@ class MainPage extends StatelessWidget {
   }
 
   void route(BuildContext context) {
-    if (_hasFinishedOnboarding.get() || true) {
+    if (_hasFinishedOnboarding.get()) {
       context.router.replace(InvoiceListRoute());
     } else {
-      //TODO: create onboarding experience
       context.router.replace(OnBoardingRoute());
     }
   }

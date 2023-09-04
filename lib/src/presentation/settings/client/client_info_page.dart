@@ -13,10 +13,11 @@ import 'client_info_viewmodel.dart';
 
 @RoutePage()
 class ClientInfoPage extends StatelessWidget {
-  ClientInfoPage({Key? key, required this.flow}) : super(key: key);
+  ClientInfoPage({Key? key, required this.flow, required this.screenConfig}) : super(key: key);
 
   final ClientInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();
+  final BasicInfoPageConfig screenConfig;
   InfoNavigationFlow? flow;
 
   @override
@@ -30,8 +31,8 @@ class ClientInfoPage extends StatelessWidget {
           onButtonPressed: () async {
             await _onNextStepClick();
           },
-          buttonText: isSettings ? "Save" : "Next step",
-          saveSwitch: !isSettings
+          buttonText: screenConfig.ctaText,
+          saveSwitch: screenConfig.showSaveSwitch
               ? SaveSwitch(
                   value: _viewModel.saveSwitch,
                   onChanged: _viewModel.onSwitchClicked,
@@ -70,7 +71,7 @@ class ClientInfoPage extends StatelessWidget {
   Future _onNextStepClick() async {
     if (_formKey.currentState!.validate()) {
       var client = _viewModel.clientInfo;
-      if (_viewModel.saveSwitch || isSettingsFlow(flow)) {
+      if (_viewModel.saveSwitch || screenConfig.alwaysSave) {
         await _viewModel.saveInfo(client);
       }
 

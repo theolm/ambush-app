@@ -14,19 +14,19 @@ import 'basic_info_viewmodel.dart';
 
 @RoutePage()
 class BasicInfoPage extends StatelessWidget {
-  BasicInfoPage({Key? key, this.flow}) : super(key: key);
+  BasicInfoPage({Key? key, this.flow, required this.screenConfig}) : super(key: key);
 
   final BasicInfoViewModel _viewModel = getIt();
+  final BasicInfoPageConfig screenConfig;
   InfoNavigationFlow? flow;
 
   @override
   Widget build(BuildContext context) {
-    final isSettings = isSettingsFlow(flow);
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Independent Contractor",
-        buttonText: isSettings ? "Save" : "Next step",
-        saveSwitch: !isSettings
+        buttonText: screenConfig.ctaText,
+        saveSwitch: screenConfig.showSaveSwitch
             ? SaveSwitch(
                 value: _viewModel.switchValue,
                 onChanged: _viewModel.onSwitchClicked,
@@ -66,7 +66,7 @@ class BasicInfoPage extends StatelessWidget {
   Future onNextStepClick() async {
     if (_viewModel.formKey.currentState!.validate()) {
       final companyInfo = _viewModel.companyInfo;
-      if (_viewModel.switchValue || isSettingsFlow(flow)) {
+      if (_viewModel.switchValue || screenConfig.alwaysSave) {
         await _viewModel.save(companyInfo);
       }
 

@@ -16,10 +16,12 @@ class ServiceInfoPage extends StatelessWidget {
   ServiceInfoPage({
     Key? key,
     this.flow,
+    required this.screenConfig,
   }) : super(key: key);
 
   final ServiceInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();
+  final BasicInfoPageConfig screenConfig;
   InfoNavigationFlow? flow;
 
   @override
@@ -32,8 +34,8 @@ class ServiceInfoPage extends StatelessWidget {
           onButtonPressed: () async {
             await _onNextClick();
           },
-          buttonText: isSettings ? "Save" : "Next step",
-          saveSwitch: !isSettings
+          buttonText: screenConfig.ctaText,
+          saveSwitch: screenConfig.showSaveSwitch
               ? SaveSwitch(
                   value: _viewModel.switchValue,
                   onChanged: _viewModel.onSwitchClicked,
@@ -112,7 +114,7 @@ class ServiceInfoPage extends StatelessWidget {
       final serviceInfo = _viewModel.getServiceInfo();
       if (serviceInfo == null) return;
 
-      if (_viewModel.switchValue || isSettingsFlow(flow)) {
+      if (_viewModel.switchValue || screenConfig.alwaysSave) {
         await _viewModel.saveInfo(serviceInfo);
       }
 
