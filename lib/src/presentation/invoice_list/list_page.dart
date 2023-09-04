@@ -30,7 +30,7 @@ class InvoiceListPage extends StatelessWidget {
         centerTitle: false,
         actions: [
           Visibility(
-            visible: false,
+            visible: true,
             child: IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {

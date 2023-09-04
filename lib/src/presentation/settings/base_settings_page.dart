@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 
-
 class BaseSettingsPage extends StatelessWidget {
   const BaseSettingsPage({
     super.key,
     required this.title,
     this.infoText,
     required this.buttonText,
-    required this.switchValue,
-    required this.onSwitchClicked,
     required this.onButtonPressed,
     required this.form,
+    this.saveSwitch,
   });
 
   final String title;
@@ -19,8 +17,7 @@ class BaseSettingsPage extends StatelessWidget {
   final Form form;
   final String buttonText;
   final VoidCallback onButtonPressed;
-  final bool? switchValue;
-  final Function(bool)? onSwitchClicked;
+  final SaveSwitch? saveSwitch;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +31,16 @@ class BaseSettingsPage extends StatelessWidget {
         children: [
           if (infoText != null) Text(infoText!),
           form,
-          if (switchValue != null) _saveInfoRow(context, switchValue!),
+          if (saveSwitch != null)
+            _saveInfoRow(context, saveSwitch!.value),
           const SizedBox(height: 36),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FilledButton(
-                  onPressed: onButtonPressed, child: Text(buttonText)),
+                onPressed: onButtonPressed,
+                child: Text(buttonText),
+              ),
             ],
           )
         ],
@@ -63,11 +63,18 @@ class BaseSettingsPage extends StatelessWidget {
             ),
             Switch(
               value: switchValue,
-              onChanged: onSwitchClicked,
+              onChanged: saveSwitch!.onChanged,
             ),
           ],
         ),
       ],
     );
   }
+}
+
+class SaveSwitch {
+  final bool value;
+  final Function(bool) onChanged;
+
+  SaveSwitch({required this.value, required this.onChanged});
 }

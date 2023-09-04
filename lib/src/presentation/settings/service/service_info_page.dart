@@ -7,6 +7,7 @@ import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
+import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
 import '../base_settings_page.dart';
 import 'service_info_viewmodel.dart';
 
@@ -23,16 +24,21 @@ class ServiceInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSettings = isSettingsFlow(flow);
     return Observer(
       builder: (context) {
         return BaseSettingsPage(
           title: "Service information",
-          buttonText: "Next step",
           onButtonPressed: () async {
             await _onNextClick();
           },
-          switchValue: _viewModel.switchValue,
-          onSwitchClicked: _viewModel.onSwitchClicked,
+          buttonText: isSettings ? "Save" : "Next step",
+          saveSwitch: !isSettings
+              ? SaveSwitch(
+                  value: _viewModel.switchValue,
+                  onChanged: _viewModel.onSwitchClicked,
+                )
+              : null,
           form: Form(
             key: _formKey,
             child: Column(
@@ -106,18 +112,17 @@ class ServiceInfoPage extends StatelessWidget {
       final serviceInfo = _viewModel.getServiceInfo();
       if (serviceInfo == null) return;
 
-      if (_viewModel.switchValue) {
+      if (_viewModel.switchValue || isSettingsFlow(flow)) {
         await _viewModel.saveInfo(serviceInfo);
       }
 
-      if(flow != null) {
-        if(flow is AddInvoiceNavigationFlow) {
-          (flow as AddInvoiceNavigationFlow).invoiceFlowData.service = serviceInfo;
+      if (flow != null) {
+        if (flow is AddInvoiceNavigationFlow) {
+          (flow as AddInvoiceNavigationFlow).invoiceFlowData.service =
+              serviceInfo;
         }
 
         flow!.onNextPress();
-      } else {
-        //TODO
       }
     }
   }

@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
+import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:invoice_app/src/presentation/settings/settings_navigation_flow.dart';
 
 import 'settings_item.dart';
 
@@ -20,33 +21,49 @@ class SettingsPage extends StatelessWidget {
           children: [
             SettingsItem(
               title: "Basic information",
-              subtitle: "Add basic information about your company",
+              subtitle: "Basic information about your company",
               onClick: () {
-                // context.router.push(BasicInfoRoute());
+                context.router.push(
+                  BasicInfoRoute(
+                    flow: SettingsNavigationFlow(context.router),
+                  ),
+                );
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),
             SettingsItem(
               title: "Bank information",
-              subtitle: "Add your bank account information",
+              subtitle: "Your bank account information",
               onClick: () {
-                // context.router.push(BankInfoRoute());
+                context.router.push(
+                  BankInfoRoute(
+                    flow: SettingsNavigationFlow(context.router),
+                  ),
+                );
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),
             SettingsItem(
               title: "Service information",
-              subtitle: "Add information about the services that you provided",
+              subtitle: "Information about the services that you provided",
               onClick: () {
-                // context.router.push(ServiceInfoRoute());
+                context.router.push(
+                  ServiceInfoRoute(
+                    flow: SettingsNavigationFlow(context.router),
+                  ),
+                );
               },
             ),
             const Divider(indent: regularMargin, endIndent: regularMargin),
             SettingsItem(
               title: "Client information",
-              subtitle: "Add information about your client",
+              subtitle: "Information about your client",
               onClick: () {
-                // context.router.push(ClientInfoRoute());
+                context.router.push(
+                  ClientInfoRoute(
+                    flow: SettingsNavigationFlow(context.router),
+                  ),
+                );
               },
             ),
           ],

@@ -22,13 +22,9 @@ class AddInvoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = context.router;
-
     return BaseSettingsPage(
       title: "New invoice",
       buttonText: "Save invoice",
-      switchValue: null,
-      onSwitchClicked: null,
       onButtonPressed: () async {
         await _onSavePressed();
       },

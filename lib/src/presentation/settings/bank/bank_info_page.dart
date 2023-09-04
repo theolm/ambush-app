@@ -6,28 +6,31 @@ import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
+import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
 
 import '../base_settings_page.dart';
 import 'bank_info_viewmodel.dart';
 
 @RoutePage()
 class BankInfoPage extends StatelessWidget {
-  BankInfoPage({
-    Key? key,
-    this.flow
-  }) : super(key: key);
+  BankInfoPage({Key? key, this.flow}) : super(key: key);
 
   final BankInfoViewModel _viewModel = getIt();
   InfoNavigationFlow? flow;
 
   @override
   Widget build(BuildContext context) {
+    final isSettings = isSettingsFlow(flow);
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Bank information",
-        buttonText: "Next step",
-        switchValue: _viewModel.switchValue,
-        onSwitchClicked: _viewModel.setSwitchValue,
+        buttonText: isSettings ? "Save" : "Next step",
+        saveSwitch: !isSettings
+            ? SaveSwitch(
+                value: _viewModel.switchValue,
+                onChanged: _viewModel.setSwitchValue,
+              )
+            : null,
         onButtonPressed: () async {
           await _onNextClicked();
         },
@@ -152,18 +155,17 @@ class BankInfoPage extends StatelessWidget {
   Future _onNextClicked() async {
     if (_viewModel.formKey.currentState!.validate()) {
       final bankInfo = _viewModel.bankInfo;
-      if (_viewModel.switchValue) {
+      if (_viewModel.switchValue || isSettingsFlow(flow)) {
         await _viewModel.saveBankInfo(bankInfo);
       }
 
-      if(flow != null) {
-        if(flow is AddInvoiceNavigationFlow) {
-          (flow as AddInvoiceNavigationFlow).invoiceFlowData.bankInfo = bankInfo;
+      if (flow != null) {
+        if (flow is AddInvoiceNavigationFlow) {
+          (flow as AddInvoiceNavigationFlow).invoiceFlowData.bankInfo =
+              bankInfo;
         }
 
         flow!.onNextPress();
-      } else {
-        //TODO
       }
     }
   }

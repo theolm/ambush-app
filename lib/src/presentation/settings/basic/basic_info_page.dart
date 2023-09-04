@@ -7,6 +7,7 @@ import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
+import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
 
 import '../base_settings_page.dart';
 import 'basic_info_viewmodel.dart';
@@ -20,12 +21,17 @@ class BasicInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSettings = isSettingsFlow(flow);
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Independent Contractor",
-        buttonText: "Next step",
-        switchValue: _viewModel.switchValue,
-        onSwitchClicked: _viewModel.onSwitchClicked,
+        buttonText: isSettings ? "Save" : "Next step",
+        saveSwitch: !isSettings
+            ? SaveSwitch(
+                value: _viewModel.switchValue,
+                onChanged: _viewModel.onSwitchClicked,
+              )
+            : null,
         onButtonPressed: () async {
           await onNextStepClick();
         },
@@ -60,7 +66,7 @@ class BasicInfoPage extends StatelessWidget {
   Future onNextStepClick() async {
     if (_viewModel.formKey.currentState!.validate()) {
       final companyInfo = _viewModel.companyInfo;
-      if (_viewModel.switchValue) {
+      if (_viewModel.switchValue || isSettingsFlow(flow)) {
         await _viewModel.save(companyInfo);
       }
 
@@ -71,8 +77,6 @@ class BasicInfoPage extends StatelessWidget {
         }
 
         flow!.onNextPress();
-      } else {
-        //TODO
       }
     }
   }
