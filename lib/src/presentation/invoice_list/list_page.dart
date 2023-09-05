@@ -21,12 +21,10 @@ class InvoiceListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Observer(builder: (context) {
-          return Text(
-            _viewModel.appTitle,
-            style: textTheme.titleLarge,
-          );
-        }),
+        title: Text(
+          "Invoice generator",
+          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        ),
         centerTitle: false,
         actions: [
           Visibility(
