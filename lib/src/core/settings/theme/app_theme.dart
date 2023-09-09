@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:invoice_app/src/core/settings/theme/text_theme.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
@@ -137,20 +136,6 @@ InputDecorationTheme get inputDecorationTheme {
   );
 }
 
-NavigationBarThemeData navigationBarThemeData(ColorScheme colorScheme) {
-  return NavigationBarThemeData(
-    backgroundColor: colorScheme.surface,
-    labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-    labelTextStyle: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return GoogleFonts.outfit().copyWith(fontWeight: FontWeight.bold);
-      } else {
-        return GoogleFonts.outfit();
-      }
-    }),
-  );
-}
-
 FloatingActionButtonThemeData floatingActionButton(ColorScheme colorScheme) {
   return FloatingActionButtonThemeData(
     backgroundColor: colorScheme.primary,
@@ -178,11 +163,6 @@ AppBarTheme appBarThemeDark(ColorScheme colorScheme) {
 
 DialogTheme get dialogTheme {
   return DialogTheme(
-    titleTextStyle: GoogleFonts.manrope(
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(24),
     ),
@@ -191,11 +171,6 @@ DialogTheme get dialogTheme {
 
 TimePickerThemeData get timePickerTheme {
   return TimePickerThemeData(
-    helpTextStyle: GoogleFonts.manrope(
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     hourMinuteShape: const CircleBorder(),
   );
@@ -232,7 +207,6 @@ ThemeData getLightTheme(ColorScheme lightColorScheme, BuildContext context) {
     textTheme: getTextTheme(false),
     scaffoldBackgroundColor: lightColorScheme.background,
     dialogBackgroundColor: lightColorScheme.background,
-    navigationBarTheme: navigationBarThemeData(lightColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
     extensions: [lightCustomColor],
@@ -254,7 +228,6 @@ ThemeData getDarkTheme(ColorScheme darkColorScheme, BuildContext context) {
     textTheme: getTextTheme(true),
     scaffoldBackgroundColor: darkColorScheme.background,
     dialogBackgroundColor: darkColorScheme.background,
-    navigationBarTheme: navigationBarThemeData(darkColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
     extensions: [darkCustomColor],
