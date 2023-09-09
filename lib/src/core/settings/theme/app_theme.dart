@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invoice_app/src/core/settings/theme/text_theme.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 import 'custom_color.dart';
@@ -127,29 +128,6 @@ extension CorePaletteMapping on CorePalette {
   }
 }
 
-ElevatedButtonThemeData elevatedButtonTheme(
-  BuildContext context,
-  ColorScheme colorScheme,
-) {
-  return ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 12,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32.0),
-      ),
-      textStyle: GoogleFonts.outfit(
-        textStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: colorScheme.onPrimary,
-        ),
-      ),
-    ),
-  );
-}
-
 InputDecorationTheme get inputDecorationTheme {
   return InputDecorationTheme(
     border: OutlineInputBorder(
@@ -251,18 +229,12 @@ ThemeData getLightTheme(ColorScheme lightColorScheme, BuildContext context) {
     timePickerTheme: timePickerTheme,
     appBarTheme: appBarThemeLight(lightColorScheme),
     useMaterial3: true,
-    textTheme: GoogleFonts.outfitTextTheme(
-      ThemeData.light().textTheme,
-    ),
+    textTheme: getTextTheme(false),
     scaffoldBackgroundColor: lightColorScheme.background,
     dialogBackgroundColor: lightColorScheme.background,
     navigationBarTheme: navigationBarThemeData(lightColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
-    elevatedButtonTheme: elevatedButtonTheme(
-      context,
-      lightColorScheme,
-    ),
     extensions: [lightCustomColor],
     dividerTheme: DividerThemeData(
       color: ThemeData.light().dividerColor,
@@ -279,18 +251,12 @@ ThemeData getDarkTheme(ColorScheme darkColorScheme, BuildContext context) {
     timePickerTheme: timePickerTheme,
     appBarTheme: appBarThemeDark(darkColorScheme),
     useMaterial3: true,
-    textTheme: GoogleFonts.outfitTextTheme(
-      ThemeData.dark().textTheme,
-    ),
+    textTheme: getTextTheme(true),
     scaffoldBackgroundColor: darkColorScheme.background,
     dialogBackgroundColor: darkColorScheme.background,
     navigationBarTheme: navigationBarThemeData(darkColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
-    elevatedButtonTheme: elevatedButtonTheme(
-      context,
-      darkColorScheme,
-    ),
     extensions: [darkCustomColor],
     dividerTheme: DividerThemeData(
       color: ThemeData.dark().dividerColor,
