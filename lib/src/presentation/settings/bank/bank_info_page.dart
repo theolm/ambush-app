@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/designsystem/switch.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
 
@@ -85,16 +86,12 @@ class BankInfoPage extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: bigBetweenFields),
-              Row(
-                children: [
-                  const Expanded(child: Text("Intermediary bank (optional)")),
-                  Switch(
-                    value: _viewModel.isIntermediaryBankEnabled,
-                    onChanged: (value) {
-                      _viewModel.setIntermediaryBankEnabled(value);
-                    },
-                  ),
-                ],
+              SwitchRow(
+                text: "Intermediary bank (optional)",
+                value: _viewModel.isIntermediaryBankEnabled,
+                onChanged: (value) {
+                  _viewModel.setIntermediaryBankEnabled(value);
+                },
               ),
               Visibility(
                 visible: _viewModel.isIntermediaryBankEnabled,
