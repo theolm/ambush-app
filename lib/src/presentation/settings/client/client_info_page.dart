@@ -27,6 +27,7 @@ class ClientInfoPage extends StatelessWidget {
       builder: (context) {
         return BaseSettingsPage(
           title: "Client information",
+          infoText: "Fill the information using the client's company data",
           key: _formKey,
           onButtonPressed: () async {
             await _onNextStepClick();
@@ -44,6 +45,7 @@ class ClientInfoPage extends StatelessWidget {
               children: [
                 InputField(
                   label: "Client name",
+                  helperText: "The name of the client's company",
                   controller: _viewModel.nameController,
                   textInputAction: TextInputAction.next,
                   validator: requiredFieldValidator,
@@ -52,6 +54,7 @@ class ClientInfoPage extends StatelessWidget {
                 const SizedBox(height: marginBetweenFields),
                 InputField(
                   label: "Client address",
+                  helperText: "The full address of the client's company",
                   controller: _viewModel.addressController,
                   textInputAction: TextInputAction.done,
                   maxLines: null,

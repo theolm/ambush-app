@@ -23,6 +23,8 @@ class BaseSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: ListView(
@@ -31,7 +33,16 @@ class BaseSettingsPage extends StatelessWidget {
           horizontal: regularMargin,
         ),
         children: [
-          if (infoText != null) Text(infoText!),
+          if (infoText != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 36),
+              child: Text(
+                infoText!,
+                style: textTheme.titleMedium?.copyWith(
+                  color: colorScheme.tertiary,
+                ),
+              ),
+            ),
           form,
           if (saveSwitch != null) _saveInfoRow(context, saveSwitch!.value),
           const SizedBox(height: 36),

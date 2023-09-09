@@ -29,6 +29,7 @@ class BankInfoPage extends StatelessWidget {
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Bank information",
+        infoText: "Fill in the form with your company's banking information",
         buttonText: screenConfig.ctaText,
         saveSwitch: screenConfig.showSaveSwitch
             ? SaveSwitch(
