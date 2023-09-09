@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class InputField extends StatelessWidget {
   const InputField({
@@ -34,6 +35,15 @@ class InputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        suffixIcon: IconButton(
+          onPressed: (){
+            controller.clear();
+          },
+          icon: SvgPicture.asset('assets/icons/ic_clear.svg'),
+        ),
       ),
       textInputAction: textInputAction,
       validator: validator,
