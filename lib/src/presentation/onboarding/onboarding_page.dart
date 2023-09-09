@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
+import 'package:invoice_app/src/designsystem/buttons.dart';
 import 'package:invoice_app/src/presentation/onboarding/onboarding_navigation_flow.dart';
 
 import 'onboarding_viewmodel.dart';
@@ -40,21 +41,21 @@ class OnBoardingPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 36),
-              FilledButton(
+              PrimaryButton(
                 onPressed: () async {
                   await _viewModel.finishOnboarding();
                   final flow = OnBoardingNavigationFlow(navigator);
                   flow.start();
                 },
-                child: const Text('Set my info'),
+                text: 'Set my info',
               ),
               const SizedBox(height: 20),
-              OutlinedButton(
+              SecondaryButton(
                 onPressed: () async {
                   await _viewModel.finishOnboarding();
                   navigator.replace(InvoiceListRoute());
                 },
-                child: const Text("I'll do it later"),
+                text: "I'll do it later",
               ),
             ],
           ),

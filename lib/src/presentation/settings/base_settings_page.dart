@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
+import 'package:invoice_app/src/designsystem/buttons.dart';
 
 class BaseSettingsPage extends StatelessWidget {
   const BaseSettingsPage({
@@ -36,9 +37,9 @@ class BaseSettingsPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FilledButton(
+              PrimaryButton(
                 onPressed: onButtonPressed,
-                child: Text(buttonText),
+                text: buttonText,
               ),
             ],
           )
