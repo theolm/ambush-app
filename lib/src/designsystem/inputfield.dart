@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class InputField extends StatelessWidget {
   const InputField({
@@ -14,10 +15,12 @@ class InputField extends StatelessWidget {
     this.keyboardType,
     this.readOnly = false,
     this.onTap,
+    this.helperText,
   });
 
   final String label;
   final String? hintText;
+  final String? helperText;
   final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -30,10 +33,22 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return TextFormField(
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText,
+        helperText: helperText,
+        helperStyle: textTheme.bodySmall,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        suffixIcon: IconButton(
+          onPressed: () {
+            controller.clear();
+          },
+          icon: SvgPicture.asset('assets/icons/ic_clear.svg'),
+        ),
       ),
       textInputAction: textInputAction,
       validator: validator,

@@ -24,6 +24,7 @@ class AddInvoicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseSettingsPage(
       title: "New invoice",
+      infoText: "Fill in the form with information about the invoice",
       buttonText: "Save invoice",
       onButtonPressed: () async {
         await _onSavePressed();
@@ -33,7 +34,8 @@ class AddInvoicePage extends StatelessWidget {
         child: Column(
           children: [
             InputField(
-              label: "Invoice ID",
+              label: "Invoice Id",
+              helperText: "Enter the a unique invoice Id",
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: _viewModel.idController,
@@ -43,6 +45,7 @@ class AddInvoicePage extends StatelessWidget {
             const SizedBox(height: marginBetweenFields),
             InputField(
               label: "Issue date",
+              helperText: "Day on which the invoice is being issued",
               controller: _viewModel.issueDateController,
               readOnly: true,
               keyboardType: TextInputType.none,
@@ -58,6 +61,7 @@ class AddInvoicePage extends StatelessWidget {
             const SizedBox(height: marginBetweenFields),
             InputField(
               label: "Due date",
+              helperText: "Final date for the invoice payment",
               controller: _viewModel.dueDateController,
               readOnly: true,
               keyboardType: TextInputType.none,

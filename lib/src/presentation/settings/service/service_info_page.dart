@@ -30,6 +30,7 @@ class ServiceInfoPage extends StatelessWidget {
       builder: (context) {
         return BaseSettingsPage(
           title: "Service information",
+          infoText: "Fill in the form with information about the service provided",
           onButtonPressed: () async {
             await _onNextClick();
           },
@@ -45,8 +46,9 @@ class ServiceInfoPage extends StatelessWidget {
             child: Column(
               children: [
                 InputField(
-                  label: "Description",
+                  label: "Job description",
                   hintText: "e.g. Software Development",
+                  helperText: "Enter the job description",
                   controller: _viewModel.descriptionController,
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -56,6 +58,7 @@ class ServiceInfoPage extends StatelessWidget {
                 InputField(
                   label: "Quantity",
                   hintText: "e.g. 1.00",
+                  helperText: "One month worked represents 1.0",
                   controller: _viewModel.quantityController,
                   validator: doubleValueValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -65,6 +68,7 @@ class ServiceInfoPage extends StatelessWidget {
                 const SizedBox(height: marginBetweenFields),
                 InputField(
                   label: "Currency",
+                  helperText: "Select the currency in which the invoice will be issued",
                   controller: _viewModel.currencyController,
                   readOnly: true,
                   validator: requiredFieldValidator,
@@ -84,6 +88,7 @@ class ServiceInfoPage extends StatelessWidget {
                 const SizedBox(height: marginBetweenFields),
                 InputField(
                   label: "Unit price",
+                  helperText: "Enter the value of a unit of work charged on the invoice",
                   hintText: "e.g. 5000.00",
                   controller: _viewModel.priceController,
                   validator: doubleValueValidator,

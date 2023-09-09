@@ -25,6 +25,7 @@ class BasicInfoPage extends StatelessWidget {
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Independent Contractor",
+        infoText: "With your contractor's information, fill the details below",
         buttonText: screenConfig.ctaText,
         saveSwitch: screenConfig.showSaveSwitch
             ? SaveSwitch(
@@ -41,6 +42,7 @@ class BasicInfoPage extends StatelessWidget {
             children: [
               InputField(
                 label: "Company name",
+                helperText: "Enter your company name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.compNameController,
                 validator: requiredFieldValidator,
@@ -49,6 +51,7 @@ class BasicInfoPage extends StatelessWidget {
               const SizedBox(height: marginBetweenFields),
               InputField(
                 label: "Company address",
+                helperText: "Enter your company address",
                 textInputAction: TextInputAction.done,
                 maxLines: null,
                 minLines: null,

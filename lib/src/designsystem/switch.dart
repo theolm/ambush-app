@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class PrimarySwitch extends StatelessWidget {
   const PrimarySwitch({
@@ -15,6 +16,9 @@ class PrimarySwitch extends StatelessWidget {
     return Switch(
       value: value,
       onChanged: onChanged,
+      activeThumbImage: const Image(
+        image: Svg('assets/icons/ic_check.svg'),
+      ).image,
     );
   }
 }

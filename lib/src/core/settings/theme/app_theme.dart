@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:invoice_app/src/core/settings/theme/text_theme.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 import 'custom_color.dart';
@@ -127,49 +127,12 @@ extension CorePaletteMapping on CorePalette {
   }
 }
 
-ElevatedButtonThemeData elevatedButtonTheme(
-  BuildContext context,
-  ColorScheme colorScheme,
-) {
-  return ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 12,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32.0),
-      ),
-      textStyle: GoogleFonts.outfit(
-        textStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: colorScheme.onPrimary,
-        ),
-      ),
-    ),
-  );
-}
-
 InputDecorationTheme get inputDecorationTheme {
   return InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
     filled: true,
-  );
-}
-
-NavigationBarThemeData navigationBarThemeData(ColorScheme colorScheme) {
-  return NavigationBarThemeData(
-    backgroundColor: colorScheme.surface,
-    labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-    labelTextStyle: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return GoogleFonts.outfit().copyWith(fontWeight: FontWeight.bold);
-      } else {
-        return GoogleFonts.outfit();
-      }
-    }),
   );
 }
 
@@ -200,11 +163,6 @@ AppBarTheme appBarThemeDark(ColorScheme colorScheme) {
 
 DialogTheme get dialogTheme {
   return DialogTheme(
-    titleTextStyle: GoogleFonts.manrope(
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(24),
     ),
@@ -213,11 +171,6 @@ DialogTheme get dialogTheme {
 
 TimePickerThemeData get timePickerTheme {
   return TimePickerThemeData(
-    helpTextStyle: GoogleFonts.manrope(
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     hourMinuteShape: const CircleBorder(),
   );
@@ -251,18 +204,11 @@ ThemeData getLightTheme(ColorScheme lightColorScheme, BuildContext context) {
     timePickerTheme: timePickerTheme,
     appBarTheme: appBarThemeLight(lightColorScheme),
     useMaterial3: true,
-    textTheme: GoogleFonts.outfitTextTheme(
-      ThemeData.light().textTheme,
-    ),
+    textTheme: getTextTheme(false),
     scaffoldBackgroundColor: lightColorScheme.background,
     dialogBackgroundColor: lightColorScheme.background,
-    navigationBarTheme: navigationBarThemeData(lightColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
-    elevatedButtonTheme: elevatedButtonTheme(
-      context,
-      lightColorScheme,
-    ),
     extensions: [lightCustomColor],
     dividerTheme: DividerThemeData(
       color: ThemeData.light().dividerColor,
@@ -279,18 +225,11 @@ ThemeData getDarkTheme(ColorScheme darkColorScheme, BuildContext context) {
     timePickerTheme: timePickerTheme,
     appBarTheme: appBarThemeDark(darkColorScheme),
     useMaterial3: true,
-    textTheme: GoogleFonts.outfitTextTheme(
-      ThemeData.dark().textTheme,
-    ),
+    textTheme: getTextTheme(true),
     scaffoldBackgroundColor: darkColorScheme.background,
     dialogBackgroundColor: darkColorScheme.background,
-    navigationBarTheme: navigationBarThemeData(darkColorScheme),
     applyElevationOverlayColor: true,
     inputDecorationTheme: inputDecorationTheme,
-    elevatedButtonTheme: elevatedButtonTheme(
-      context,
-      darkColorScheme,
-    ),
     extensions: [darkCustomColor],
     dividerTheme: DividerThemeData(
       color: ThemeData.dark().dividerColor,

@@ -18,7 +18,6 @@ dependencies:
   get_it: ^7.6.0
   injectable: ^2.1.1
   dynamic_color: ^1.6.6
-  google_fonts: ^5.1.0
   auto_route: ^7.8.0
   pdf: ^3.10.4
   path_provider: ^2.0.15
@@ -26,6 +25,8 @@ dependencies:
   hive_flutter: ^1.1.0
   share_plus: ^7.1.0
   image: ^4.0.17 # fix for the PDF package test_api 0.5.1 (0.6.1 available)
+  flutter_svg: ^2.0.7
+  flutter_svg_provider: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -40,5 +41,98 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/poppins/Poppins-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/poppins/Poppins-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/poppins/Poppins-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/poppins/Poppins-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/poppins/Poppins-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/poppins/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/poppins/Poppins-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/poppins/Poppins-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/poppins/Poppins-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/poppins/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/fonts/poppins/Poppins-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Mundial
+      fonts:
+        - asset: assets/fonts/mundial/mundial-thin-tty.otf
+          weight: 100
+        - asset: assets/fonts/mundial/mundial-thin-italic-tty.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/mundial/mundial-light-tty.otf
+          weight: 300
+        - asset: assets/fonts/mundial/mundial-light-italic-tty.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/mundial/mundial-regular-tty.otf
+          weight: 400
+        - asset: assets/fonts/mundial/mundial-regular-italic-tty.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/mundial/mundial-demibold-tty.otf
+          weight: 600
+        - asset: assets/fonts/mundial/mundial-demibold-italic-tty.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/mundial/mundial-bold-tty.otf
+          weight: 700
+        - asset: assets/fonts/mundial/mundial-bold-italic-tty.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/mundial/mundial-black-tty.otf
+          weight: 900
+        - asset: assets/fonts/mundial/mundial-black-italic-tty.otf
+          weight: 900
+          style: italic
+
   assets:
     - assets/currency.json
+    - assets/icons/
+
+#Font mapping -------------------
+#FontWeight.w100: 'Thin',
+#FontWeight.w200: 'ExtraLight',
+#FontWeight.w300: 'Light',
+#FontWeight.w400: 'Regular',
+#FontWeight.w500: 'Medium',
+#FontWeight.w600: 'SemiBold',
+#FontWeight.w700: 'Bold',
+#FontWeight.w800: 'ExtraBold',
+#FontWeight.w900: 'Black',
