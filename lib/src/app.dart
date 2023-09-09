@@ -1,8 +1,8 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
+import 'core/routes/app_route.dart';
 import 'core/settings/theme/app_theme.dart';
-import 'core/presenter/routes/app_route.dart';
 import 'core/settings/theme/colors.dart';
 import 'core/settings/theme/default_theme.dart';
 

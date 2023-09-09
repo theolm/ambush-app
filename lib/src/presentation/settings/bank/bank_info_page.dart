@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/core/utils/field_validators.dart';
+import 'package:invoice_app/src/designsystem/inputfield.dart';
+import 'package:invoice_app/src/designsystem/switch.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
 
@@ -41,42 +43,40 @@ class BankInfoPage extends StatelessWidget {
           key: _viewModel.formKey,
           child: Column(
             children: [
-              TextFormField(
-                decoration:
-                    const InputDecoration(labelText: "Beneficiary name"),
+              InputField(
+                label: "Beneficiary name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.beneficiaryNameController,
                 validator: requiredFieldValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
-              TextFormField(
-                decoration:
-                    const InputDecoration(labelText: "Account number (IBAN)"),
+              InputField(
+                label: "Account number (IBAN)",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.ibanController,
                 validator: requiredFieldValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Swift code"),
+              InputField(
+                label: "Swift code",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.swiftController,
                 validator: requiredFieldValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Bank Name"),
+              InputField(
+                label: "Bank Name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.bankNameController,
                 validator: requiredFieldValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Bank address"),
+              InputField(
+                label: "Bank address",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.bankAddressController,
                 maxLines: null,
@@ -85,51 +85,44 @@ class BankInfoPage extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: bigBetweenFields),
-              Row(
-                children: [
-                  const Expanded(child: Text("Intermediary bank (optional)")),
-                  Switch(
-                    value: _viewModel.isIntermediaryBankEnabled,
-                    onChanged: (value) {
-                      _viewModel.setIntermediaryBankEnabled(value);
-                    },
-                  ),
-                ],
+              SwitchRow(
+                text: "Intermediary bank (optional)",
+                value: _viewModel.isIntermediaryBankEnabled,
+                onChanged: (value) {
+                  _viewModel.setIntermediaryBankEnabled(value);
+                },
               ),
               Visibility(
                 visible: _viewModel.isIntermediaryBankEnabled,
                 child: Column(
                   children: [
                     const SizedBox(height: marginBetweenFields),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: "Account number (IBAN)"),
+                    InputField(
+                      label: "Account number (IBAN)",
                       textInputAction: TextInputAction.next,
                       controller: _viewModel.intIbanController,
                       validator: _validateIntBank,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     const SizedBox(height: marginBetweenFields),
-                    TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: "Swift code"),
+                    InputField(
+                      label: "Swift code",
                       textInputAction: TextInputAction.next,
                       controller: _viewModel.intSwiftController,
                       validator: _validateIntBank,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     const SizedBox(height: marginBetweenFields),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: "Bank Name"),
+                    InputField(
+                      label: "Bank Name",
                       textInputAction: TextInputAction.next,
                       controller: _viewModel.intBankNameController,
                       validator: _validateIntBank,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     const SizedBox(height: marginBetweenFields),
-                    TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: "Bank address"),
+                    InputField(
+                      label: "Bank address",
                       maxLines: null,
                       minLines: null,
                       textInputAction: TextInputAction.next,

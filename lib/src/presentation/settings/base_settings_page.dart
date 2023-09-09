@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
+import 'package:invoice_app/src/designsystem/buttons.dart';
+import 'package:invoice_app/src/designsystem/switch.dart';
 
 class BaseSettingsPage extends StatelessWidget {
   const BaseSettingsPage({
@@ -36,9 +38,9 @@ class BaseSettingsPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FilledButton(
+              PrimaryButton(
                 onPressed: onButtonPressed,
-                child: Text(buttonText),
+                text: buttonText,
               ),
             ],
           )
@@ -53,18 +55,10 @@ class BaseSettingsPage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: regularMargin),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Save the information for the next invoices",
-              style: textTheme.bodyMedium,
-            ),
-            Switch(
-              value: switchValue,
-              onChanged: saveSwitch!.onChanged,
-            ),
-          ],
+        SwitchRow(
+          text: "Save the information for the next invoices",
+          value: switchValue,
+          onChanged: saveSwitch!.onChanged,
         ),
       ],
     );

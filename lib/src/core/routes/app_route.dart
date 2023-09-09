@@ -18,6 +18,5 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: ClientInfoRoute.page),
     AutoRoute(page: AddInvoiceRoute.page),
     AutoRoute(page: OnBoardingRoute.page),
-    AutoRoute(page: InfoAlertRoute.page),
   ];
 }

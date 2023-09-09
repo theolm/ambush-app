@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/core/utils/field_validators.dart';
+import 'package:invoice_app/src/designsystem/inputfield.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
-import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
 
 import '../base_settings_page.dart';
 import 'client_info_viewmodel.dart';
 
 @RoutePage()
 class ClientInfoPage extends StatelessWidget {
-  ClientInfoPage({Key? key, required this.flow, required this.screenConfig}) : super(key: key);
+  ClientInfoPage({Key? key, required this.flow, required this.screenConfig})
+      : super(key: key);
 
   final ClientInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();
@@ -22,7 +23,6 @@ class ClientInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSettings = isSettingsFlow(flow);
     return Observer(
       builder: (context) {
         return BaseSettingsPage(
@@ -42,23 +42,22 @@ class ClientInfoPage extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                TextFormField(
-                  decoration: const InputDecoration(labelText: "Client name"),
+                InputField(
+                  label: "Client name",
+                  controller: _viewModel.nameController,
                   textInputAction: TextInputAction.next,
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _viewModel.nameController,
                 ),
                 const SizedBox(height: marginBetweenFields),
-                TextFormField(
-                  decoration:
-                      const InputDecoration(labelText: "Client address"),
+                InputField(
+                  label: "Client address",
+                  controller: _viewModel.addressController,
                   textInputAction: TextInputAction.done,
                   maxLines: null,
                   minLines: null,
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: _viewModel.addressController,
                 ),
               ],
             ),

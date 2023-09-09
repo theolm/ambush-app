@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/currency_picker.dart';
-import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/designsystem/currency_picker.dart';
+import 'package:invoice_app/src/core/utils/field_validators.dart';
+import 'package:invoice_app/src/designsystem/inputfield.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
-import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
 import '../base_settings_page.dart';
 import 'service_info_viewmodel.dart';
 
@@ -26,7 +26,6 @@ class ServiceInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSettings = isSettingsFlow(flow);
     return Observer(
       builder: (context) {
         return BaseSettingsPage(
@@ -45,38 +44,32 @@ class ServiceInfoPage extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Description",
-                    hintText: "e.g. Software Development",
-                  ),
+                InputField(
+                  label: "Description",
+                  hintText: "e.g. Software Development",
+                  controller: _viewModel.descriptionController,
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   textInputAction: TextInputAction.next,
-                  controller: _viewModel.descriptionController,
                 ),
                 const SizedBox(height: marginBetweenFields),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Quantity",
-                    hintText: "e.g. 1.00",
-                  ),
+                InputField(
+                  label: "Quantity",
+                  hintText: "e.g. 1.00",
+                  controller: _viewModel.quantityController,
                   validator: doubleValueValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
-                  controller: _viewModel.quantityController,
                 ),
                 const SizedBox(height: marginBetweenFields),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Currency",
-                  ),
+                InputField(
+                  label: "Currency",
+                  controller: _viewModel.currencyController,
                   readOnly: true,
                   validator: requiredFieldValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.none,
-                  controller: _viewModel.currencyController,
                   onTap: () async {
                     var selected = await selectCurrency(
                       context,
@@ -89,16 +82,14 @@ class ServiceInfoPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: marginBetweenFields),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Unit price",
-                    hintText: "e.g. 5000.00",
-                  ),
+                InputField(
+                  label: "Unit price",
+                  hintText: "e.g. 5000.00",
+                  controller: _viewModel.priceController,
                   validator: doubleValueValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
-                  controller: _viewModel.priceController,
                 ),
                 const SizedBox(height: marginBetweenFields),
               ],

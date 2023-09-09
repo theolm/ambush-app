@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/date_picker.dart';
-import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
-import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
+import 'package:invoice_app/src/core/utils/date_picker.dart';
+import 'package:invoice_app/src/core/utils/field_validators.dart';
+import 'package:invoice_app/src/designsystem/inputfield.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
 
@@ -32,8 +32,8 @@ class AddInvoicePage extends StatelessWidget {
         key: _viewModel.formKey,
         child: Column(
           children: [
-            TextFormField(
-              decoration: const InputDecoration(labelText: "Invoice ID"),
+            InputField(
+              label: "Invoice ID",
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: _viewModel.idController,
@@ -41,11 +41,9 @@ class AddInvoicePage extends StatelessWidget {
               validator: requiredFieldValidator,
             ),
             const SizedBox(height: marginBetweenFields),
-            TextFormField(
+            InputField(
+              label: "Issue date",
               controller: _viewModel.issueDateController,
-              decoration: const InputDecoration(
-                labelText: "Issue date",
-              ),
               readOnly: true,
               keyboardType: TextInputType.none,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -58,11 +56,9 @@ class AddInvoicePage extends StatelessWidget {
               validator: requiredFieldValidator,
             ),
             const SizedBox(height: marginBetweenFields),
-            TextFormField(
+            InputField(
+              label: "Due date",
               controller: _viewModel.dueDateController,
-              decoration: const InputDecoration(
-                labelText: "Due date",
-              ),
               readOnly: true,
               keyboardType: TextInputType.none,
               autovalidateMode: AutovalidateMode.onUserInteraction,
