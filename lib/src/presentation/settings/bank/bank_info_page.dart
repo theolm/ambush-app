@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/core/utils/field_validators.dart';
 import 'package:invoice_app/src/designsystem/inputfield.dart';
 import 'package:invoice_app/src/designsystem/switch.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
