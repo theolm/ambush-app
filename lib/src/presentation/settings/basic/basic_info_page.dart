@@ -5,6 +5,7 @@ import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/presenter/routes/app_route.gr.dart';
 import 'package:invoice_app/src/core/settings/const.dart';
 import 'package:invoice_app/src/core/presenter/components/field_validators.dart';
+import 'package:invoice_app/src/designsystem/inputfield.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
 import 'package:invoice_app/src/presentation/utils/flow_utils.dart';
@@ -14,7 +15,8 @@ import 'basic_info_viewmodel.dart';
 
 @RoutePage()
 class BasicInfoPage extends StatelessWidget {
-  BasicInfoPage({Key? key, this.flow, required this.screenConfig}) : super(key: key);
+  BasicInfoPage({Key? key, this.flow, required this.screenConfig})
+      : super(key: key);
 
   final BasicInfoViewModel _viewModel = getIt();
   final BasicInfoPageConfig screenConfig;
@@ -39,16 +41,16 @@ class BasicInfoPage extends StatelessWidget {
           key: _viewModel.formKey,
           child: Column(
             children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Company name"),
+              InputField(
+                label: "Company name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.compNameController,
                 validator: requiredFieldValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Company address"),
+              InputField(
+                label: "Company address",
                 textInputAction: TextInputAction.done,
                 maxLines: null,
                 minLines: null,
