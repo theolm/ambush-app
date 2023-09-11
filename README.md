@@ -6,3 +6,7 @@ App stack:
 - DI system using getIt + injectable
 - Auto route
 - Pre-defined theme using dynamic colors
+
+[//]: # (flutter pub run build_runner build)
+
+[//]: # (flutter pub run build_runner watch)
