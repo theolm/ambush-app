@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:invoice_app/src/data/repositories/pdf_widgets.dart';
 import 'package:invoice_app/src/domain/models/invoice.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -9,6 +10,8 @@ abstract class IPdfTemplateRepo {
 
 @Injectable(as: IPdfTemplateRepo)
 class PdfTemplateRepo implements IPdfTemplateRepo {
+  final PdfWidgets _pdfWidgets = PdfWidgets();
+
   @override
   pw.Document getDocument(Invoice invoice) {
     final pdf = pw.Document();
@@ -16,7 +19,25 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return _getPage(invoice);
+          return pw.Column(
+            children: [
+              _getFirstRow(invoice),
+              pw.SizedBox(height: 16),
+              _getSecondRow(invoice),
+              pw.SizedBox(height: 50),
+              _getServiceRow(invoice),
+              pw.SizedBox(height: 16),
+              _getTotalAmountRow(invoice),
+              pw.SizedBox(height: 30),
+              pw.Divider(color: PdfColors.grey400, thickness: 1),
+              pw.SizedBox(height: 30),
+              _getBankRow(invoice),
+              if (invoice.bankInfo.intermediary != null) ...[
+                pw.SizedBox(height: 4),
+                _getIntermediaryBankRow(invoice),
+              ],
+            ],
+          );
         },
       ),
     ); // Page
@@ -24,272 +45,143 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
     return pdf;
   }
 
-  pw.Container _getPage(Invoice invoice) {
-    return pw.Container(
-      padding: const pw.EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-      child: pw.Column(
-        mainAxisAlignment: pw.MainAxisAlignment.start,
+  pw.Widget _getFirstRow(Invoice invoice) => pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          pw.Row(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Flexible(
-                child:
-                _getHeader(invoice.clientInfo.name),
-                flex: 1,
-              ),
-              pw.Flexible(
-                child: pw.Container(
-                  width: double.infinity,
-                  child: pw.Text(
-                    "Invoice #${invoice.id}",
-                    style: const pw.TextStyle(fontSize: 20),
-                    textAlign: pw.TextAlign.right,
-                  ),
-                ),
-                flex: 1,
-              ),
-            ],
-          ),
-          pw.Container(height: 16),
-          _getDate(invoice.issueDate.toString(), invoice.dueDate.toString()),
-          pw.Container(height: 16),
-           pw.Divider(),
-          pw.Container(height: 16),
-          _getBill("Bill from:", invoice.companyInfo.name, invoice.companyInfo.address),
-          pw.Container(height: 16),
-          _getBill("Bill to:", invoice.clientInfo.name, invoice.clientInfo.address),
-          pw.Container(height: 16),
-          pw.Row(
-            children: [
-              pw.Text("Services",
-                  style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold)),
-              pw.Spacer(),
-              pw.Text("Amount",
-                  style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold)),
-            ],
-          ),
-          pw.Divider(),
-          pw.Container(height: 8),
-          _service(
-              "Other services",
-              invoice.service.description,
-              "${invoice.service.currency} ${invoice.service.getFormattedTotalPrice()}"),
-          pw.Container(height: 8),
-          pw.Divider(),
-          pw.Container(height: 16),
-          _getTotal("${invoice.service.currency} ${invoice.service.getFormattedTotalPrice()}"),
-          pw.Container(height: 32),
-          _bankInfo(invoice),
-        ],
-      ),
-    );
-  }
-
-  pw.Column _getHeader(String name) {
-    return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.start,
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text(name, style: const pw.TextStyle(fontSize: 20)),
-        // pw.Text("CNPJ: $cnpj", style: const pw.TextStyle(fontSize: 12)),
-      ],
-    );
-  }
-
-  pw.Column _getDate(String creation, String due) {
-    return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.start,
-      crossAxisAlignment: pw.CrossAxisAlignment.end,
-      children: [
-        pw.Row(
-          mainAxisAlignment: pw.MainAxisAlignment.end,
-          children: [
-            pw.Text(
-              "Creation date:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Container(width: 4),
-            pw.Text(
-              creation,
-              style: const pw.TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-        pw.Row(
-          mainAxisAlignment: pw.MainAxisAlignment.end,
-          children: [
-            pw.Text(
-              "Due date:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Container(width: 4),
-            pw.Text(
-              due,
-              style: const pw.TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  pw.Column _getBill(
-    String header,
-    String from,
-    String address,
-  ) {
-    return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.start,
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text(
-          header,
-          style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-        ),
-        pw.Text(
-          from, //,
-          style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-        ),
-        pw.Row(children: [
           pw.Flexible(
-            child: pw.Container(
-              width: double.infinity,
-              child: pw.Text(
-                address, //,
-                style: pw.TextStyle(
-                    fontSize: 12, fontWeight: pw.FontWeight.normal),
-              ),
+            child: _pdfWidgets.getTitle(invoice),
+          ),
+          pw.Flexible(
+            child: _pdfWidgets.getCompanyBlock(
+              "From",
+              invoice.companyInfo.name,
+              invoice.companyInfo.address,
             ),
           ),
-          pw.Flexible(child: pw.Container(width: double.infinity)),
-        ]),
-      ],
-    );
-  }
+        ],
+      );
 
-  pw.Column _service(String service, String description, String amount) {
-    return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.start,
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text(
-          service,
-          style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.normal),
+  pw.Widget _getSecondRow(Invoice invoice) => pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Flexible(
+            child: _pdfWidgets.getDatesBlock(invoice),
+          ),
+          pw.Flexible(
+            child: _pdfWidgets.getCompanyBlock(
+              "Invoice For",
+              invoice.clientInfo.name,
+              invoice.clientInfo.address,
+            ),
+          ),
+        ],
+      );
+
+  pw.Widget _getTotalAmountRow(Invoice invoice) => pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.end,
+        children: [
+          pw.Text(
+            "Amount Due: ",
+            style: pw.TextStyle(
+              fontSize: 12,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(width: 20),
+          pw.Text(
+            "${invoice.service.currency.symbol} ${_getTotalPrice(invoice).toStringAsFixed(2)}",
+            style: pw.TextStyle(
+              fontSize: 12,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+        ],
+      );
+
+  pw.Widget _getServiceRow(Invoice invoice) => pw.Table(
+        border: const pw.TableBorder(
+          horizontalInside: pw.BorderSide(
+            color: PdfColors.grey400,
+            width: .5,
+          ),
+          verticalInside: pw.BorderSide(
+            color: PdfColors.grey400,
+            width: .5,
+          ),
         ),
-        pw.Row(
-          children: [
-            pw.Flexible(
-              child: pw.Text(
-                description,
-                style: pw.TextStyle(
-                    fontSize: 12, fontWeight: pw.FontWeight.normal),
+        children: [
+          pw.TableRow(
+            children: [
+              _pdfWidgets.getServiceLabel("Service Description"),
+              _pdfWidgets.getServiceLabel("Quantity"),
+              _pdfWidgets.getServiceLabel("Unit Price"),
+              _pdfWidgets.getServiceLabel("Amount"),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              _pdfWidgets.getServiceText(
+                invoice.service.description,
               ),
-            ),
-            pw.Container(width: 4),
-            pw.Text(
-              amount,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+              _pdfWidgets.getServiceText(
+                invoice.service.quantity.toStringAsFixed(1),
+              ),
+              _pdfWidgets.getServiceText(
+                "${invoice.service.currency.symbol} ${invoice.service.price.toStringAsFixed(2)}",
+              ),
+              _pdfWidgets.getServiceText(
+                "${invoice.service.currency.symbol} ${_getTotalPrice(invoice).toStringAsFixed(2)}",
+              ),
+            ],
+          ),
+        ],
+      );
 
-  pw.Container _getTotal(String amount) {
-    return pw.Container(
-      width: double.infinity,
-      padding: const pw.EdgeInsets.all(16),
-      decoration: pw.BoxDecoration(
-          color: PdfColor.fromHex("#FF0000"),
-          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(16))),
-      alignment: pw.Alignment.centerRight,
-      child: pw.Text(
-        amount,
-        style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-      ),
-    );
-  }
+  double _getTotalPrice(Invoice invoice) =>
+      invoice.service.price * invoice.service.quantity;
 
-  pw.Column _bankInfo(Invoice invoice) {
-    return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.start,
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text(
-          "Pay to banking details below:",
-          style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-        ),
-        pw.Container(height: 8),
-        pw.Row(
-          children: [
-            pw.Text(
-              "Beneficiary name:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
+  pw.Widget _getBankRow(Invoice invoice) => pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        mainAxisAlignment: pw.MainAxisAlignment.start,
+        children: [
+          pw.Text(
+            "Pay to banking details below:",
+            style: pw.TextStyle(
+              fontSize: 8,
+              fontWeight: pw.FontWeight.bold,
             ),
-            pw.Text(
-              invoice.bankInfo.beneficiaryName,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-        pw.Row(
-          children: [
-            pw.Text(
-              "Beneficiary Account Number (IBAN):",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Text(
-              invoice.bankInfo.main.iban,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-        pw.Row(
-          children: [
-            pw.Text(
-              "SWIFT Code:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Text(
-              invoice.bankInfo.main.swift,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-        pw.Row(
-          children: [
-            pw.Text(
-              "Bank Name:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Text(
-              invoice.bankInfo.main.bankName,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-        pw.Row(
-          children: [
-            pw.Text(
-              "Bank Address:",
-              style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
-            ),
-            pw.Text(
-              invoice.bankInfo.main.bankAddress,
-              style:
-                  pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.normal),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+          ),
+          pw.SizedBox(height: 4),
+          _pdfWidgets.getBankRow(
+              "Beneficiary name:", invoice.bankInfo.beneficiaryName),
+          _pdfWidgets.getBankRow(
+              "Beneficiary Account Number (IBAN):", invoice.bankInfo.main.iban),
+          _pdfWidgets.getBankRow("SWIFT Code:", invoice.bankInfo.main.swift),
+          _pdfWidgets.getBankRow("Bank Name:", invoice.bankInfo.main.bankName),
+          _pdfWidgets.getBankRow(
+              "Bank Address:", invoice.bankInfo.main.bankAddress),
+        ],
+      );
+
+  pw.Widget _getIntermediaryBankRow(Invoice invoice) => pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        mainAxisAlignment: pw.MainAxisAlignment.start,
+        children: [
+          pw.Text(
+            "Intermediary bank details:",
+            style: const pw.TextStyle(fontSize: 8),
+          ),
+          pw.SizedBox(height: 4),
+          _pdfWidgets.getBankRow(
+              "Account Number:", invoice.bankInfo.intermediary!.iban),
+          _pdfWidgets.getBankRow(
+              "SWIFT Code:", invoice.bankInfo.intermediary!.swift),
+          _pdfWidgets.getBankRow(
+              "Bank Name:", invoice.bankInfo.intermediary!.bankName),
+          _pdfWidgets.getBankRow(
+              "Bank Address:", invoice.bankInfo.intermediary!.bankAddress),
+        ],
+      );
 }
