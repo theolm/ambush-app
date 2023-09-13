@@ -27,6 +27,7 @@ dependencies:
   image: ^4.0.17 # fix for the PDF package test_api 0.5.1 (0.6.1 available)
   flutter_svg: ^2.0.7
   flutter_svg_provider: ^1.0.6
+  open_file: ^3.3.2
 
 dev_dependencies:
   flutter_test:
