@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:invoice_app/src/domain/models/invoice.dart';
@@ -29,7 +30,7 @@ class PdfWidgets {
             children: [
               getLabel("Issue Date"),
               pw.Text(
-                "31/12/2003",
+                _formatDate(DateTime.fromMillisecondsSinceEpoch(invoice.issueDate)),
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.normal,
                   fontSize: 10,
@@ -42,7 +43,7 @@ class PdfWidgets {
             children: [
               getLabel("Due Date"),
               pw.Text(
-                "31/12/2003",
+                _formatDate(DateTime.fromMillisecondsSinceEpoch(invoice.dueDate)),
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.normal,
                   fontSize: 10,
@@ -130,4 +131,6 @@ class PdfWidgets {
           )
         ],
       );
+
+  String _formatDate(DateTime date) => DateFormat('dd/MM/yyyy').format(date);
 }
