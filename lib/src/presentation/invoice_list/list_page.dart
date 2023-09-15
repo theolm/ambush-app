@@ -5,6 +5,7 @@ import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/routes/app_route.gr.dart';
 import 'package:invoice_app/src/domain/models/invoice.dart';
 import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
+import 'package:invoice_app/src/presentation/utils/share_invoice.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 
 import 'empty_list.dart';
@@ -86,7 +87,6 @@ class ListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-
     return ListView.separated(
       itemCount: invoiceList.length + 1,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
@@ -108,7 +108,12 @@ class ListBody extends StatelessWidget {
         index -= 1;
 
         var invoice = invoiceList[index];
-        return InvoiceListItem(invoice: invoice);
+        return InvoiceListItem(
+          invoice: invoice,
+          onCardClick: () async {
+            await getIt<IShareInvoice>().share(invoice);
+          },
+        );
       },
     );
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -9,10 +8,8 @@ import 'package:invoice_app/src/domain/models/invoice.dart';
 import 'package:invoice_app/src/domain/models/service_info.dart';
 import 'package:invoice_app/src/domain/usecases/get_next_id.dart';
 import 'package:invoice_app/src/domain/usecases/save_invoice.dart';
-import 'package:invoice_app/src/domain/usecases/generate_invoice.dart';
+import 'package:invoice_app/src/presentation/utils/share_invoice.dart';
 import 'package:mobx/mobx.dart';
-import 'package:share_plus/share_plus.dart';
-import 'dart:io' show Platform;
 
 part 'add_invoice_viewmodel.g.dart';
 
@@ -21,20 +18,20 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     with _$AddInvoiceViewModel {
   AddInvoiceViewModel(
     super._saveInvoice,
-    super._generateInvoiceUseCase,
     super._getNextId,
+    super._shareInvoice,
   );
 }
 
 abstract class _AddInvoiceViewModelBase with Store {
   final ISaveInvoice _saveInvoice;
-  final IGenerateInvoiceUseCase _generateInvoiceUseCase;
   final IGetNextId _getNextId;
+  final IShareInvoice _shareInvoice;
 
   _AddInvoiceViewModelBase(
     this._saveInvoice,
-    this._generateInvoiceUseCase,
     this._getNextId,
+    this._shareInvoice,
   ) {
     var nextId = _getNextId.get();
     if (nextId != null) {
@@ -88,18 +85,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
   Future<bool> saveInvoice(Invoice invoice) async {
     await _saveInvoice.save(invoice);
-    var pdf = await _generateInvoiceUseCase.createAndSavePDF(invoice);
-
-    if (kDebugMode) {
-      print(pdf.path);
-    }
-
-    if (Platform.isAndroid || Platform.isIOS) {
-      await Share.shareXFiles([XFile(pdf.path)]);
-    } else {
-      //TODO: show dialog with save with success
-    }
-
+    await _shareInvoice.share(invoice);
     return true;
   }
 
