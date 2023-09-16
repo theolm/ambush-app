@@ -1,5 +1,5 @@
 name: invoice_app
-description: Invoice generator
+description: The easy way to create and manage invoices on your mobile device.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1

@@ -76,19 +76,19 @@ TextTheme getTextTheme(bool isDarkTheme) {
       fontSize: 16,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.5,
-      fontFamily: 'Mundial',
+      fontFamily: 'Poppins',
     ),
     bodyMedium: theme.bodyMedium!.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.25,
-      fontFamily: 'Mundial',
+      fontFamily: 'Poppins',
     ),
     bodySmall: theme.bodySmall!.copyWith(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.24,
-      fontFamily: 'Mundial',
+      fontFamily: 'Poppins',
     ),
   );
 }
