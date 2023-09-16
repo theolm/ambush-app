@@ -34,6 +34,8 @@ abstract class ILocalDataSource {
 
   bool getInfoAlertStatus();
 
+  Future<void> deleteInvoice(Invoice invoice);
+
   Future<void> saveClientInfo(HiveClientInfo value);
 
   Future<void> saveCompanyInfo(HiveCompanyInfo value);
@@ -121,6 +123,19 @@ class LocalDataSource implements ILocalDataSource {
       _keyInvoiceList,
       HiveInvoiceList(
         hiveList.map((e) => HiveInvoice.fromInvoice(e)).toList(),
+      ),
+    );
+  }
+
+  @override
+  Future deleteInvoice(Invoice invoice) async {
+    var list = getInvoiceList();
+    list.removeWhere((element) => element.id == invoice.id);
+
+    return _appBox.put(
+      _keyInvoiceList,
+      HiveInvoiceList(
+        list.map((e) => HiveInvoice.fromInvoice(e)).toList(),
       ),
     );
   }

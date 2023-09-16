@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:invoice_app/src/domain/usecases/delete_invoice.dart';
 import 'package:invoice_app/src/domain/usecases/get_invoice_list.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,14 +9,16 @@ part 'list_page_viewmodel.g.dart';
 @injectable
 class ListPageViewModel extends _ListPageViewModelBase
     with _$ListPageViewModel {
-  ListPageViewModel(super._getInvoiceList);
+  ListPageViewModel(super._getInvoiceList, super._deleteInvoice,);
 }
 
 abstract class _ListPageViewModelBase with Store {
   final IGetInvoiceList _getInvoiceList;
+  final IDeleteInvoice _deleteInvoice;
 
   _ListPageViewModelBase(
     this._getInvoiceList,
+    this._deleteInvoice,
   ) {
     // Get initial value
     updateList(_getInvoiceList.get());
@@ -37,6 +40,11 @@ abstract class _ListPageViewModelBase with Store {
     invoiceList.clear();
     invoiceList
         .addAll(list..sort((a, b) => -a.createdAt.compareTo(b.createdAt)));
+  }
+
+  @action
+  Future deleteInvoice(Invoice invoice) async {
+    await _deleteInvoice.delete(invoice);
   }
 
   void _observeChanges() {

@@ -5,6 +5,7 @@ import 'package:invoice_app/src/core/di/di.dart';
 import 'package:invoice_app/src/core/routes/app_route.gr.dart';
 import 'package:invoice_app/src/domain/models/invoice.dart';
 import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
+import 'package:invoice_app/src/presentation/invoice_list/invoice_dialogs.dart';
 import 'package:invoice_app/src/presentation/utils/share_invoice.dart';
 import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 
@@ -20,8 +21,6 @@ class InvoiceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -62,7 +61,12 @@ class InvoiceListPage extends StatelessWidget {
             },
           );
         } else {
-          return ListBody(invoiceList: _viewModel.invoiceList);
+          return ListBody(
+            invoiceList: _viewModel.invoiceList,
+            onDelete: (invoice) async {
+              await _viewModel.deleteInvoice(invoice);
+            },
+          );
         }
       }),
     );
@@ -79,9 +83,14 @@ class InvoiceListPage extends StatelessWidget {
 }
 
 class ListBody extends StatelessWidget {
-  const ListBody({super.key, required this.invoiceList});
+  const ListBody({
+    super.key,
+    required this.invoiceList,
+    required this.onDelete,
+  });
 
   final List<Invoice> invoiceList;
+  final Function(Invoice) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +120,23 @@ class ListBody extends StatelessWidget {
         return InvoiceListItem(
           invoice: invoice,
           onCardClick: () async {
-            await getIt<IShareInvoice>().share(invoice);
+            final action = await showDialog<InvoiceActions>(
+              context: context,
+              builder: (_) => InvoiceOptions(invoice: invoice),
+            );
+
+            if (action == InvoiceActions.share) {
+              getIt<IShareInvoice>().share(invoice);
+            }
+            if (action == InvoiceActions.delete) {
+              final result = await showDialog(
+                context: context,
+                builder: (_) => const DeleteDialog(),
+              );
+              if (result == true) {
+                onDelete(invoice);
+              }
+            }
           },
         );
       },
