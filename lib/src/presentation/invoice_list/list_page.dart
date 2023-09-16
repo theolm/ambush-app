@@ -24,7 +24,7 @@ class InvoiceListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Invoice generator",
+          "InvoiceGen",
           style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,

@@ -1,11 +1,11 @@
 {
-    "name": "template_flutter",
-    "short_name": "template_flutter",
+    "name": "InvoiceGen",
+    "short_name": "invoice_gen",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "The easy way to create and manage invoices on your mobile device.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

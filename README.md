@@ -1,4 +1,4 @@
-# Invoice Generator
+# InvoiceGen
 
 App stack:
 - MobX state management
