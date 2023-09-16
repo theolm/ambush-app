@@ -8,6 +8,8 @@ abstract class IInvoiceRepository {
 
   Future<void> saveInvoice(Invoice value);
 
+  Future<void> deleteInvoice(Invoice invoice);
+
   Stream<List<Invoice>> observe();
 }
 
@@ -25,4 +27,7 @@ class InvoiceRepository implements IInvoiceRepository {
 
   @override
   Stream<List<Invoice>> observe() => _source.observeInvoiceList();
+
+  @override
+  Future<void> deleteInvoice(Invoice invoice) => _source.deleteInvoice(invoice);
 }
