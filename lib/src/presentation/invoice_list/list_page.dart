@@ -8,6 +8,7 @@ import 'package:ambush_app/src/domain/models/invoice_flow_data.dart';
 import 'package:ambush_app/src/presentation/invoice_list/invoice_dialogs.dart';
 import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
 import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'empty_list.dart';
 import 'invoice_list_item.dart';
@@ -23,9 +24,9 @@ class InvoiceListPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Ambush",
-          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        title: SvgPicture.asset(
+            'assets/extended_logo.svg',
+            semanticsLabel: 'Ambush logo'
         ),
         centerTitle: false,
         actions: [

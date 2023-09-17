@@ -124,6 +124,7 @@ flutter:
           style: italic
 
   assets:
+    - assets/extended_logo.svg
     - assets/currency.json
     - assets/icons/
 
