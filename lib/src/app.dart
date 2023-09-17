@@ -32,7 +32,7 @@ class App extends StatelessWidget {
         return MaterialApp.router(
           title: 'Ambush',
           routerConfig: _appRouter.config(),
-          theme: getLightTheme(lightColorScheme, context),
+          theme: getLightTheme(defaultLightScheme, context),
           darkTheme: getDarkTheme(darkColorScheme, context),
         );
       },
