@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:invoice_app/src/core/settings/theme/text_theme.dart';
+import 'package:ambush_app/src/core/settings/theme/text_theme.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 import 'custom_color.dart';

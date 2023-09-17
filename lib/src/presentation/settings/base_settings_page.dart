@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/designsystem/buttons.dart';
-import 'package:invoice_app/src/designsystem/switch.dart';
+import 'package:ambush_app/src/core/settings/const.dart';
+import 'package:ambush_app/src/designsystem/buttons.dart';
+import 'package:ambush_app/src/designsystem/switch.dart';
 
 class BaseSettingsPage extends StatelessWidget {
   const BaseSettingsPage({

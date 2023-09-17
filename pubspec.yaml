@@ -1,4 +1,4 @@
-name: invoice_app
+name: ambush_app
 description: The easy way to create and manage invoices on your mobile device.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

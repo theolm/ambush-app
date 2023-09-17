@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/routes/app_route.gr.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
+import 'package:ambush_app/src/core/routes/app_route.gr.dart';
+import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
-import 'package:invoice_app/src/presentation/settings/settings_navigation_flow.dart';
+import 'package:ambush_app/src/presentation/settings/base_settings_page.dart';
+import 'package:ambush_app/src/presentation/settings/settings_navigation_flow.dart';
 
 import 'settings_item.dart';
 

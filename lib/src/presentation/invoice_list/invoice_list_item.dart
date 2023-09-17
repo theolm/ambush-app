@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 
 class InvoiceListItem extends StatelessWidget {
   const InvoiceListItem({

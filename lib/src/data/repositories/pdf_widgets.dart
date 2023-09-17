@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 
 class PdfWidgets {
   pw.Widget getTitle(Invoice invoice) => pw.Text(

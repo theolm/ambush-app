@@ -1,4 +1,4 @@
-package com.theolm.invoice_app
+package com.theolm.ambush_app
 
 import io.flutter.embedding.android.FlutterActivity
 

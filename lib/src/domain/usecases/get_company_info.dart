@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/company_repository.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
+import 'package:ambush_app/src/data/repositories/company_repository.dart';
+import 'package:ambush_app/src/domain/models/comp_info.dart';
 
 abstract class IGetCompanyInfo {
   CompanyInfo? get();

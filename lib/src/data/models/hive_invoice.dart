@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/domain/models/bank_info.dart';
-import 'package:invoice_app/src/domain/models/client_info.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
-import 'package:invoice_app/src/domain/models/service_info.dart';
+import 'package:ambush_app/src/domain/models/bank_info.dart';
+import 'package:ambush_app/src/domain/models/client_info.dart';
+import 'package:ambush_app/src/domain/models/comp_info.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/service_info.dart';
 
 import 'hive_bank_info.dart';
 import 'hive_client_info.dart';

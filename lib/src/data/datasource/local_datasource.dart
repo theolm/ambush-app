@@ -1,12 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:invoice_app/src/data/models/hive_client_info.dart';
-import 'package:invoice_app/src/data/models/hive_company_info.dart';
-import 'package:invoice_app/src/data/models/hive_bank_info.dart';
-import 'package:invoice_app/src/data/models/hive_invoice.dart';
-import 'package:invoice_app/src/data/models/hive_invoice_list.dart';
-import 'package:invoice_app/src/data/models/hive_service_info.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/data/models/hive_client_info.dart';
+import 'package:ambush_app/src/data/models/hive_company_info.dart';
+import 'package:ambush_app/src/data/models/hive_bank_info.dart';
+import 'package:ambush_app/src/data/models/hive_invoice.dart';
+import 'package:ambush_app/src/data/models/hive_invoice_list.dart';
+import 'package:ambush_app/src/data/models/hive_service_info.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 
 const _appBoxName = 'AppBox';
 const _keyCompanyInfo = 'companyInfo';

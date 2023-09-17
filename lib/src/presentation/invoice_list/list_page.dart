@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:invoice_app/src/core/di/di.dart';
-import 'package:invoice_app/src/core/routes/app_route.gr.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
-import 'package:invoice_app/src/domain/models/invoice_flow_data.dart';
-import 'package:invoice_app/src/presentation/invoice_list/invoice_dialogs.dart';
-import 'package:invoice_app/src/presentation/utils/share_invoice.dart';
-import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
+import 'package:ambush_app/src/core/di/di.dart';
+import 'package:ambush_app/src/core/routes/app_route.gr.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/invoice_flow_data.dart';
+import 'package:ambush_app/src/presentation/invoice_list/invoice_dialogs.dart';
+import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
+import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 
 import 'empty_list.dart';
 import 'invoice_list_item.dart';
@@ -24,7 +24,7 @@ class InvoiceListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "InvoiceGen",
+          "Ambush",
           style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,

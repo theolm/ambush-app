@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/info_alert_repository.dart';
+import 'package:ambush_app/src/data/repositories/info_alert_repository.dart';
 
 abstract class ISaveInfoAlertStatus {
   Future save(bool value);

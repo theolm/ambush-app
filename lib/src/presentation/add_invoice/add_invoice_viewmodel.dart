@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
-import 'package:invoice_app/src/domain/models/bank_info.dart';
-import 'package:invoice_app/src/domain/models/client_info.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
-import 'package:invoice_app/src/domain/models/service_info.dart';
-import 'package:invoice_app/src/domain/usecases/get_next_id.dart';
-import 'package:invoice_app/src/domain/usecases/save_invoice.dart';
-import 'package:invoice_app/src/presentation/utils/share_invoice.dart';
+import 'package:ambush_app/src/domain/models/bank_info.dart';
+import 'package:ambush_app/src/domain/models/client_info.dart';
+import 'package:ambush_app/src/domain/models/comp_info.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/service_info.dart';
+import 'package:ambush_app/src/domain/usecases/get_next_id.dart';
+import 'package:ambush_app/src/domain/usecases/save_invoice.dart';
+import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
 import 'package:mobx/mobx.dart';
 
 part 'add_invoice_viewmodel.g.dart';

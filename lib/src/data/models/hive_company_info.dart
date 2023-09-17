@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
+import 'package:ambush_app/src/domain/models/comp_info.dart';
 
 part 'hive_company_info.g.dart';
 

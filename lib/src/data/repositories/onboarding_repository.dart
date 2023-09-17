@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/datasource/local_datasource.dart';
+import 'package:ambush_app/src/data/datasource/local_datasource.dart';
 
 abstract class IOnboardingRepository {
   bool hasFinishedOnboarding();
