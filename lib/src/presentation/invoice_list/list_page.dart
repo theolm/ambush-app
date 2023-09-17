@@ -21,12 +21,13 @@ class InvoiceListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: SvgPicture.asset(
-            'assets/extended_logo.svg',
-            semanticsLabel: 'Ambush logo'
+          'assets/extended_logo.svg',
+          semanticsLabel: 'Ambush logo',
+          colorFilter: ColorFilter.mode(colorScheme.primary, BlendMode.srcIn),
         ),
         centerTitle: false,
         actions: [
