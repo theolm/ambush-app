@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:invoice_app/src/domain/models/bank.dart';
-import 'package:invoice_app/src/domain/models/bank_info.dart';
+import 'package:ambush_app/src/domain/models/bank.dart';
+import 'package:ambush_app/src/domain/models/bank_info.dart';
 
 part 'hive_bank_info.g.dart';
 

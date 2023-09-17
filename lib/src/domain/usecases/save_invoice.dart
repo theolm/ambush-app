@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/invoice_repository.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/data/repositories/invoice_repository.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 
 abstract class ISaveInvoice {
   Future<void> save(Invoice value);

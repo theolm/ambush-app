@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/pdf_template_repo.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/data/repositories/pdf_template_repo.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart';
 

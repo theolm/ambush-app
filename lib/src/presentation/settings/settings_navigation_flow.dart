@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:invoice_app/src/presentation/settings/info_navigation_flow.dart';
+import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 
 class SettingsNavigationFlow implements InfoNavigationFlow {
   final StackRouter _router;

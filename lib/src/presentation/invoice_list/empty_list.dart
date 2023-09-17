@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/designsystem/buttons.dart';
+import 'package:ambush_app/src/core/settings/const.dart';
+import 'package:ambush_app/src/designsystem/buttons.dart';
 
 class EmptyList extends StatelessWidget {
   const EmptyList({super.key, required this.onAddClick});

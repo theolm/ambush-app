@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
-import 'package:invoice_app/src/domain/usecases/generate_invoice.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/usecases/generate_invoice.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:universal_html/html.dart' as webFile;

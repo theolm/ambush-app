@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/onboarding_repository.dart';
+import 'package:ambush_app/src/data/repositories/onboarding_repository.dart';
 
 abstract class IFinishedOnboarding {
   bool get();

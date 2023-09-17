@@ -1,6 +1,6 @@
 {
-    "name": "InvoiceGen",
-    "short_name": "invoice_gen",
+    "name": "Ambush",
+    "short_name": "ambush_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

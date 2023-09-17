@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/domain/models/client_info.dart';
-import 'package:invoice_app/src/domain/models/comp_info.dart';
-import 'package:invoice_app/src/domain/usecases/get_company_info.dart';
-import 'package:invoice_app/src/domain/usecases/save_company_info.dart';
+import 'package:ambush_app/src/domain/models/client_info.dart';
+import 'package:ambush_app/src/domain/models/comp_info.dart';
+import 'package:ambush_app/src/domain/usecases/get_company_info.dart';
+import 'package:ambush_app/src/domain/usecases/save_company_info.dart';
 import 'package:mobx/mobx.dart';
 
 part 'basic_info_viewmodel.g.dart';

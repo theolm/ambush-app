@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           );
         }
         return MaterialApp.router(
-          title: 'InvoiceGen',
+          title: 'Ambush',
           routerConfig: _appRouter.config(),
           theme: getLightTheme(lightColorScheme, context),
           darkTheme: getDarkTheme(darkColorScheme, context),

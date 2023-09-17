@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/settings/theme/colors.dart';
+import 'package:ambush_app/src/core/settings/theme/colors.dart';
 
 const defaultLightScheme = ColorScheme.light(
   primary: primaryLight,

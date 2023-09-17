@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/data/repositories/invoice_repository.dart';
+import 'package:ambush_app/src/data/repositories/invoice_repository.dart';
 import 'dart:math';
 
 abstract class IGetNextId {

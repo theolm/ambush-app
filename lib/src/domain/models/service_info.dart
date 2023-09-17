@@ -1,4 +1,4 @@
-import 'package:invoice_app/src/domain/models/currency.dart';
+import 'package:ambush_app/src/domain/models/currency.dart';
 
 class ServiceInfo {
   final String description;

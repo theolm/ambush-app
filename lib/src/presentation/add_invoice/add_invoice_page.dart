@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/core/di/di.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/core/utils/date_picker.dart';
-import 'package:invoice_app/src/core/utils/field_validators.dart';
-import 'package:invoice_app/src/designsystem/inputfield.dart';
-import 'package:invoice_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
-import 'package:invoice_app/src/presentation/settings/base_settings_page.dart';
+import 'package:ambush_app/src/core/di/di.dart';
+import 'package:ambush_app/src/core/settings/const.dart';
+import 'package:ambush_app/src/core/utils/date_picker.dart';
+import 'package:ambush_app/src/core/utils/field_validators.dart';
+import 'package:ambush_app/src/designsystem/inputfield.dart';
+import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
+import 'package:ambush_app/src/presentation/settings/base_settings_page.dart';
 
 import 'add_invoice_viewmodel.dart';
 

@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:invoice_app/src/domain/usecases/set_onboarding_status.dart';
+import 'package:ambush_app/src/domain/usecases/set_onboarding_status.dart';
 import 'package:mobx/mobx.dart';
 
 

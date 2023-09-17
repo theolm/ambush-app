@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:invoice_app/src/core/settings/const.dart';
-import 'package:invoice_app/src/domain/models/currency.dart';
+import 'package:ambush_app/src/core/settings/const.dart';
+import 'package:ambush_app/src/domain/models/currency.dart';
 
 
 Future<List<Currency>> getCurrencyList() async {

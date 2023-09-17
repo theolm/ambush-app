@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_app/src/domain/models/invoice.dart';
+import 'package:ambush_app/src/domain/models/invoice.dart';
 
 class InvoiceOptions extends StatelessWidget {
   const InvoiceOptions({super.key, required this.invoice});

@@ -1,4 +1,4 @@
-import 'package:invoice_app/src/domain/models/bank.dart';
+import 'package:ambush_app/src/domain/models/bank.dart';
 
 class BankInfo {
   final String beneficiaryName;
