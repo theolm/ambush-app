@@ -1,3 +1,5 @@
+import 'package:ambush_app/src/core/di/di.dart';
+import 'package:ambush_app/src/domain/usecases/get_client_info.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ambush_app/src/core/routes/app_route.gr.dart';
 import 'package:ambush_app/src/domain/models/invoice_flow_data.dart';
@@ -7,6 +9,7 @@ import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   final StackRouter _router;
   final InvoiceFlowData invoiceFlowData;
+  final IGetClientInfo _getClientInfo = getIt();
 
   final _pageConfig = BasicInfoPageConfig(
     ctaText: 'Next step',
@@ -17,7 +20,9 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   AddInvoiceNavigationFlow(
     this._router,
     this.invoiceFlowData,
-  );
+  ) {
+    invoiceFlowData.clientInfo = _getClientInfo.get();
+  }
 
   @override
   void onBackPress() {
@@ -33,14 +38,6 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   void onNextPress() {
     final currentRoute = _router.current.name;
     switch (currentRoute) {
-      case ClientInfoRoute.name:
-        _router.push(
-          BasicInfoRoute(
-            flow: this,
-            screenConfig: _pageConfig,
-          ),
-        );
-        break;
       case BasicInfoRoute.name:
         _router.push(
           BankInfoRoute(
@@ -68,7 +65,7 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
   @override
   void start() {
     _router.push(
-      ClientInfoRoute(
+      BasicInfoRoute(
         flow: this,
         screenConfig: _pageConfig,
       ),

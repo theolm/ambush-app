@@ -28,14 +28,6 @@ class OnBoardingNavigationFlow implements InfoNavigationFlow {
   void onNextPress() {
     final currentRoute = _router.current.name;
     switch (currentRoute) {
-      case ClientInfoRoute.name:
-        _router.push(
-          BasicInfoRoute(
-            flow: this,
-            screenConfig: _pageConfig,
-          ),
-        );
-        break;
       case BasicInfoRoute.name:
         _router.push(
           BankInfoRoute(
@@ -61,7 +53,7 @@ class OnBoardingNavigationFlow implements InfoNavigationFlow {
   @override
   void start() {
     _router.replace(
-      ClientInfoRoute(
+      BasicInfoRoute(
         flow: this,
         screenConfig: _pageConfig,
       ),

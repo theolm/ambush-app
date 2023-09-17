@@ -64,19 +64,6 @@ class SettingsPage extends StatelessWidget {
                 );
               },
             ),
-            const Divider(indent: regularMargin, endIndent: regularMargin),
-            SettingsItem(
-              title: "Client information",
-              subtitle: "Information about your client",
-              onClick: () {
-                context.router.push(
-                  ClientInfoRoute(
-                    flow: SettingsNavigationFlow(context.router),
-                    screenConfig: _pageConfig,
-                  ),
-                );
-              },
-            ),
           ],
         );
       }),

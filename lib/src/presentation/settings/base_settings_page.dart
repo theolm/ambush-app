@@ -61,13 +61,11 @@ class BaseSettingsPage extends StatelessWidget {
   }
 
   Widget _saveInfoRow(BuildContext context, bool switchValue) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Column(
       children: [
         const SizedBox(height: regularMargin),
         SwitchRow(
-          text: "Save the information for the next invoices",
+          text: "Save the information for future use",
           value: switchValue,
           onChanged: saveSwitch!.onChanged,
         ),
