@@ -50,3 +50,12 @@ jobs:
         env:
           ALIAS: ${{ secrets.KEY_ALIAS }}
           PASS: ${{ secrets.KEY_PASS }}
+
+      - name: Release
+        uses: docker://antonyurchenko/git-release:v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: |
+            build/app/outputs/apk/release/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
