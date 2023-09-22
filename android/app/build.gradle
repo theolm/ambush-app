@@ -60,10 +60,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("$rootDir/keystore/keystore.jks")
-            storePassword System.getenv("SIGNING_STORE_PASSWORD") ?: keystoreProperties['keyPassword']
-            keyAlias System.getenv("SIGNING_KEY_ALIAS") ?: keystoreProperties['keyAlias']
-            keyPassword System.getenv("SIGNING_KEY_PASSWORD") ?: keystoreProperties['keyPassword']
+            storeFile file("../keystore/keystore.jks")
+            keyAlias System.getenv('ALIAS') ?: keystoreProperties['keyAlias']
+            storePassword System.getenv('PASS') ?: keystoreProperties['keyPassword']
+            keyPassword System.getenv('PASS') ?: keystoreProperties['keyPassword']
         }
     }
 

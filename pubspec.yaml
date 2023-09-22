@@ -2,7 +2,7 @@ name: invoice_app
 description: The easy way to create and manage invoices on your mobile device.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 0.0.1+1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
