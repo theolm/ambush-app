@@ -26,7 +26,7 @@ jobs:
       - name: Fetch keystore properties
         run: echo ${{ secrets.KET_PROPERTIES }} > android/keystore/key.properties
 
-      - run: cat android/keystore/key.properties
+      - run: echo "$(<android/keystore/key.properties)"
 
       - name: Install Java
         uses: actions/setup-java@v2
