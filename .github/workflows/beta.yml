@@ -23,17 +23,6 @@ jobs:
           fileDir: 'android/keystore/'
           encodedString: ${{ secrets.KEYSTORE }}
 
-      - name: Create key.properties
-        env:
-          ALIAS: ${{ secrets.KEY_ALIAS }}
-          PASS: ${{ secrets.KEY_PASS }}
-        run: |
-          echo keyAlias=$ALIAS >> android/keystore/key.properties
-          echo keyPassword=$PASS >> android/keystore/key.properties
-          cat android/keystore/key.properties
-
-      - run: ls -la android/keystore
-
       - name: Install Java
         uses: actions/setup-java@v2
         with:
@@ -50,14 +39,14 @@ jobs:
       - run: flutter pub get
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
 
-      - run: ls -la android/keystore
       # - run: flutter test
-      - run: flutter build appbundle --release
-      - uses: actions/upload-artifact@v3
-        with:
-          path: build/app/outputs/bundle/release/app-release.aab
+      - name: Build AAR
+        env:
+          ALIAS: ${{ secrets.KEY_ALIAS }}
+          PASS: ${{ secrets.KEY_PASS }}
+        run: flutter build appbundle --release
 
       - run: flutter build apk --release
-      - uses: actions/upload-artifact@v3
-        with:
-          path: build/app/outputs/apk/release/app-release.apk
+        env:
+          ALIAS: ${{ secrets.KEY_ALIAS }}
+          PASS: ${{ secrets.KEY_PASS }}
