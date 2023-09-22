@@ -23,6 +23,11 @@ jobs:
           fileDir: 'android/keystore/'
           encodedString: ${{ secrets.KEYSTORE }}
 
+      - name: Key properties
+        run: echo $KEY_PROPERTIES >> android/keystore/key.properties
+
+      - run: ls -la android/keystore
+
       - name: Install Java
         uses: actions/setup-java@v2
         with:
