@@ -1,12 +1,11 @@
-name: Beta Workflow
+name: Release Workflow
 
 on:
   push:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
-      - "v[0-9]+.[0-9]+.[0-9]+-beta"
 jobs:
-  beta:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
