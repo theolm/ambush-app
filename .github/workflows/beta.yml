@@ -38,6 +38,8 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
+      - run: ls -la android/keystore
       # - run: flutter test
       - run: flutter build appbundle --release
       - uses: actions/upload-artifact@v3
