@@ -39,4 +39,12 @@ jobs:
       - run: flutter pub get
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
       # - run: flutter test
-      - run: flutter build aab --release
+      - run: flutter build appbundle --release
+      - uses: actions/upload-artifact@v3
+        with:
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v3
+        with:
+          path: build/app/outputs/apk/release/app-release.apk
