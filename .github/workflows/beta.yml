@@ -10,10 +10,6 @@ jobs:
   beta:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.SIGNING_STORE_PASSWORD }}
-      - run: echo ${{ secrets.SIGNING_KEY_ALIAS }}
-      - run: echo ${{ secrets.SIGNING_KEY_PASSWORD }}
-
       - name: Checkout code
         uses: actions/checkout@v3
 
