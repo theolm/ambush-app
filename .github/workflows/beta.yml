@@ -50,6 +50,11 @@ jobs:
           ALIAS: ${{ secrets.KEY_ALIAS }}
           PASS: ${{ secrets.KEY_PASS }}
 
+      - run: flutter build web --release
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r pwa.zip build/web
+
       - name: Release
         uses: docker://antonyurchenko/git-release:v5
         env:
@@ -58,3 +63,4 @@ jobs:
           args: |
             build/app/outputs/apk/release/app-release.apk
             build/app/outputs/bundle/release/app-release.aab
+            pwa.zip
