@@ -25,4 +25,4 @@ jobs:
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
       # - run: flutter test
       - run: flutter build apk
-      - run: flutter build ios
+      - run: flutter build web
