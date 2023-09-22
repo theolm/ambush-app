@@ -23,8 +23,14 @@ jobs:
           fileDir: 'android/keystore/'
           encodedString: ${{ secrets.KEYSTORE }}
 
-      - name: Key properties
-        run: echo $KEY_PROPERTIES >> android/keystore/key.properties
+      - name: Create key.properties
+        env:
+          ALIAS: ${{ secrets.KEY_ALIAS }}
+          PASS: ${{ secrets.KEY_PASS }}
+        run: |
+          echo keyAlias=$ALIAS >> android/keystore/key.properties
+          echo keyPassword=$PASS >> android/keystore/key.properties
+          cat android/keystore/key.properties
 
       - run: ls -la android/keystore
 
