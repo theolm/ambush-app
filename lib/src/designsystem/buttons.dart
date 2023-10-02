@@ -32,6 +32,13 @@ class SecondaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+      style: ButtonStyle(
+        side: MaterialStateProperty.all(
+          BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      ),
       onPressed: onPressed,
       child: Text(text),
     );

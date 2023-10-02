@@ -1,3 +1,4 @@
+import 'package:ambush_app/src/domain/models/ambush_info.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ambush_app/src/domain/models/currency.dart';
@@ -21,7 +22,6 @@ abstract class _ServiceInfoViewModelBase with Store {
   _ServiceInfoViewModelBase(this._getServiceInfo, this._saveServiceInfo) {
     var initialInfo = _getServiceInfo.get();
     if (initialInfo != null) {
-      selectedCurrency = initialInfo.currency;
       currencyController.text = initialInfo.currency.cc;
       descriptionController.text = initialInfo.description;
       quantityController.text = initialInfo.quantity.toString();
@@ -29,7 +29,6 @@ abstract class _ServiceInfoViewModelBase with Store {
     }
   }
 
-  Currency? selectedCurrency;
   final descriptionController = TextEditingController();
   final quantityController = TextEditingController();
   final currencyController = TextEditingController();
@@ -47,7 +46,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     var quantity = double.tryParse(quantityController.text);
     var price = double.tryParse(priceController.text);
 
-    if (quantity == null || price == null || selectedCurrency == null) {
+    if (quantity == null || price == null) {
       //Treat error
       return null;
     }
@@ -55,7 +54,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     return ServiceInfo(
       descriptionController.text,
       quantity,
-      selectedCurrency!,
+      defaultCurrency,
       price,
     );
   }

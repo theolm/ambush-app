@@ -39,7 +39,7 @@ class BaseSettingsPage extends StatelessWidget {
               child: Text(
                 infoText!,
                 style: textTheme.titleMedium?.copyWith(
-                  color: colorScheme.tertiary,
+                  color: colorScheme.primary,
                 ),
               ),
             ),

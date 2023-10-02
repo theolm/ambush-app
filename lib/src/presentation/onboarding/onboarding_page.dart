@@ -31,13 +31,13 @@ class OnBoardingPage extends StatelessWidget {
               Text(
                 'Do you want to set your information now?',
                 style: textTheme.headlineSmall?.copyWith(
-                    color: colors.tertiary, fontWeight: FontWeight.bold),
+                    color: colors.primary, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
                 'It may speed up your invoice generation.',
-                style: textTheme.bodyMedium?.copyWith(color: colors.tertiary),
+                style: textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 36),
