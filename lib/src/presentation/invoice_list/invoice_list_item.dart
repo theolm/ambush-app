@@ -17,12 +17,11 @@ class InvoiceListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(8);
-    final colorTheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Card(
-      elevation: 0,
-      color: colorTheme.surfaceVariant,
+      elevation: 1,
+      shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
       child: InkWell(
         borderRadius: borderRadius,
@@ -33,25 +32,30 @@ class InvoiceListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Invoice ${invoice.id}',
-                style: textTheme.titleLarge,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Invoice ${invoice.id}',
+                    style: textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const Icon(Icons.arrow_right),
+                ],
               ),
               const SizedBox(height: 8),
-              Text('To: ${invoice.clientInfo.name}'),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Issued: ${formatDate(invoice.issueDate)}'),
+              Text(
+                'To: ${invoice.clientInfo.name}',
+                style: textTheme.bodyMedium,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Due: ${formatDate(invoice.dueDate)}'),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  '${invoice.service.currency.symbol} ${invoice.service.getFormattedTotalPrice()}',
-                  style: textTheme.titleLarge,
+              Text('Issued: ${formatDate(invoice.issueDate)}', style: textTheme.bodyMedium,),
+              Text('Due: ${formatDate(invoice.dueDate)}', style: textTheme.bodyMedium,),
+              Text(
+                '${invoice.service.currency.symbol} ${invoice.service.getFormattedTotalPrice()}',
+                style: textTheme.bodyMedium!.copyWith(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
