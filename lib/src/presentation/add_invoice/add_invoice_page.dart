@@ -54,6 +54,7 @@ class AddInvoicePage extends StatelessWidget {
                 var date = await selectDate(context, null);
                 if (date != null) {
                   _viewModel.updateIssueDate(date);
+                  _viewModel.updateDueDateWithNet15(date);
                 }
               },
               validator: requiredFieldValidator,

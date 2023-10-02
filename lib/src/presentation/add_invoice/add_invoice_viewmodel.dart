@@ -57,6 +57,11 @@ abstract class _AddInvoiceViewModelBase with Store {
     dueDateController.text = _formatDate(date);
   }
 
+  void updateDueDateWithNet15(DateTime date) {
+    _dueDate = date.add(const Duration(days: 15));
+    dueDateController.text = _formatDate(_dueDate!);
+  }
+
   bool validateForm() => formKey.currentState!.validate();
 
   Invoice? getInvoice(
