@@ -49,8 +49,14 @@ class InvoiceListItem extends StatelessWidget {
                 'To: ${invoice.clientInfo.name}',
                 style: textTheme.bodyMedium,
               ),
-              Text('Issued: ${formatDate(invoice.issueDate)}', style: textTheme.bodyMedium,),
-              Text('Due: ${formatDate(invoice.dueDate)}', style: textTheme.bodyMedium,),
+              Text(
+                'Issued: ${formatDate(invoice.issueDate)}',
+                style: textTheme.bodyMedium,
+              ),
+              Text(
+                'Due: ${formatDate(invoice.dueDate)}',
+                style: textTheme.bodyMedium,
+              ),
               Text(
                 '${invoice.service.currency.symbol} ${invoice.service.getFormattedTotalPrice()}',
                 style: textTheme.bodyMedium!.copyWith(
