@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ambush_app/src/core/di/di.dart';
 import 'package:ambush_app/src/core/settings/const.dart';
-import 'package:ambush_app/src/designsystem/currency_picker.dart';
 import 'package:ambush_app/src/core/utils/field_validators.dart';
 import 'package:ambush_app/src/designsystem/inputfield.dart';
 import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
@@ -64,26 +63,6 @@ class ServiceInfoPage extends StatelessWidget {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
-                ),
-                const SizedBox(height: marginBetweenFields),
-                InputField(
-                  label: "Currency",
-                  helperText: "Select the currency in which the invoice will be issued",
-                  controller: _viewModel.currencyController,
-                  readOnly: true,
-                  validator: requiredFieldValidator,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  keyboardType: TextInputType.none,
-                  onTap: () async {
-                    var selected = await selectCurrency(
-                      context,
-                      await getCurrencyList(),
-                      _viewModel.selectedCurrency?.cc,
-                    );
-                    if (selected != null) {
-                      _viewModel.setSelectedCurrency(selected);
-                    }
-                  },
                 ),
                 const SizedBox(height: marginBetweenFields),
                 InputField(

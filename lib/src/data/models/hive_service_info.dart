@@ -1,5 +1,5 @@
+import 'package:ambush_app/src/domain/models/ambush_info.dart';
 import 'package:hive/hive.dart';
-import 'package:ambush_app/src/domain/models/currency.dart';
 import 'package:ambush_app/src/domain/models/service_info.dart';
 
 part 'hive_service_info.g.dart';
@@ -33,11 +33,10 @@ class HiveServiceInfo extends HiveObject {
     this.price,
   );
 
-  //TODO: create mappers
   ServiceInfo toServiceInfo() => ServiceInfo(
         description,
         quantity,
-        Currency(currencyName, currencyCC, currencySymbol),
+        defaultCurrency,
         price,
       );
 

@@ -43,11 +43,6 @@ abstract class _ServiceInfoViewModelBase with Store {
     switchValue = value;
   }
 
-  void setSelectedCurrency(Currency selected) {
-    selectedCurrency = selected;
-    currencyController.text = selected.cc;
-  }
-
   ServiceInfo? getServiceInfo() {
     var quantity = double.tryParse(quantityController.text);
     var price = double.tryParse(priceController.text);
