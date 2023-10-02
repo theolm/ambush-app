@@ -46,10 +46,6 @@ class InvoiceListItem extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'To: ${invoice.clientInfo.name}',
-                style: textTheme.bodyMedium,
-              ),
-              Text(
                 'Issued: ${formatDate(invoice.issueDate)}',
                 style: textTheme.bodyMedium,
               ),
