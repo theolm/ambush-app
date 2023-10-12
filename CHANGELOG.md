@@ -5,6 +5,7 @@
 - Splash screen and icons added to all platforms
 - Net 15 added in the invoice generation
 - USD used as default (and unique) currency
+- Small UI fixes
 
 
 ## [0.0.1] - 2023-09-22
