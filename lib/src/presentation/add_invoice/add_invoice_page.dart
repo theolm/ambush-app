@@ -78,7 +78,8 @@ class AddInvoicePage extends StatelessWidget {
                   return 'Please inform a date';
                 }
 
-                if (!_viewModel.isDueDateValid()) {
+                if (_viewModel.issueDateController.text.isNotEmpty &&
+                    !_viewModel.isDueDateValid()) {
                   return "The due date cannot be before the issue date";
                 }
                 return null;
