@@ -5,7 +5,7 @@ import 'package:ambush_app/src/domain/models/client_info.dart';
 import '../datasource/local_datasource.dart';
 
 abstract class IClientRepository {
-  ClientInfo? getClientInfo();
+  ClientInfo getClientInfo();
   Future<void> saveClientInfo(ClientInfo value);
 }
 
@@ -16,7 +16,7 @@ class ClientRepository implements IClientRepository {
   ClientRepository(this._source);
 
   @override
-  ClientInfo? getClientInfo() => _source.getClientInfo()?.toClientInfo();
+  ClientInfo getClientInfo() => _source.getClientInfo().toClientInfo();
 
   @override
   Future<void> saveClientInfo(ClientInfo value) =>

@@ -8,6 +8,8 @@ import 'package:ambush_app/src/data/models/hive_invoice_list.dart';
 import 'package:ambush_app/src/data/models/hive_service_info.dart';
 import 'package:ambush_app/src/domain/models/invoice.dart';
 
+import '../../domain/models/ambush_info.dart';
+
 const _appBoxName = 'AppBox';
 const _keyCompanyInfo = 'companyInfo';
 const _keyBankInfo = 'bankInfo';
@@ -26,7 +28,7 @@ abstract class ILocalDataSource {
 
   HiveServiceInfo? getServiceInfo();
 
-  HiveClientInfo? getClientInfo();
+  HiveClientInfo getClientInfo();
 
   List<Invoice> getInvoiceList();
 
@@ -84,7 +86,7 @@ class LocalDataSource implements ILocalDataSource {
   HiveServiceInfo? getServiceInfo() => _appBox.get(_keyServiceInfo);
 
   @override
-  HiveClientInfo? getClientInfo() => _appBox.get(_keyClientInfo);
+  HiveClientInfo getClientInfo() => HiveClientInfo(ambushName, ambushAddress);
 
   @override
   bool getInfoAlertStatus() =>
