@@ -3,7 +3,7 @@ import 'package:ambush_app/src/domain/models/invoice.dart';
 import 'package:ambush_app/src/domain/usecases/generate_invoice.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:universal_html/html.dart' as webFile;
+import 'package:universal_html/html.dart' as web_file;
 
 abstract class IShareInvoice {
   Future<void> share(Invoice invoice);
@@ -21,9 +21,9 @@ class ShareInvoice implements IShareInvoice {
 
     if (kIsWeb) {
       final bytes = await pdf.save() ;
-      var blob = webFile.Blob([bytes], 'application/pdf', 'native');
-      webFile.AnchorElement(
-        href: webFile.Url.createObjectUrlFromBlob(blob).toString(),
+      var blob = web_file.Blob([bytes], 'application/pdf', 'native');
+      web_file.AnchorElement(
+        href: web_file.Url.createObjectUrlFromBlob(blob).toString(),
       )..setAttribute("download", "invoice.pdf")..click();
     } else {
       final file = await _generateInvoiceUseCase.savePdf(invoice, pdf);

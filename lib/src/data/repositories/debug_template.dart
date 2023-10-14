@@ -44,8 +44,8 @@ class DebugPdf {
           _getBill("Bill to:", "AMBUSH CONSULTING LLC",
               "7421 Burnet Rd. Suite 276 Austin, TX 78757"),
           Container(height: 16),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text("Services",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
               Spacer(),
@@ -201,8 +201,8 @@ class DebugPdf {
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
         Container(height: 8),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Text(
               "Beneficiary name:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -213,8 +213,8 @@ class DebugPdf {
             ),
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Text(
               "Beneficiary Account Number (IBAN):",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -225,8 +225,8 @@ class DebugPdf {
             ),
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Text(
               "SWIFT Code:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -237,8 +237,8 @@ class DebugPdf {
             ),
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Text(
               "Bank Name:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -249,8 +249,8 @@ class DebugPdf {
             ),
           ],
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Text(
               "Bank Address:",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

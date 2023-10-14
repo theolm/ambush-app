@@ -14,7 +14,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _pageConfig = BasicInfoPageConfig(
+    final pageConfig = BasicInfoPageConfig(
       ctaText: 'Save',
       showSaveSwitch: false,
       alwaysSave: true,
@@ -33,7 +33,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   BasicInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
-                    screenConfig: _pageConfig,
+                    screenConfig: pageConfig,
                   ),
                 );
               },
@@ -46,7 +46,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   BankInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
-                    screenConfig: _pageConfig,
+                    screenConfig: pageConfig,
                   ),
                 );
               },
@@ -59,7 +59,7 @@ class SettingsPage extends StatelessWidget {
                 context.router.push(
                   ServiceInfoRoute(
                     flow: SettingsNavigationFlow(context.router),
-                    screenConfig: _pageConfig,
+                    screenConfig: pageConfig,
                   ),
                 );
               },

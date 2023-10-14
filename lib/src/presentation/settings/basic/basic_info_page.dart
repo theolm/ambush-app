@@ -18,7 +18,7 @@ class BasicInfoPage extends StatelessWidget {
 
   final BasicInfoViewModel _viewModel = getIt();
   final BasicInfoPageConfig screenConfig;
-  InfoNavigationFlow? flow;
+  final InfoNavigationFlow? flow;
 
   @override
   Widget build(BuildContext context) {

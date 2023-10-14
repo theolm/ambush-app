@@ -20,10 +20,8 @@ abstract class _ClientInfoViewModelBase with Store {
   _ClientInfoViewModelBase(this._getClientInfo, this._saveClientInfo) {
     var initialData = _getClientInfo.get();
 
-    if (initialData != null) {
-      nameController.text = initialData.name;
-      addressController.text = initialData.address;
-    }
+    nameController.text = initialData.name;
+    addressController.text = initialData.address;
   }
 
 

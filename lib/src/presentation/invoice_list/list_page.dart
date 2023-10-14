@@ -131,17 +131,22 @@ class ListBody extends StatelessWidget {
               getIt<IShareInvoice>().share(invoice);
             }
             if (action == InvoiceActions.delete) {
-              final result = await showDialog(
-                context: context,
-                builder: (_) => const DeleteDialog(),
-              );
-              if (result == true) {
-                onDelete(invoice);
-              }
+              if (!context.mounted) return;
+              showDeleteDialog(context, invoice);
             }
           },
         );
       },
     );
+  }
+
+  Future showDeleteDialog(BuildContext context, Invoice invoice) async {
+    final result = await showDialog(
+      context: context,
+      builder: (_) => const DeleteDialog(),
+    );
+    if (result == true) {
+      onDelete(invoice);
+    }
   }
 }

@@ -18,7 +18,7 @@ class AddInvoicePage extends StatelessWidget {
   }) : super(key: key);
 
   final AddInvoiceViewModel _viewModel = getIt();
-  AddInvoiceNavigationFlow flow;
+  final AddInvoiceNavigationFlow flow;
 
   @override
   Widget build(BuildContext context) {

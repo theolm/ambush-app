@@ -1,7 +1,6 @@
 import 'package:ambush_app/src/domain/models/ambush_info.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:ambush_app/src/domain/models/currency.dart';
 import 'package:ambush_app/src/domain/usecases/get_service_info.dart';
 import 'package:ambush_app/src/domain/usecases/save_service_info.dart';
 import 'package:ambush_app/src/domain/models/service_info.dart';
