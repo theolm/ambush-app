@@ -17,13 +17,10 @@ class App extends StatelessWidget {
 
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
-        ColorScheme lightColorScheme;
         ColorScheme darkColorScheme;
         if (lightDynamic != null && darkDynamic != null) {
-          lightColorScheme = lightDynamic.harmonized();
           darkColorScheme = darkDynamic.harmonized();
         } else {
-          lightColorScheme = defaultLightScheme;
           darkColorScheme = ColorScheme.fromSeed(
             seedColor: primaryLight,
             brightness: Brightness.dark,

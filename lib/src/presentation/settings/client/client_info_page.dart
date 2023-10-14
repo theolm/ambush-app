@@ -19,7 +19,7 @@ class ClientInfoPage extends StatelessWidget {
   final ClientInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();
   final BasicInfoPageConfig screenConfig;
-  InfoNavigationFlow? flow;
+  final InfoNavigationFlow? flow;
 
   @override
   Widget build(BuildContext context) {
