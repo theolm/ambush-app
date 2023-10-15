@@ -24,12 +24,12 @@ The following behaviors are considered unacceptable and will not be tolerated in
 
 ## Reporting and Enforcement
 
-If you witness or experience behavior that violates this Code of Conduct, please report it by contacting the project maintainers at [theolm.mota@gmail.com]. All reports will be kept confidential.
+If you witness or experience behavior that violates this Code of Conduct, please report it by contacting the project maintainers at theolm.mota@gmail.com. All reports will be kept confidential.
 
 Maintainers are responsible for investigating and addressing violations. We will take appropriate actions to address reported incidents, which may include warnings, temporary suspensions, or permanent bans. Our priority is to ensure a safe and respectful environment for all community members.
 
 ## Attribution
 
-This Code of Conduct is adapted from the Contributor Covenant, version 2.0, available at [https://www.contributor-covenant.org/version/2/0/code_of_conduct.html]. For any questions or concerns, please contact [theolm.mota@gmail.com].
+This Code of Conduct is adapted from the Contributor Covenant, version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html. For any questions or concerns, please contact theolm.mota@gmail.com.
 
 Thank you for contributing to Ambush - Invoice Generator
