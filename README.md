@@ -1,3 +1,5 @@
+![Ambush - Invoice Generator](images/banner.jpeg)
+
 # Ambush - Invoice Generator
 
 The app is a versatile invoice generator application designed specifically for Ambush employees to streamline the invoicing process. Create, manage, and send invoices effortlessly with this user-friendly tool.
