@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InputField extends StatelessWidget {
@@ -16,6 +17,7 @@ class InputField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.helperText,
+    this.inputFormatters,
   });
 
   final String label;
@@ -30,6 +32,7 @@ class InputField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool readOnly;
   final VoidCallback? onTap;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class InputField extends StatelessWidget {
       keyboardType: keyboardType,
       readOnly: readOnly,
       onTap: onTap,
+      inputFormatters: inputFormatters,
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 import '../base_settings_page.dart';
 import 'service_info_viewmodel.dart';
 
+
 @RoutePage()
 class ServiceInfoPage extends StatelessWidget {
   ServiceInfoPage({
@@ -59,10 +60,20 @@ class ServiceInfoPage extends StatelessWidget {
                   hintText: "e.g. 1.00",
                   helperText: "One month worked represents 1.0",
                   controller: _viewModel.quantityController,
-                  validator: doubleValueValidator,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if(value == null) {
+                      return 'Required field';
+                    }
+
+                    if(double.tryParse(value) == 0.0) {
+                      return 'Quantity needs to be more than 0';
+                    }
+
+                    return null;
+                  },
                 ),
                 const SizedBox(height: marginBetweenFields),
                 InputField(
@@ -70,7 +81,12 @@ class ServiceInfoPage extends StatelessWidget {
                   helperText: "Enter the value of a unit of work charged on the invoice",
                   hintText: "e.g. 5000.00",
                   controller: _viewModel.priceController,
-                  validator: doubleValueValidator,
+                  validator: (value) {
+                    if(value == null || value.isEmpty || value == '\$0,00') {
+                      return "Mandatory field";
+                    }
+                    return null;
+                  },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,

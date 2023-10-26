@@ -1,4 +1,5 @@
 import 'package:ambush_app/src/domain/models/currency.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 
 class ServiceInfo {
   final String description;
@@ -10,5 +11,9 @@ class ServiceInfo {
 
   double getTotalPrice() => quantity * price;
 
-  String getFormattedTotalPrice() => getTotalPrice().toStringAsFixed(2);
+  String getFormattedTotalPrice() {
+    final mask = MoneyMaskedTextController();
+    mask.updateValue(price);
+    return mask.text;
+  }
 }

@@ -29,6 +29,7 @@ dependencies:
   flutter_svg_provider: ^1.0.6
   universal_html: ^2.2.4
   material_color_utilities: ^0.5.0
+  extended_masked_text: ^2.3.1
 
 dev_dependencies:
   flutter_test:
