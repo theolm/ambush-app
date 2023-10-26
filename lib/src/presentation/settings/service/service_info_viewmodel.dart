@@ -1,4 +1,5 @@
 import 'package:ambush_app/src/domain/models/ambush_info.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ambush_app/src/domain/usecases/get_service_info.dart';
@@ -23,15 +24,18 @@ abstract class _ServiceInfoViewModelBase with Store {
     if (initialInfo != null) {
       currencyController.text = initialInfo.currency.cc;
       descriptionController.text = initialInfo.description;
-      quantityController.text = initialInfo.quantity.toString();
-      priceController.text = initialInfo.price.toString();
+      quantityController.updateValue(initialInfo.quantity);
+      priceController.updateValue(initialInfo.price);
     }
   }
 
   final descriptionController = TextEditingController();
-  final quantityController = TextEditingController();
+  final quantityController = MoneyMaskedTextController(
+    thousandSeparator: '',
+    decimalSeparator: '.',
+  );
   final currencyController = TextEditingController();
-  final priceController = TextEditingController();
+  final priceController = MoneyMaskedTextController(leftSymbol: '\$');
 
   @observable
   bool switchValue = true;
@@ -42,10 +46,10 @@ abstract class _ServiceInfoViewModelBase with Store {
   }
 
   ServiceInfo? getServiceInfo() {
-    var quantity = double.tryParse(quantityController.text);
-    var price = double.tryParse(priceController.text);
+    var quantity = quantityController.numberValue;
+    var price = priceController.numberValue;
 
-    if (quantity == null || price == null) {
+    if (quantity == 0.0 || price == 0.0) {
       //Treat error
       return null;
     }
