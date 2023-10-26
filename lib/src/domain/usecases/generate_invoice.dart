@@ -9,7 +9,7 @@ import 'package:pdf/widgets.dart';
 abstract class IGenerateInvoiceUseCase {
   Document createPdf(Invoice invoice);
 
-  Future<File> savePdf(Invoice invoice, Document pdf);
+  Future<File> savePdf(Invoice invoice, Document pdf, String? path);
 }
 
 @Injectable(as: IGenerateInvoiceUseCase)
@@ -24,9 +24,9 @@ class GenerateInvoiceUseCase implements IGenerateInvoiceUseCase {
   }
 
   @override
-  Future<File> savePdf(Invoice invoice, Document pdf) async {
+  Future<File> savePdf(Invoice invoice, Document pdf, String? path) async {
     final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-    final file = File("${appDocumentsDir.path}/invoice_${invoice.id}.pdf");
+    final file = File(path ?? "${appDocumentsDir.path}/invoice_${invoice.id}.pdf");
     return file.writeAsBytes(await pdf.save());
   }
 }
