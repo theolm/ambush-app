@@ -6,7 +6,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -54,6 +54,11 @@ jobs:
         with:
           args: zip -qq -r pwa.zip build/web
 
+      - run: flutter build macos --release
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r macos.zip build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app
+
       - name: Release
         uses: docker://antonyurchenko/git-release:v5
         env:
@@ -63,3 +68,4 @@ jobs:
             build/app/outputs/apk/release/app-release.apk
             build/app/outputs/bundle/release/app-release.aab
             pwa.zip
+            macos.zip
