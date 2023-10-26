@@ -50,14 +50,10 @@ jobs:
           PASS: ${{ secrets.KEY_PASS }}
 
       - run: flutter build web --release
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r pwa.zip build/web
+      - run: zip pwa.zip build/web
 
       - run: flutter build macos --release
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r macos.zip build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app
+      - run: zip macos.zip build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app
 
       - name: Release
         uses: docker://antonyurchenko/git-release:v5
