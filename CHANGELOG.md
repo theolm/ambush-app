@@ -1,3 +1,11 @@
+## [0.0.5] - 2023-10-26
+
+### macOS release
+
+- MacOs version released
+- Minor UI fixes
+
+
 ## [0.0.4] - 2023-10-13
 
 ### Bug fixes
