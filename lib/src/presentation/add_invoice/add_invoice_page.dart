@@ -104,8 +104,9 @@ class AddInvoicePage extends StatelessWidget {
 
       if (invoice == null) return;
 
-      await _viewModel.saveInvoice(invoice);
       flow.onFinishFlow();
+      await _viewModel.saveInvoice(invoice);
+      
     }
   }
 }
