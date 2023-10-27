@@ -55,12 +55,15 @@ jobs:
       - run: flutter build macos --release
       - run: zip macos.zip build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app
 
-      - name: Generate Files
-        run: |
-          echo "::set-output name=apk::build/app/outputs/apk/release/app-release.apk"
-          echo "::set-output name=aab::build/app/outputs/bundle/release/app-release.aab"
-          echo "::set-output name=pwa::pwa.zip"
-          echo "::set-output name=macos::macos.zip"
+      - name: Archive Files
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifacts
+          path: |
+            build/app/outputs/apk/release/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+            pwa.zip
+            macos.zip
 
   release:
     needs: build-release-files
@@ -69,13 +72,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: release-artifacts
+          path: ./downloaded-artifacts
+
       - name: Release
         uses: docker://antonyurchenko/git-release:v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
-            ${{ needs.build-release-files.outputs.apk }}
-            ${{ needs.build-release-files.outputs.aab }}
-            ${{ needs.build-release-files.outputs.pwa }}
-            ${{ needs.build-release-files.outputs.macos }}
+            ./downloaded-artifacts/app-release.apk
+            ./downloaded-artifacts/app-release.aab
+            ./downloaded-artifacts/pwa.zip
+            ./downloaded-artifacts/macos.zip
