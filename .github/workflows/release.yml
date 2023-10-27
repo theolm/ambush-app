@@ -58,10 +58,10 @@ jobs:
         run: |
           mv build/app/outputs/apk/release/app-release.apk app-release.apk
           mv build/app/outputs/bundle/release/app-release.aab app-release.aab
-          mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app macos.app
+          mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app Invoice.app
 
       - name: Zip macos.app
-        run: zip -r macos.zip macos.app
+        run: zip -r macos.zip Invoice.app
 
       - name: Archive Files
         uses: actions/upload-artifact@v2
