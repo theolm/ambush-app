@@ -62,17 +62,6 @@ jobs:
           echo "::set-output name=pwa::pwa.zip"
           echo "::set-output name=macos::macos.zip"
 
-      - name: Release
-        uses: docker://antonyurchenko/git-release:v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: |
-            build/app/outputs/apk/release/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
-            pwa.zip
-            macos.zip
-
   release:
     needs: build-release-files
     runs-on: ubuntu-latest
