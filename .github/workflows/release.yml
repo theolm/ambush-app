@@ -60,6 +60,9 @@ jobs:
           mv build/app/outputs/bundle/release/app-release.aab app-release.aab
           mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app macos.app
 
+      - name: Zip macos.app
+        run: zip macos.zip macos.app
+
       - name: Archive Files
         uses: actions/upload-artifact@v2
         with:
@@ -68,7 +71,7 @@ jobs:
             app-release.apk
             app-release.aab
             pwa.zip
-            macos.app
+            macos.zip
 
   release:
     needs: build-release-files
@@ -94,4 +97,4 @@ jobs:
             ./downloaded-artifacts/app-release.apk
             ./downloaded-artifacts/app-release.aab
             ./downloaded-artifacts/pwa.zip
-            ./downloaded-artifacts/macos.app
+            ./downloaded-artifacts/macos.zip
