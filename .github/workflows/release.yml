@@ -50,7 +50,7 @@ jobs:
           PASS: ${{ secrets.KEY_PASS }}
 
       - run: flutter build web --release
-      - run: zip pwa.zip build/web
+      - run: zip -r pwa.zip build/web
 
       - run: flutter build macos --release
 
@@ -61,7 +61,7 @@ jobs:
           mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app macos.app
 
       - name: Zip macos.app
-        run: zip macos.zip macos.app
+        run: zip -r macos.zip macos.app
 
       - name: Archive Files
         uses: actions/upload-artifact@v2
