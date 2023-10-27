@@ -53,17 +53,22 @@ jobs:
       - run: zip pwa.zip build/web
 
       - run: flutter build macos --release
-      - run: zip macos.zip build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app
+
+      - name: Move files to root
+        run: |
+          mv build/app/outputs/apk/release/app-release.apk app-release.apk
+          mv build/app/outputs/bundle/release/app-release.aab app-release.aab
+          mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app macos.app
 
       - name: Archive Files
         uses: actions/upload-artifact@v2
         with:
           name: release-artifacts
           path: |
-            build/app/outputs/apk/release/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
+            app-release.apk
+            app-release.aab
             pwa.zip
-            macos.zip
+            macos.app
 
   release:
     needs: build-release-files
@@ -78,6 +83,8 @@ jobs:
           name: release-artifacts
           path: ./downloaded-artifacts
 
+      - run: ls -la ./downloaded-artifacts
+
       - name: Release
         uses: docker://antonyurchenko/git-release:v5
         env:
@@ -87,4 +94,4 @@ jobs:
             ./downloaded-artifacts/app-release.apk
             ./downloaded-artifacts/app-release.aab
             ./downloaded-artifacts/pwa.zip
-            ./downloaded-artifacts/macos.zip
+            ./downloaded-artifacts/macos.app
