@@ -72,6 +72,10 @@ class ServiceInfoPage extends StatelessWidget {
                       return 'Quantity needs to be more than 0';
                     }
 
+                    if(double.tryParse(value) == null) {
+                      return 'Quantity needs to have the format 0.00';
+                    }
+
                     return null;
                   },
                 ),

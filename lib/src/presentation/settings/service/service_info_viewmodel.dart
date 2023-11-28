@@ -24,16 +24,13 @@ abstract class _ServiceInfoViewModelBase with Store {
     if (initialInfo != null) {
       currencyController.text = initialInfo.currency.cc;
       descriptionController.text = initialInfo.description;
-      quantityController.updateValue(initialInfo.quantity);
+      quantityController.text = initialInfo.quantity.toStringAsFixed(2);
       priceController.updateValue(initialInfo.price);
     }
   }
 
   final descriptionController = TextEditingController();
-  final quantityController = MoneyMaskedTextController(
-    thousandSeparator: '',
-    decimalSeparator: '.',
-  );
+  final quantityController = TextEditingController();
   final currencyController = TextEditingController();
   final priceController = MoneyMaskedTextController(leftSymbol: '\$');
 
@@ -46,7 +43,14 @@ abstract class _ServiceInfoViewModelBase with Store {
   }
 
   ServiceInfo? getServiceInfo() {
-    var quantity = quantityController.numberValue;
+    double.tryParse(quantityController.text);
+
+    var quantity = double.tryParse(quantityController.text);
+
+    if (quantity == null) {
+      return null;
+    }
+
     var price = priceController.numberValue;
 
     if (quantity == 0.0 || price == 0.0) {
