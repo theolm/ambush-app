@@ -1,3 +1,9 @@
+## [0.0.6] - 2023-11-28
+
+### Bug fixes
+
+- Quantity now allows 3 decimals
+
 ## [0.0.5] - 2023-10-26
 
 ### macOS release
