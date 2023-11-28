@@ -126,7 +126,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
                 invoice.service.description,
               ),
               _pdfWidgets.getServiceText(
-                invoice.service.quantity.toStringAsFixed(1),
+                invoice.service.quantity.toStringAsFixed(2),
               ),
               _pdfWidgets.getServiceText(
                 "${invoice.service.currency.symbol} ${invoice.service.price.toStringAsFixed(2)}",
