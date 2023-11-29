@@ -24,7 +24,7 @@ abstract class _ServiceInfoViewModelBase with Store {
     if (initialInfo != null) {
       currencyController.text = initialInfo.currency.cc;
       descriptionController.text = initialInfo.description;
-      quantityController.text = initialInfo.quantity.toStringAsFixed(2);
+      quantityController.text = initialInfo.formattedQuantity();
       priceController.updateValue(initialInfo.price);
     }
   }
