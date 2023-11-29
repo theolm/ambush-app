@@ -25,4 +25,17 @@ class Invoice {
     this.createdAt,
     this.updatedAt,
   );
+
+  String formattedQuantity() {
+    return service.quantity.toStringAsFixed(12);
+  }
+
+  String formattedPrice() {
+    return service.price.toStringAsFixed(2);
+  }
+
+  String formattedTotalPrice() {
+    final totalPrice = service.price * service.quantity;
+    return totalPrice.toStringAsFixed(3);
+  }
 }
