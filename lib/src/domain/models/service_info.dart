@@ -16,4 +16,8 @@ class ServiceInfo {
     mask.updateValue(price);
     return mask.text;
   }
+
+  String formattedQuantity() {
+    return quantity.toStringAsFixed(12);
+  }
 }

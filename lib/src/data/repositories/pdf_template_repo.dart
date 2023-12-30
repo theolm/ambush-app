@@ -91,7 +91,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
           ),
           pw.SizedBox(width: 20),
           pw.Text(
-            "${invoice.service.currency.symbol} ${_getTotalPrice(invoice).toStringAsFixed(2)}",
+            "${invoice.service.currency.symbol} ${invoice.formattedTotalPrice()}",
             style: pw.TextStyle(
               fontSize: 12,
               fontWeight: pw.FontWeight.bold,
@@ -126,21 +126,19 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
                 invoice.service.description,
               ),
               _pdfWidgets.getServiceText(
-                invoice.service.quantity.toStringAsFixed(3),
+                invoice.formattedQuantity(),
               ),
               _pdfWidgets.getServiceText(
-                "${invoice.service.currency.symbol} ${invoice.service.price.toStringAsFixed(2)}",
+                "${invoice.service.currency.symbol} ${invoice.formattedPrice()}",
               ),
               _pdfWidgets.getServiceText(
-                "${invoice.service.currency.symbol} ${_getTotalPrice(invoice).toStringAsFixed(2)}",
+                "${invoice.service.currency.symbol} ${invoice.formattedTotalPrice()}",
               ),
             ],
           ),
         ],
       );
 
-  double _getTotalPrice(Invoice invoice) =>
-      invoice.service.price * invoice.service.quantity;
 
   pw.Widget _getBankRow(Invoice invoice) => pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
