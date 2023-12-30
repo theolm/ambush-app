@@ -1,6 +1,8 @@
 import 'package:ambush_app/src/domain/models/currency.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 
+import '../../presentation/utils/remove_trailing_zeros.dart';
+
 class ServiceInfo {
   final String description;
   final double quantity;
@@ -18,6 +20,6 @@ class ServiceInfo {
   }
 
   String formattedQuantity() {
-    return quantity.toStringAsFixed(12);
+    return removeTrailingZeros(quantity.toString());
   }
 }

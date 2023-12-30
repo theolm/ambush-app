@@ -27,7 +27,7 @@ class Invoice {
   );
 
   String formattedQuantity() {
-    return service.quantity.toStringAsFixed(12);
+    return service.formattedQuantity();
   }
 
   String formattedPrice() {
