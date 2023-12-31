@@ -6,7 +6,7 @@ import 'package:ambush_app/src/core/routes/app_route.gr.dart';
 import 'package:ambush_app/src/domain/models/invoice.dart';
 import 'package:ambush_app/src/domain/models/invoice_flow_data.dart';
 import 'package:ambush_app/src/presentation/invoice_list/invoice_dialogs.dart';
-import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
+import 'package:ambush_app/src/presentation/utils/share_file.dart';
 import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -128,7 +128,7 @@ class ListBody extends StatelessWidget {
             );
 
             if (action == InvoiceActions.share) {
-              getIt<IShareInvoice>().share(invoice);
+              getIt<IShareFile>().shareInvoice(invoice);
             }
             if (action == InvoiceActions.delete) {
               if (!context.mounted) return;

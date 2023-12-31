@@ -25,7 +25,9 @@ class BackupPage extends StatelessWidget {
         children: [
           ElevatedButton(
             child: const Text('Create Backup'),
-            onPressed: () {},
+            onPressed: () async {
+              _viewModel.createBackup();
+            },
           ),
           const SizedBox(height: 36),
           ElevatedButton(

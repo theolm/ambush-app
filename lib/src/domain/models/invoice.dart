@@ -2,7 +2,11 @@ import 'package:ambush_app/src/domain/models/bank_info.dart';
 import 'package:ambush_app/src/domain/models/client_info.dart';
 import 'package:ambush_app/src/domain/models/comp_info.dart';
 import 'package:ambush_app/src/domain/models/service_info.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'invoice.g.dart';
+
+@JsonSerializable()
 class Invoice {
   final int id;
   final int issueDate;
@@ -62,4 +66,9 @@ class Invoice {
       updatedAt ?? this.updatedAt,
     );
   }
+
+  factory Invoice.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InvoiceToJson(this);
 }

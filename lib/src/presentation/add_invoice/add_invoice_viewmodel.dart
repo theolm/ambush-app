@@ -8,7 +8,7 @@ import 'package:ambush_app/src/domain/models/invoice.dart';
 import 'package:ambush_app/src/domain/models/service_info.dart';
 import 'package:ambush_app/src/domain/usecases/get_next_id.dart';
 import 'package:ambush_app/src/domain/usecases/save_invoice.dart';
-import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
+import 'package:ambush_app/src/presentation/utils/share_file.dart';
 import 'package:mobx/mobx.dart';
 
 part 'add_invoice_viewmodel.g.dart';
@@ -26,12 +26,12 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
 abstract class _AddInvoiceViewModelBase with Store {
   final ISaveInvoice _saveInvoice;
   final IGetNextId _getNextId;
-  final IShareInvoice _shareInvoice;
+  final IShareFile _shareFile;
 
   _AddInvoiceViewModelBase(
     this._saveInvoice,
     this._getNextId,
-    this._shareInvoice,
+    this._shareFile,
   ) {
     var nextId = _getNextId.get();
     if (nextId != null) {
@@ -90,7 +90,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
   Future<bool> saveInvoice(Invoice invoice) async {
     await _saveInvoice.save(invoice);
-    await _shareInvoice.share(invoice);
+    await _shareFile.shareInvoice(invoice);
     return true;
   }
 
