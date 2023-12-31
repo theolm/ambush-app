@@ -36,6 +36,30 @@ class Invoice {
 
   String formattedTotalPrice() {
     final totalPrice = service.price * service.quantity;
-    return totalPrice.toStringAsFixed(3);
+    return totalPrice.toStringAsFixed(2);
+  }
+
+  Invoice copyWith({
+    int? id,
+    int? issueDate,
+    int? dueDate,
+    ServiceInfo? service,
+    CompanyInfo? companyInfo,
+    ClientInfo? clientInfo,
+    BankInfo? bankInfo,
+    int? createdAt,
+    int? updatedAt,
+  }) {
+    return Invoice(
+      id ?? this.id,
+      issueDate ?? this.issueDate,
+      dueDate ?? this.dueDate,
+      service ?? this.service,
+      companyInfo ?? this.companyInfo,
+      clientInfo ?? this.clientInfo,
+      bankInfo ?? this.bankInfo,
+      createdAt ?? this.createdAt,
+      updatedAt ?? this.updatedAt,
+    );
   }
 }

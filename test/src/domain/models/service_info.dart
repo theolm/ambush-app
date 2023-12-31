@@ -1,19 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ambush_app/src/domain/models/service_info.dart';
-import 'package:ambush_app/src/domain/models/currency.dart';
+
+import 'models_mocks.dart';
 
 void main() {
-  Currency testCurrency = Currency(
-    'Dollar',
-    'USD',
-    '\$',
-  );
-  ServiceInfo testServiceInfo = ServiceInfo(
-    'Test Service',
-    1.0,
-    testCurrency,
-    1000.0,
-  );
+
 
   group('ServiceInfo', () {
     test(
