@@ -64,6 +64,14 @@ class SettingsPage extends StatelessWidget {
                 );
               },
             ),
+            const Divider(indent: regularMargin, endIndent: regularMargin),
+            SettingsItem(
+              title: "Backup",
+              subtitle: "Create and restore a backup of your data",
+              onClick: () {
+                context.router.push(BackupRoute());
+              },
+            ),
           ],
         );
       }),
