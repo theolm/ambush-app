@@ -8,5 +8,9 @@ String removeTrailingZeros(String input) {
   // Remove the trailing decimal point, if any
   input = input.replaceAll(RegExp(r'\.$'), '');
 
-  return input;
+  if (input.isEmpty) {
+    return '0';
+  } else {
+    return input;
+  }
 }

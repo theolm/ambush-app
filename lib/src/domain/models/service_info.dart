@@ -15,11 +15,25 @@ class ServiceInfo {
 
   String getFormattedTotalPrice() {
     final mask = MoneyMaskedTextController();
-    mask.updateValue(price);
+    mask.updateValue(getTotalPrice());
     return mask.text;
   }
 
   String formattedQuantity() {
     return removeTrailingZeros(quantity.toString());
+  }
+
+  copyWith({
+    String? description,
+    double? quantity,
+    Currency? currency,
+    double? price,
+  }) {
+    return ServiceInfo(
+      description ?? this.description,
+      quantity ?? this.quantity,
+      currency ?? this.currency,
+      price ?? this.price,
+    );
   }
 }
