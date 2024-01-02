@@ -10,6 +10,8 @@ abstract class IInvoiceRepository {
 
   Future<void> deleteInvoice(Invoice invoice);
 
+  Future<void> deleteAllInvoices();
+
   Stream<List<Invoice>> observe();
 }
 
@@ -30,4 +32,12 @@ class InvoiceRepository implements IInvoiceRepository {
 
   @override
   Future<void> deleteInvoice(Invoice invoice) => _source.deleteInvoice(invoice);
+
+  @override
+  Future<void> deleteAllInvoices() async {
+    final invoices = getInvoiceList();
+    for (var invoice in invoices) {
+      await deleteInvoice(invoice);
+    }
+  }
 }

@@ -5,6 +5,7 @@ import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ambush_app/src/presentation/settings/base_settings_page.dart';
 import 'package:ambush_app/src/presentation/settings/settings_navigation_flow.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'settings_item.dart';
 
@@ -64,14 +65,21 @@ class SettingsPage extends StatelessWidget {
                 );
               },
             ),
-            const Divider(indent: regularMargin, endIndent: regularMargin),
-            SettingsItem(
-              title: "Backup",
-              subtitle: "Create and restore a backup of your data",
-              onClick: () {
-                context.router.push(BackupRoute());
-              },
-            ),
+            !kIsWeb
+                ? Column(
+                    children: [
+                      const Divider(
+                          indent: regularMargin, endIndent: regularMargin),
+                      SettingsItem(
+                        title: "Backup",
+                        subtitle: "Create and restore a backup of your data",
+                        onClick: () {
+                          context.router.push(BackupRoute());
+                        },
+                      )
+                    ],
+                  )
+                : Container(),
           ],
         );
       }),

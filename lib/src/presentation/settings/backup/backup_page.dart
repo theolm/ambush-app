@@ -26,16 +26,52 @@ class BackupPage extends StatelessWidget {
           ElevatedButton(
             child: const Text('Create Backup'),
             onPressed: () async {
-              _viewModel.createBackup();
+              await _viewModel.createBackup();
             },
           ),
           const SizedBox(height: 36),
           ElevatedButton(
             child: const Text('Import Backup'),
-            onPressed: () {},
+            onPressed: () async {
+              var result = await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) => dialog(context),
+              );
+
+              if (result == true) await _viewModel.restoreBackup();
+            },
           ),
         ],
       ),
+    );
+  }
+
+  AlertDialog dialog(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return AlertDialog(
+      title: const Text('Are you sure you want to restore this backup?'),
+      content: const Text(
+          'All current invoices will be deleted and replaced by the backup. This action cannot be undone.'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+          child: Text(
+            "Restore",
+            style: TextStyle(color: colorScheme.primary),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: colorScheme.secondary),
+          ),
+        ),
+      ],
     );
   }
 }
