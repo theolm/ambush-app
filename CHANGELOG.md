@@ -1,3 +1,10 @@
+## [0.0.7] - 2024-01-23
+
+### Small improvements
+
+- Quantity has a improved UI
+- Bug fixes
+
 ## [0.0.6] - 2023-11-28
 
 ### Bug fixes
