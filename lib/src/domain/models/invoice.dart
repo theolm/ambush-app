@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:ambush_app/src/domain/models/bank_info.dart';
 import 'package:ambush_app/src/domain/models/client_info.dart';
 import 'package:ambush_app/src/domain/models/comp_info.dart';
@@ -30,13 +31,13 @@ class Invoice {
     return service.formattedQuantity();
   }
 
-  String formattedPrice() {
-    return service.price.toStringAsFixed(2);
+  String formattedPrice(String symbol) {
+    return NumberFormat.currency(locale: 'en_US', symbol: symbol).format(service.price);
   }
 
-  String formattedTotalPrice() {
+  String formattedTotalPrice(String symbol) {
     final totalPrice = service.price * service.quantity;
-    return totalPrice.toStringAsFixed(2);
+    return NumberFormat.currency(locale: 'en_US', symbol: symbol).format(totalPrice);
   }
 
   Invoice copyWith({

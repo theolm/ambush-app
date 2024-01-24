@@ -132,5 +132,5 @@ class PdfWidgets {
         ],
       );
 
-  String _formatDate(DateTime date) => DateFormat('dd/MM/yyyy').format(date);
+  String _formatDate(DateTime date) => DateFormat('dd/MMM/yyyy').format(date);
 }

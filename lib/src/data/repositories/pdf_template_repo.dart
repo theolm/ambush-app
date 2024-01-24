@@ -91,7 +91,7 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
           ),
           pw.SizedBox(width: 20),
           pw.Text(
-            "${invoice.service.currency.symbol} ${invoice.formattedTotalPrice()}",
+            invoice.formattedTotalPrice(invoice.service.currency.symbol),
             style: pw.TextStyle(
               fontSize: 12,
               fontWeight: pw.FontWeight.bold,
@@ -129,10 +129,10 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
                 invoice.formattedQuantity(),
               ),
               _pdfWidgets.getServiceText(
-                "${invoice.service.currency.symbol} ${invoice.formattedPrice()}",
+                invoice.formattedPrice(invoice.service.currency.symbol),
               ),
               _pdfWidgets.getServiceText(
-                "${invoice.service.currency.symbol} ${invoice.formattedTotalPrice()}",
+                invoice.formattedTotalPrice(invoice.service.currency.symbol),
               ),
             ],
           ),
