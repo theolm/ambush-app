@@ -22,6 +22,7 @@ final ServiceInfo testServiceInfo = ServiceInfo(
 final CompanyInfo testCompanyInfo = CompanyInfo(
   'Test Company',
   'Test Address',
+  'test@email.com',
 );
 
 final ClientInfo testClientInfo = ClientInfo(

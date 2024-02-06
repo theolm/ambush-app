@@ -11,11 +11,14 @@ class HiveCompanyInfo extends HiveObject {
   @HiveField(1)
   String address;
 
-  HiveCompanyInfo(this.name, this.address);
+  @HiveField(2)
+  String email;
+
+  HiveCompanyInfo(this.name, this.address, this.email);
 
   factory HiveCompanyInfo.fromDataModel(CompanyInfo data) =>
-      HiveCompanyInfo(data.name, data.address);
+      HiveCompanyInfo(data.name, data.address, data.email);
 
   CompanyInfo toDataModel() =>
-      CompanyInfo(name, address);
+      CompanyInfo(name, address, email);
 }

@@ -26,7 +26,7 @@ class ShareInvoice implements IShareInvoice {
       var blob = web_file.Blob([bytes], 'application/pdf', 'native');
       web_file.AnchorElement(
         href: web_file.Url.createObjectUrlFromBlob(blob).toString(),
-      )..setAttribute("download", "invoice.pdf")..click();
+      )..setAttribute("download", "invoice_${invoice.id}.pdf")..click();
     } else if(Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       final filePath = await FilePicker.platform.saveFile(
         dialogTitle: "Save invoice",

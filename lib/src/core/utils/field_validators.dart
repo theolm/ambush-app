@@ -16,3 +16,15 @@ String? doubleValueValidator(String? value) {
 
   return null;
 }
+
+String? requiredEmailValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return "Required filed";
+  }
+
+  if (!value.contains("@")) {
+    return "Invalid email";
+  }
+
+  return null;
+}

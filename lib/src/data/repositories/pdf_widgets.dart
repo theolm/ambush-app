@@ -58,6 +58,7 @@ class PdfWidgets {
     String label,
     String name,
     String address,
+    String email,
   ) =>
       pw.Table(
         columnWidths: {
@@ -85,6 +86,20 @@ class PdfWidgets {
               pw.Container(),
               pw.Text(
                 address,
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.normal,
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+          pw.TableRow(children: [pw.SizedBox(height: 2)]),
+          pw.TableRow(
+            verticalAlignment: pw.TableCellVerticalAlignment.middle,
+            children: [
+              pw.Container(),
+              pw.Text(
+                email,
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.normal,
                   fontSize: 10,
