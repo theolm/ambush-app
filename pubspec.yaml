@@ -11,25 +11,25 @@
     flutter:
       sdk: flutter
 
-    cupertino_icons: ^1.0.2
+    cupertino_icons: ^1.0.6
     intl: ^0.18.1
-    flutter_mobx: ^2.0.6+5
-    mobx: ^2.2.0
-    get_it: ^7.6.0
+    flutter_mobx: ^2.2.0+2
+    mobx: ^2.3.0+1
+    get_it: ^7.6.7
     injectable: ^2.1.1
     dynamic_color: ^1.6.6
-    auto_route: ^7.8.0
-    pdf: ^3.10.4
-    path_provider: ^2.0.15
+    auto_route: ^7.9.0
+    pdf: ^3.10.8
+    path_provider: ^2.1.2
     hive: ^2.2.3
     hive_flutter: ^1.1.0
-    share_plus: ^7.1.0
-    image: ^4.0.17 # fix for the PDF package test_api 0.5.1 (0.6.1 available)
-    flutter_svg: ^2.0.7
-    flutter_svg_provider: ^1.0.6
+    share_plus: ^7.2.2
+    image: ^4.1.7 # fix for the PDF package test_api 0.5.1 (0.6.1 available)
+    flutter_svg: ^2.0.10+1
+    flutter_svg_provider: ^1.0.7
     universal_html: ^2.2.4
     material_color_utilities: ^0.8.0
-    file_picker: ^6.0.0
+    file_picker: ^6.2.0
     extended_masked_text: ^2.3.1
 
   dev_dependencies:
