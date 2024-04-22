@@ -8,17 +8,17 @@ class SettingsNavigationFlow implements InfoNavigationFlow {
 
   @override
   void onBackPress() {
-    _router.pop();
+    _router.maybePop();
   }
 
   @override
   void onFinishFlow() {
-    _router.pop();
+    _router.maybePop();
   }
 
   @override
   void onNextPress() {
-    _router.pop();
+    _router.maybePop();
   }
 
   @override
