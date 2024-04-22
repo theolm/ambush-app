@@ -37,7 +37,7 @@ We welcome contributions to make Ambush even better. If you'd like to contribute
 
 ## License
 
-This project is licensed under the [WTFPL](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details..
+This project is licensed under the [MIT](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details..
 
 
 
