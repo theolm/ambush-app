@@ -1,3 +1,11 @@
+## [0.1.0] - 2024-04-22
+The application is stable. Moving it to beta 0.1.0.
+
+### Changes
+
+- Changes Ambush's address and email
+- Remove deprecated methods
+
 ## [0.0.7] - 2024-01-23
 
 ### Small improvements
