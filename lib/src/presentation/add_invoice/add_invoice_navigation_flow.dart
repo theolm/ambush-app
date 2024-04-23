@@ -35,7 +35,7 @@ class AddInvoiceNavigationFlow implements InfoNavigationFlow {
 
   @override
   void onBackPress() {
-    _router.pop();
+    _router.maybePop();
   }
 
   @override

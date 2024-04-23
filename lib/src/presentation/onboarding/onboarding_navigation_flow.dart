@@ -16,7 +16,7 @@ class OnBoardingNavigationFlow implements InfoNavigationFlow {
 
   @override
   void onBackPress() {
-    _router.pop();
+    _router.maybePop();
   }
 
   @override
