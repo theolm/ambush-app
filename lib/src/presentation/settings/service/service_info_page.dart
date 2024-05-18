@@ -14,10 +14,10 @@ import 'service_info_viewmodel.dart';
 @RoutePage()
 class ServiceInfoPage extends StatelessWidget {
   ServiceInfoPage({
-    Key? key,
+    super.key,
     this.flow,
     required this.screenConfig,
-  }) : super(key: key);
+  });
 
   final ServiceInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();

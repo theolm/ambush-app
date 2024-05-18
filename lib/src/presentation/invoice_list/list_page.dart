@@ -16,7 +16,7 @@ import 'list_page_viewmodel.dart';
 
 @RoutePage()
 class InvoiceListPage extends StatelessWidget {
-  InvoiceListPage({Key? key}) : super(key: key);
+  InvoiceListPage({super.key});
   final ListPageViewModel _viewModel = getIt();
 
   @override
