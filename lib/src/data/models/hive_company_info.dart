@@ -11,7 +11,7 @@ class HiveCompanyInfo extends HiveObject {
   @HiveField(1)
   String address;
 
-  @HiveField(2)
+  @HiveField(2, defaultValue: '')
   String email;
 
   HiveCompanyInfo(this.name, this.address, this.email);
