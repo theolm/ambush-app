@@ -13,9 +13,9 @@ import 'add_invoice_viewmodel.dart';
 @RoutePage()
 class AddInvoicePage extends StatelessWidget {
   AddInvoicePage({
-    Key? key,
+    super.key,
     required this.flow,
-  }) : super(key: key);
+  });
 
   final AddInvoiceViewModel _viewModel = getIt();
   final AddInvoiceNavigationFlow flow;

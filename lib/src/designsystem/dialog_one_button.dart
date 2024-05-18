@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class DialogOneButton extends StatelessWidget {
   const DialogOneButton(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.supportText,
-      required this.button})
-      : super(key: key);
+      required this.button});
 
   final String title;
   final String supportText;

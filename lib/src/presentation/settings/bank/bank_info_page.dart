@@ -15,10 +15,10 @@ import 'bank_info_viewmodel.dart';
 @RoutePage()
 class BankInfoPage extends StatelessWidget {
   BankInfoPage({
-    Key? key,
+    super.key,
     this.flow,
     required this.screenConfig,
-  }) : super(key: key);
+  });
 
   final BankInfoViewModel _viewModel = getIt();
   final BasicInfoPageConfig screenConfig;

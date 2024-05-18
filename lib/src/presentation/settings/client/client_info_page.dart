@@ -13,8 +13,7 @@ import 'client_info_viewmodel.dart';
 
 @RoutePage()
 class ClientInfoPage extends StatelessWidget {
-  ClientInfoPage({Key? key, required this.flow, required this.screenConfig})
-      : super(key: key);
+  ClientInfoPage({super.key, required this.flow, required this.screenConfig});
 
   final ClientInfoViewModel _viewModel = getIt();
   final _formKey = GlobalKey<FormState>();

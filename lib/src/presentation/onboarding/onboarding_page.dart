@@ -10,7 +10,7 @@ import 'onboarding_viewmodel.dart';
 
 @RoutePage()
 class OnBoardingPage extends StatelessWidget {
-  OnBoardingPage({Key? key}) : super(key: key);
+  OnBoardingPage({super.key});
 
   final OnboardingViewModel _viewModel = getIt();
 
