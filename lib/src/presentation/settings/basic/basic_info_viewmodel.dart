@@ -28,12 +28,14 @@ abstract class _BasicInfoViewModelBase with Store {
     if (info != null) {
       compNameController.text = info.name;
       compAddressController.text = info.address;
+      compEmailController.text = info.email;
     }
   }
 
   final formKey = GlobalKey<FormState>();
   final compNameController = TextEditingController();
   final compAddressController = TextEditingController();
+  final compEmailController = TextEditingController();
 
   @observable
   bool switchValue = true;
@@ -46,6 +48,7 @@ abstract class _BasicInfoViewModelBase with Store {
   CompanyInfo get companyInfo => CompanyInfo(
     compNameController.text,
     compAddressController.text,
+    compEmailController.text,
   );
 
 
