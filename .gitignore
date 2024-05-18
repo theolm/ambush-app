@@ -50,3 +50,4 @@ app_route.gr.dart
 
 # Random files
 keystore_base64_encoded.txt
+ios/Base.xcconfig
