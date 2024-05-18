@@ -1,0 +1,13 @@
+//
+//  Base.xcconfig
+//  Runner
+//
+//  Created by Emil Bellmann on 18/05/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+DEVELOPMENT_TEAM=7F7VKV67V6
+PRODUCT_BUNDLE_IDENTIFIER=com.getambush.invoices
+CODE_SIGN_STYLE=Automatic
