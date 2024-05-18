@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class SettingsItem extends StatelessWidget {
   const SettingsItem(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.subtitle,
-      required this.onClick})
-      : super(key: key);
+      required this.onClick});
 
   final String title;
   final String subtitle;
@@ -22,7 +21,7 @@ class SettingsItem extends StatelessWidget {
       subtitle: Text(
         subtitle,
         style: textTheme.titleSmall?.apply(
-          color: colorTheme.onBackground.withOpacity(0.5),
+          color: colorTheme.onSurface.withOpacity(0.5),
         ),
       ),
       onTap: onClick,

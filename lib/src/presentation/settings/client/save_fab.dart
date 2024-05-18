@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SaveFab extends StatelessWidget {
   const SaveFab({
-    Key? key,
+    super.key,
     required this.onClick,
-  }) : super(key: key);
+  });
   final VoidCallback onClick;
 
   @override

@@ -13,8 +13,7 @@ import 'basic_info_viewmodel.dart';
 
 @RoutePage()
 class BasicInfoPage extends StatelessWidget {
-  BasicInfoPage({Key? key, this.flow, required this.screenConfig})
-      : super(key: key);
+  BasicInfoPage({super.key, this.flow, required this.screenConfig});
 
   final BasicInfoViewModel _viewModel = getIt();
   final BasicInfoPageConfig screenConfig;
