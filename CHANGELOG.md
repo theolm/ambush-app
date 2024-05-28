@@ -1,3 +1,14 @@
+## [0.2.0] - 2024-05-28
+
+### Added
+
+- Adding Safe mode (or hide mode). By default the app opens with this activated. The values of the invoice will be hidden until the user toggle off the hidden mode. This is a security feature to prevent the user from showing the invoice to someone else by mistake.
+
+### Changes
+
+- Changes the text and validators in the onboarding and settings page to prevent user adding Ambush's information 
+- Adding safe area in the Floating action button of the mains screen
+
 ## [0.1.0] - 2024-04-22
 The application is stable. Moving it to beta 0.1.0.
 
