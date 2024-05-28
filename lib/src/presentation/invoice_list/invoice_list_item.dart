@@ -6,18 +6,23 @@ class InvoiceListItem extends StatelessWidget {
   const InvoiceListItem({
     super.key,
     required this.invoice,
+    required this.hideMode,
     required this.onCardClick,
   });
 
   static const String _dateFormat = 'MM/dd/yy';
 
   final Invoice invoice;
+  final bool hideMode;
   final VoidCallback onCardClick;
 
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(8);
     final textTheme = Theme.of(context).textTheme;
+
+    final invoicePrice =
+        hideMode ? "**,**" : invoice.service.getFormattedTotalPrice();
 
     return Card(
       elevation: 1,
@@ -54,7 +59,7 @@ class InvoiceListItem extends StatelessWidget {
                 style: textTheme.bodyMedium,
               ),
               Text(
-                '${invoice.service.currency.symbol} ${invoice.service.getFormattedTotalPrice()}',
+                '${invoice.service.currency.symbol} $invoicePrice',
                 style: textTheme.bodyMedium!.copyWith(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
