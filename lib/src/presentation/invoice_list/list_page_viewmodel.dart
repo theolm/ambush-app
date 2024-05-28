@@ -35,6 +35,9 @@ abstract class _ListPageViewModelBase with Store {
   @observable
   String appTitle = '';
 
+  @observable
+  bool hideMode = true;
+
   @action
   void updateList(List<Invoice> list) {
     invoiceList.clear();
@@ -45,6 +48,11 @@ abstract class _ListPageViewModelBase with Store {
   @action
   Future deleteInvoice(Invoice invoice) async {
     await _deleteInvoice.delete(invoice);
+  }
+
+  @action
+  void toggleHideMode() {
+    hideMode = !hideMode;
   }
 
   void _observeChanges() {

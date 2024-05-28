@@ -17,6 +17,7 @@ import 'list_page_viewmodel.dart';
 @RoutePage()
 class InvoiceListPage extends StatelessWidget {
   InvoiceListPage({super.key});
+
   final ListPageViewModel _viewModel = getIt();
 
   @override
@@ -31,14 +32,23 @@ class InvoiceListPage extends StatelessWidget {
         ),
         centerTitle: false,
         actions: [
-          Visibility(
-            visible: true,
-            child: IconButton(
-              icon: const Icon(Icons.settings),
+          Observer(builder: (context) {
+            var shouldHide = _viewModel.hideMode;
+
+            return IconButton(
+              icon: Icon(
+                shouldHide ? Icons.visibility_off : Icons.visibility,
+              ),
               onPressed: () {
-                context.router.push(const SettingsRoute());
+                _viewModel.toggleHideMode();
               },
-            ),
+            );
+          }),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.router.push(const SettingsRoute());
+            },
           )
         ],
       ),
@@ -65,6 +75,7 @@ class InvoiceListPage extends StatelessWidget {
         } else {
           return ListBody(
             invoiceList: _viewModel.invoiceList,
+            hideMode: _viewModel.hideMode,
             onDelete: (invoice) async {
               await _viewModel.deleteInvoice(invoice);
             },
@@ -88,10 +99,12 @@ class ListBody extends StatelessWidget {
   const ListBody({
     super.key,
     required this.invoiceList,
+    required this.hideMode,
     required this.onDelete,
   });
 
   final List<Invoice> invoiceList;
+  final bool hideMode;
   final Function(Invoice) onDelete;
 
   @override
@@ -121,6 +134,7 @@ class ListBody extends StatelessWidget {
         var invoice = invoiceList[index];
         return InvoiceListItem(
           invoice: invoice,
+          hideMode: hideMode,
           onCardClick: () async {
             final action = await showDialog<InvoiceActions>(
               context: context,
