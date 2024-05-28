@@ -54,14 +54,18 @@ class InvoiceListPage extends StatelessWidget {
       ),
       floatingActionButton: Observer(builder: (context) {
         final bool showFab = _viewModel.invoiceList.isNotEmpty;
-        return Visibility(
-          visible: showFab,
-          child: FloatingActionButton.extended(
-            label: const Text('New invoice'),
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              _onAddClick(context);
-            },
+        return SafeArea(
+          bottom: true,
+          right: true,
+          child: Visibility(
+            visible: showFab,
+            child: FloatingActionButton.extended(
+              label: const Text('New invoice'),
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                _onAddClick(context);
+              },
+            ),
           ),
         );
       }),
