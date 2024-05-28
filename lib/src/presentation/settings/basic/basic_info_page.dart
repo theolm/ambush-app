@@ -24,7 +24,7 @@ class BasicInfoPage extends StatelessWidget {
     return Observer(builder: (context) {
       return BaseSettingsPage(
         title: "Independent Contractor",
-        infoText: "With your contractor's information, fill the details below",
+        infoText: "In this page you should insert your company information, not Ambush’s",
         buttonText: screenConfig.ctaText,
         saveSwitch: screenConfig.showSaveSwitch
             ? SaveSwitch(
@@ -44,7 +44,18 @@ class BasicInfoPage extends StatelessWidget {
                 helperText: "Enter your company name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.compNameController,
-                validator: requiredFieldValidator,
+                validator: (String? value) {
+                  var validation = requiredFieldValidator(value);
+                  if(validation != null) {
+                    return validation;
+                  }
+
+                  if(value!.toLowerCase().contains("ambush")) {
+                    return "This should be your company name";
+                  }
+
+                  return null;
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
@@ -54,7 +65,18 @@ class BasicInfoPage extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 maxLines: null,
                 minLines: null,
-                validator: requiredFieldValidator,
+                validator: (String? value) {
+                  var validation = requiredFieldValidator(value);
+                  if(validation != null) {
+                    return validation;
+                  }
+
+                  if(value!.toLowerCase().contains("20 harcourt") || value.toLowerCase().contains("d02 pf99")) {
+                    return "This should be your company address";
+                  }
+
+                  return null;
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: _viewModel.compAddressController,
               ),
@@ -64,7 +86,18 @@ class BasicInfoPage extends StatelessWidget {
                 helperText: "Enter your company email",
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.emailAddress,
-                validator: requiredEmailValidator,
+                validator: (String? value) {
+                  var emailValidator = requiredEmailValidator(value);
+                  if(emailValidator != null) {
+                    return emailValidator;
+                  }
+
+                  if(value!.toLowerCase().contains("ap@ambush")) {
+                    return "This should be your company email";
+                  }
+
+                  return null;
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: _viewModel.compEmailController,
               ),
