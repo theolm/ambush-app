@@ -41,6 +41,6 @@ After you submit a PR, maintainers will review your code. Be prepared to address
 
 ## License
 
-By contributing to this project, you agree to license your contributions under the [WTFPL](LICENSE.md).
+By contributing to this project, you agree to license your contributions under the [MIT](LICENSE.md).
 
 Thank you for contributing to Ambush - Invoice Generator!
