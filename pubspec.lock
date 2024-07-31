@@ -261,10 +261,10 @@ packages:
     dependency: "direct main"
     description:
       name: extended_masked_text
-      sha256: "778a2c6f1b7da0fb4edabc6e1739d0829ec33afc7efc9daae163ae62e734ae36"
+      sha256: "1599e6c2cea0b24214114c92679cf2c56cd9c8c1cac5dfc65c292bf3373b4b33"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   fake_async:
     dependency: transitive
     description:
