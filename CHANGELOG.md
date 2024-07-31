@@ -1,3 +1,13 @@
+## [0.3.0] - 2024-07-31
+
+### Fix
+
+- Unit price text field now works properly in the invoice screen
+
+### Update
+
+- Update libraries and some transitive dependencies
+
 ## [0.2.0] - 2024-05-28
 
 ### Added
