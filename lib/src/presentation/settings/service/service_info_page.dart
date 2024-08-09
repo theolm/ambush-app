@@ -61,7 +61,7 @@ class ServiceInfoPage extends StatelessWidget {
                   helperText: "One month worked represents 1.0",
                   controller: _viewModel.quantityController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  keyboardType: TextInputType.number,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if(value == null) {

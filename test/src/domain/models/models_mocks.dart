@@ -23,6 +23,8 @@ final CompanyInfo testCompanyInfo = CompanyInfo(
   'Test Company',
   'Test Address',
   'test@email.com',
+  'Test Owner',
+  '123456789',
 );
 
 final ClientInfo testClientInfo = ClientInfo(

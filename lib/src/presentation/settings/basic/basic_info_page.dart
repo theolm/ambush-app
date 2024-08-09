@@ -40,6 +40,33 @@ class BasicInfoPage extends StatelessWidget {
           child: Column(
             children: [
               InputField(
+                label: "Name",
+                helperText: "Enter your full name",
+                textInputAction: TextInputAction.next,
+                controller: _viewModel.fullNameController,
+                validator: (String? value) {
+                  var validation = requiredFieldValidator(value);
+                  if(validation != null) {
+                    return validation;
+                  }
+
+                  if(value!.toLowerCase().contains("ambush")) {
+                    return "This should be your company name";
+                  }
+
+                  return null;
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+              ),
+              const SizedBox(height: marginBetweenFields),
+              InputField(
+                label: "CNPJ (optional)",
+                helperText: "Contractor's company CNPJ number",
+                textInputAction: TextInputAction.next,
+                controller: _viewModel.cnpjController,
+              ),
+              const SizedBox(height: marginBetweenFields),
+              InputField(
                 label: "Company name",
                 helperText: "Enter your company name",
                 textInputAction: TextInputAction.next,
