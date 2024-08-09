@@ -141,7 +141,6 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
         ],
       );
 
-
   pw.Widget _getBankRow(Invoice invoice) => pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -154,6 +153,11 @@ class PdfTemplateRepo implements IPdfTemplateRepo {
             ),
           ),
           pw.SizedBox(height: 4),
+          _pdfWidgets.getBankRow(
+              "Contractor's full name:", invoice.companyInfo.ownerName),
+          if (invoice.companyInfo.cnpj != null &&
+              invoice.companyInfo.cnpj!.isNotEmpty)
+            _pdfWidgets.getBankRow("CNPJ:", invoice.companyInfo.cnpj!),
           _pdfWidgets.getBankRow(
               "Beneficiary name:", invoice.bankInfo.beneficiaryName),
           _pdfWidgets.getBankRow(
