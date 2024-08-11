@@ -84,17 +84,26 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: release-artifacts
-          path: ./downloaded-artifacts
+          path: ./
 
-      - run: ls -la ./downloaded-artifacts
+      - name: Unzip pwa.zip
+        run: unzip pwa.zip
 
-      - name: Release
+      - name: 🎯 Deploy to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INVOICES_APP_C2491 }}
+          projectId: invoices-app-c2491
+          channelId: live
+
+      - name: Create Git Release
         uses: docker://antonyurchenko/git-release:v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
-            ./downloaded-artifacts/app-release.apk
-            ./downloaded-artifacts/app-release.aab
-            ./downloaded-artifacts/pwa.zip
-            ./downloaded-artifacts/macos.zip
+            ./app-release.apk
+            ./app-release.aab
+            ./pwa.zip
+            ./macos.zip
