@@ -1,3 +1,10 @@
+## [0.3.1] - 2024-08-11
+
+### Added
+
+- Adding firebase deploy script to deploy the app to firebase hosting
+- Adding CNPJ and Contractor's name field in the generated invoice.
+
 ## [0.3.0] - 2024-07-31
 
 ### Fix
