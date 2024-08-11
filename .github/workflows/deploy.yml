@@ -1,4 +1,4 @@
-name: Release Workflow
+name: Deploy Workflow
 
 on:
   workflow_dispatch:
@@ -49,6 +49,9 @@ jobs:
     needs: build-release-files
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
