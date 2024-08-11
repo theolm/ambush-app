@@ -1,0 +1,70 @@
+name: Release Workflow
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  build-release-files:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - run: mkdir android/keystore
+
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'keystore.jks'
+          fileDir: 'android/keystore/'
+          encodedString: ${{ secrets.KEYSTORE }}
+
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable'
+
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
+      - run: flutter build web --release
+      - run: zip -r pwa.zip build/web
+
+      - name: Archive Files
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifacts
+          path: |
+            pwa.zip
+
+  deploy:
+    needs: build-release-files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: release-artifacts
+          path: ./
+
+      - name: Unzip pwa.zip
+        run: unzip pwa.zip
+
+      - name: 🎯 Deploy to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INVOICES_APP_C2491 }}
+          projectId: invoices-app-c2491
+          channelId: live
+
