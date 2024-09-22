@@ -37,18 +37,6 @@ jobs:
       - run: flutter pub get
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
 
-      # - run: flutter test
-      - name: Build AAR
-        env:
-          ALIAS: ${{ secrets.KEY_ALIAS }}
-          PASS: ${{ secrets.KEY_PASS }}
-        run: flutter build appbundle --release
-
-      - run: flutter build apk --release
-        env:
-          ALIAS: ${{ secrets.KEY_ALIAS }}
-          PASS: ${{ secrets.KEY_PASS }}
-
       - run: flutter build web --release
       - run: zip -r pwa.zip build/web
 
@@ -56,8 +44,6 @@ jobs:
 
       - name: Move files to root
         run: |
-          mv build/app/outputs/apk/release/app-release.apk app-release.apk
-          mv build/app/outputs/bundle/release/app-release.aab app-release.aab
           mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app Invoice.app
 
       - name: Zip macos.app
@@ -68,8 +54,6 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            app-release.apk
-            app-release.aab
             pwa.zip
             macos.zip
 
