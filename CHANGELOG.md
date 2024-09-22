@@ -1,3 +1,16 @@
+## [0.4.0] - 2024-09-2
+
+### Deprecated
+
+- Android and iOS versions are deprecated. The app will be available only for web, PWA and macOS.
+
+### Added
+
+- Adding firebase deploy to beta on every PR
+- Adding extra page to include the companies' address
+- Some extra improvements in the UI
+
+
 ## [0.3.1] - 2024-08-11
 
 ### Added
