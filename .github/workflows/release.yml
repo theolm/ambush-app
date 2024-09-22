@@ -87,7 +87,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
-            ./app-release.apk
-            ./app-release.aab
             ./pwa.zip
             ./macos.zip
