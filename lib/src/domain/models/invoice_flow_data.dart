@@ -18,6 +18,8 @@ class InvoiceFlowData {
     }
     if (companyInfo == null) {
       throw Exception("Company info is null");
+    } else if(companyInfo.address == null) {
+      throw Exception("Company address is null");
     } else if (companyInfo.ownerName.isEmpty) {
       throw Exception("Needs to provide the owner name");
     }
