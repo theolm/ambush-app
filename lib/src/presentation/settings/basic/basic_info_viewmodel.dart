@@ -27,7 +27,6 @@ abstract class _BasicInfoViewModelBase with Store {
     var info = _getCompanyInfo.get();
     if (info != null) {
       compNameController.text = info.name;
-      compAddressController.text = info.address;
       compEmailController.text = info.email;
       fullNameController.text = info.ownerName;
       cnpjController.text = info.cnpj ?? '';
@@ -36,28 +35,18 @@ abstract class _BasicInfoViewModelBase with Store {
 
   final formKey = GlobalKey<FormState>();
   final compNameController = TextEditingController();
-  final compAddressController = TextEditingController();
   final compEmailController = TextEditingController();
   final fullNameController = TextEditingController();
   final cnpjController = TextEditingController();
 
-  @observable
-  bool switchValue = true;
-
-  @action
-  void onSwitchClicked(bool value) {
-    switchValue = value;
-  }
-
-  CompanyInfo get companyInfo => CompanyInfo(
+  CompanyInfo get _companyInfo => CompanyInfo.withoutAddress(
       compNameController.text,
-      compAddressController.text,
       compEmailController.text,
       fullNameController.text,
       cnpjController.text,
   );
 
-  Future save(CompanyInfo companyInfo) async {
-    await _saveCompanyInfo.save(companyInfo);
+  Future save() async {
+    await _saveCompanyInfo.save(_companyInfo);
   }
 }

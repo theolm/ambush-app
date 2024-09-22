@@ -10,8 +10,6 @@ class OnBoardingNavigationFlow implements InfoNavigationFlow {
 
   final _pageConfig = BasicInfoPageConfig(
     ctaText: 'Next',
-    showSaveSwitch: false,
-    alwaysSave: true,
   );
 
   @override
@@ -29,6 +27,14 @@ class OnBoardingNavigationFlow implements InfoNavigationFlow {
     final currentRoute = _router.current.name;
     switch (currentRoute) {
       case BasicInfoRoute.name:
+        _router.push(
+          AddressRoute(
+            flow: this,
+            screenConfig: _pageConfig,
+          ),
+        );
+        break;
+      case AddressRoute.name:
         _router.push(
           BankInfoRoute(
             flow: this,

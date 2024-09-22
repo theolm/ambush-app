@@ -1,11 +1,11 @@
+import 'package:ambush_app/src/domain/usecases/get_bank_info.dart';
+import 'package:ambush_app/src/domain/usecases/get_client_info.dart';
+import 'package:ambush_app/src/domain/usecases/get_company_info.dart';
+import 'package:ambush_app/src/domain/usecases/get_service_info.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
-import 'package:ambush_app/src/domain/models/bank_info.dart';
-import 'package:ambush_app/src/domain/models/client_info.dart';
-import 'package:ambush_app/src/domain/models/comp_info.dart';
 import 'package:ambush_app/src/domain/models/invoice.dart';
-import 'package:ambush_app/src/domain/models/service_info.dart';
 import 'package:ambush_app/src/domain/usecases/get_next_id.dart';
 import 'package:ambush_app/src/domain/usecases/save_invoice.dart';
 import 'package:ambush_app/src/presentation/utils/share_invoice.dart';
@@ -20,6 +20,10 @@ class AddInvoiceViewModel extends _AddInvoiceViewModelBase
     super._saveInvoice,
     super._getNextId,
     super._shareInvoice,
+    super._getClientInfo,
+    super._getBankInfo,
+    super._getCompanyInfo,
+    super._getServiceInfo,
   );
 }
 
@@ -27,11 +31,19 @@ abstract class _AddInvoiceViewModelBase with Store {
   final ISaveInvoice _saveInvoice;
   final IGetNextId _getNextId;
   final IShareInvoice _shareInvoice;
+  final IGetClientInfo _getClientInfo;
+  final IGetBankInfo _getBankInfo;
+  final IGetCompanyInfo _getCompanyInfo;
+  final IGetServiceInfo _getServiceInfo;
 
   _AddInvoiceViewModelBase(
     this._saveInvoice,
     this._getNextId,
     this._shareInvoice,
+    this._getClientInfo,
+    this._getBankInfo,
+    this._getCompanyInfo,
+    this._getServiceInfo,
   ) {
     var nextId = _getNextId.get();
     if (nextId != null) {
@@ -64,12 +76,7 @@ abstract class _AddInvoiceViewModelBase with Store {
 
   bool validateForm() => formKey.currentState!.validate();
 
-  Invoice? getInvoice(
-    ServiceInfo serviceInfo,
-    CompanyInfo companyInfo,
-    ClientInfo clientInfo,
-    BankInfo bankInfo,
-  ) {
+  Invoice? getInvoice() {
     if (!_validateDates()) {
       return null;
     }
@@ -79,10 +86,10 @@ abstract class _AddInvoiceViewModelBase with Store {
       int.parse(idController.text),
       _issueDate!.millisecondsSinceEpoch,
       _dueDate!.millisecondsSinceEpoch,
-      serviceInfo,
-      companyInfo,
-      clientInfo,
-      bankInfo,
+      _getServiceInfo.get()!,
+      _getCompanyInfo.get()!,
+      _getClientInfo.get(),
+      _getBankInfo.get()!,
       now.millisecondsSinceEpoch,
       now.millisecondsSinceEpoch,
     );

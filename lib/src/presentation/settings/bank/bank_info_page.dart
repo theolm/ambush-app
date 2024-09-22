@@ -6,7 +6,6 @@ import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:ambush_app/src/core/utils/field_validators.dart';
 import 'package:ambush_app/src/designsystem/inputfield.dart';
 import 'package:ambush_app/src/designsystem/switch.dart';
-import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 
 import '../base_settings_page.dart';
@@ -31,12 +30,6 @@ class BankInfoPage extends StatelessWidget {
         title: "Bank information",
         infoText: "Fill in the form with your company's banking information",
         buttonText: screenConfig.ctaText,
-        saveSwitch: screenConfig.showSaveSwitch
-            ? SaveSwitch(
-                value: _viewModel.switchValue,
-                onChanged: _viewModel.setSwitchValue,
-              )
-            : null,
         onButtonPressed: () async {
           await _onNextClicked();
         },
@@ -151,17 +144,8 @@ class BankInfoPage extends StatelessWidget {
 
   Future _onNextClicked() async {
     if (_viewModel.formKey.currentState!.validate()) {
-      final bankInfo = _viewModel.bankInfo;
-      if (_viewModel.switchValue || screenConfig.alwaysSave) {
-        await _viewModel.saveBankInfo(bankInfo);
-      }
-
+      await _viewModel.saveBankInfo();
       if (flow != null) {
-        if (flow is AddInvoiceNavigationFlow) {
-          (flow as AddInvoiceNavigationFlow).invoiceFlowData.bankInfo =
-              bankInfo;
-        }
-
         flow!.onNextPress();
       }
     }

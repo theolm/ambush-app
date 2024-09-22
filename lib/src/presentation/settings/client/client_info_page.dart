@@ -5,7 +5,6 @@ import 'package:ambush_app/src/core/di/di.dart';
 import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:ambush_app/src/core/utils/field_validators.dart';
 import 'package:ambush_app/src/designsystem/inputfield.dart';
-import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 
 import '../base_settings_page.dart';
@@ -32,12 +31,6 @@ class ClientInfoPage extends StatelessWidget {
             await _onNextStepClick();
           },
           buttonText: screenConfig.ctaText,
-          saveSwitch: screenConfig.showSaveSwitch
-              ? SaveSwitch(
-                  value: _viewModel.saveSwitch,
-                  onChanged: _viewModel.onSwitchClicked,
-                )
-              : null,
           form: Form(
             key: _formKey,
             child: Column(
@@ -71,17 +64,8 @@ class ClientInfoPage extends StatelessWidget {
 
   Future _onNextStepClick() async {
     if (_formKey.currentState!.validate()) {
-      var client = _viewModel.clientInfo;
-      if (_viewModel.saveSwitch || screenConfig.alwaysSave) {
-        await _viewModel.saveInfo(client);
-      }
-
+      await _viewModel.saveInfo();
       if (flow != null) {
-        if (flow is AddInvoiceNavigationFlow) {
-          (flow as AddInvoiceNavigationFlow).invoiceFlowData.clientInfo =
-              client;
-        }
-
         flow!.onNextPress();
       }
     }

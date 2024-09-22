@@ -5,7 +5,6 @@ import 'package:ambush_app/src/core/di/di.dart';
 import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:ambush_app/src/core/utils/field_validators.dart';
 import 'package:ambush_app/src/designsystem/inputfield.dart';
-import 'package:ambush_app/src/presentation/add_invoice/add_invoice_navigation_flow.dart';
 import 'package:ambush_app/src/presentation/settings/info_navigation_flow.dart';
 
 import '../base_settings_page.dart';
@@ -23,15 +22,9 @@ class BasicInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return BaseSettingsPage(
-        title: "Independent Contractor",
-        infoText: "In this page you should insert your company information, not Ambush’s",
+        title: "Contractor Information",
+        infoText: "With your information as a contractor, fill the details below",
         buttonText: screenConfig.ctaText,
-        saveSwitch: screenConfig.showSaveSwitch
-            ? SaveSwitch(
-                value: _viewModel.switchValue,
-                onChanged: _viewModel.onSwitchClicked,
-              )
-            : null,
         onButtonPressed: () async {
           await onNextStepClick();
         },
@@ -40,8 +33,8 @@ class BasicInfoPage extends StatelessWidget {
           child: Column(
             children: [
               InputField(
-                label: "Name",
-                helperText: "Enter your full name",
+                label: "Full Name",
+                helperText: "Your full name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.fullNameController,
                 validator: (String? value) {
@@ -60,15 +53,23 @@ class BasicInfoPage extends StatelessWidget {
               ),
               const SizedBox(height: marginBetweenFields),
               InputField(
-                label: "CNPJ (optional)",
-                helperText: "Contractor's company CNPJ number",
+                label: "Tax ID or CNPJ",
+                helperText: "Contractor's company Tax ID or CNPJ number",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.cnpjController,
+                validator: (String? value) {
+                  var validation = requiredFieldValidator(value);
+                  if(validation != null) {
+                    return validation;
+                  }
+                  return null;
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(height: marginBetweenFields),
               InputField(
                 label: "Company name",
-                helperText: "Enter your company name",
+                helperText: "Contractor's company name",
                 textInputAction: TextInputAction.next,
                 controller: _viewModel.compNameController,
                 validator: (String? value) {
@@ -84,28 +85,6 @@ class BasicInfoPage extends StatelessWidget {
                   return null;
                 },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-              ),
-              const SizedBox(height: marginBetweenFields),
-              InputField(
-                label: "Company address",
-                helperText: "Enter your company address",
-                textInputAction: TextInputAction.done,
-                maxLines: null,
-                minLines: null,
-                validator: (String? value) {
-                  var validation = requiredFieldValidator(value);
-                  if(validation != null) {
-                    return validation;
-                  }
-
-                  if(value!.toLowerCase().contains("20 harcourt") || value.toLowerCase().contains("d02 pf99")) {
-                    return "This should be your company address";
-                  }
-
-                  return null;
-                },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _viewModel.compAddressController,
               ),
               const SizedBox(height: marginBetweenFields),
               InputField(
@@ -137,17 +116,8 @@ class BasicInfoPage extends StatelessWidget {
 
   Future onNextStepClick() async {
     if (_viewModel.formKey.currentState!.validate()) {
-      final companyInfo = _viewModel.companyInfo;
-      if (_viewModel.switchValue || screenConfig.alwaysSave) {
-        await _viewModel.save(companyInfo);
-      }
-
+      await _viewModel.save();
       if (flow != null) {
-        if (flow is AddInvoiceNavigationFlow) {
-          (flow as AddInvoiceNavigationFlow).invoiceFlowData.companyInfo =
-              companyInfo;
-        }
-
         flow!.onNextPress();
       }
     }
