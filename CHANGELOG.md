@@ -1,3 +1,9 @@
+## [0.4.1] - 2024-09-30
+
+### FIX
+
+- This version fixes the issue where the app can no longer read the company address. The app now forces a new onboarding into the app so the user will be forced to provide all the required fields.
+
 ## [0.4.0] - 2024-09-2
 
 ### Deprecated

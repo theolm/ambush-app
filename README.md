@@ -41,6 +41,6 @@ This project is licensed under the [MIT](LICENSE.md) - see the [LICENSE.md](LICE
 
 
 
-[//]: # (flutter pub run build_runner build)
+[//]: # (dart pub run build_runner build)
 
-[//]: # (flutter pub run build_runner watch)
+[//]: # (dart pub run build_runner watch)
