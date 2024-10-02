@@ -1,3 +1,9 @@
+## [0.4.2] - 2024-10-01
+
+### FIX
+
+- Adds a destructive migration so people with old DB can use the app. The app will force a new onboarding to the user to provide the company address.
+
 ## [0.4.1] - 2024-09-30
 
 ### FIX
