@@ -41,15 +41,16 @@ class Invoice {
   }
 
   String formattedAddress() {
-    if(companyInfo.address == null) {
+    if (companyInfo.address == null) {
       return "no address";
     } else {
       var address = companyInfo.address!;
-      return '''${address.street} ${address.extraInfo ?? ''}
-      ${address.neighbourhood}, ${address.city}
-      ${address.state} - ${address.country}
-      Zip-code: ${address.zipCode}
-      ''';
+      return '''
+${address.street}${address.extraInfo != null ? ' ${address.extraInfo}' : ''}
+${address.neighbourhood}, ${address.city}
+${address.state} - ${address.country}
+Zip-code: ${address.zipCode}
+''';
     }
   }
 
