@@ -5,12 +5,6 @@ This fork will release an Android version on each new version of the original ap
 
 The distribution will be done through the Git releases. I suggest using [Obtainium](https://github.com/ImranR98/Obtainium) to automate the download/install process.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Installation
 
 TODO
