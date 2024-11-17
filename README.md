@@ -7,7 +7,13 @@ The distribution will be done through the Git releases. I suggest using [Obtaini
 
 ## Installation
 
-TODO
+Download the APK from the [releases](https://github.com/theolm/invoicer/releases) page.
+
+or use Obtainium to automate the download/install process.
+
+[<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
+alt="Get it on Obtainium"
+height="54">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/theolm/invoicer/)
 
 ## License
 
