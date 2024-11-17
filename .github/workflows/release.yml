@@ -5,7 +5,7 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
 jobs:
-  build-release-files:
+  release:
     runs-on: macos-latest
     steps:
       - name: Checkout code
@@ -37,55 +37,14 @@ jobs:
       - run: flutter pub get
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
 
-      - run: flutter build web --release
-      - run: zip -r pwa.zip build/web
-
-      - run: flutter build macos --release
-
-      - name: Move files to root
-        run: |
-          mv build/macos/Build/Products/Release/Ambush\ Invoice\ Generator.app Invoice.app
-
-      - name: Zip macos.app
-        run: zip -r macos.zip Invoice.app
-
-      - name: Archive Files
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-artifacts
-          path: |
-            pwa.zip
-            macos.zip
-
-  release:
-    needs: build-release-files
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: release-artifacts
-          path: ./
-
-      - name: Unzip pwa.zip
-        run: unzip pwa.zip
-
-      - name: 🎯 Deploy to firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INVOICES_APP_C2491 }}
-          projectId: invoices-app-c2491
-          channelId: live
+      - run: flutter build apk --release
+        env:
+          ALIAS: ${{ secrets.KEY_ALIAS }}
+          PASS: ${{ secrets.KEY_PASS }}
 
       - name: Create Git Release
-        uses: docker://antonyurchenko/git-release:v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          args: |
-            ./pwa.zip
-            ./macos.zip
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+          generateReleaseNotes: true
+          draft: true
