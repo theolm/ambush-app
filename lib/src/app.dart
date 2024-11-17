@@ -30,6 +30,7 @@ class App extends StatelessWidget {
           title: 'Ambush',
           routerConfig: _appRouter.config(),
           theme: getLightTheme(defaultLightScheme, context),
+          themeMode: ThemeMode.dark,
           darkTheme: getDarkTheme(darkColorScheme, context),
         );
       },

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.theolm.ambush_app">
+    package="dev.theolm.invoicer">
    <application
-        android:label="Ambush"
+        android:label="Invoicer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
