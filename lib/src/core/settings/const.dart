@@ -7,3 +7,6 @@ const double extraLargeMargin = 64;
 const double defaultPageMaxWidth = 396.0;
 
 const formatErrorMessage = 'There was an error formatting your backup.';
+const requiredField = "Required field";
+const invalidValue = "Invalid value";
+const invalidEmail = "Invalid e-mail";
