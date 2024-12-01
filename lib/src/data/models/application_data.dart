@@ -5,7 +5,7 @@ import 'package:ambush_app/src/data/models/hive_invoice.dart';
 import 'package:ambush_app/src/data/models/hive_service_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'hive_application_data.g.dart';
+part 'application_data.g.dart';
 
 @JsonSerializable()
 class ApplicationData {

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:ambush_app/src/core/settings/const.dart';
 import 'package:ambush_app/src/data/datasource/local_datasource.dart';
-import 'package:ambush_app/src/data/models/hive_application_data.dart';
+import 'package:ambush_app/src/data/models/application_data.dart';
 import 'package:ambush_app/src/data/models/hive_invoice.dart';
-import 'package:ambush_app/src/presentation/utils/backup_error.dart';
+import 'package:ambush_app/src/presentation/utils/backup/backup_error.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class IApplicationBackupRepository {
@@ -48,8 +48,6 @@ class ApplicationBackupRepository implements IApplicationBackupRepository {
       final companyInfo = applicationData.companyInfo;
       final invoiceList = applicationData.invoiceList;
 
-      await _localDataSource.clearDB();
-
       if (clientInfo != null) {
         await _localDataSource.saveClientInfo(clientInfo);
       }
@@ -62,6 +60,9 @@ class ApplicationBackupRepository implements IApplicationBackupRepository {
       if (companyInfo != null) {
         await _localDataSource.saveCompanyInfo(companyInfo);
       }
+
+      _localDataSource.clearInvoiceList();
+
       for (var invoice in invoiceList) {
         _localDataSource.saveInvoice(invoice.toInvoice());
       }

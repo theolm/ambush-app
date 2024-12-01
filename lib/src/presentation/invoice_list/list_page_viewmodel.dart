@@ -9,7 +9,10 @@ part 'list_page_viewmodel.g.dart';
 @injectable
 class ListPageViewModel extends _ListPageViewModelBase
     with _$ListPageViewModel {
-  ListPageViewModel(super._getInvoiceList, super._deleteInvoice,);
+  ListPageViewModel(
+    super._getInvoiceList,
+    super._deleteInvoice,
+  );
 }
 
 abstract class _ListPageViewModelBase with Store {
